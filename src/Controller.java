@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.*;
 
 
@@ -74,4 +75,11 @@ public class Controller implements ActionListener, KeyListener, WindowListener {
         //System.out.println("window deactivated");
         //Dette er bare når man bytter mellom vindu
     }
+
+//    @Override
+//    public void paintComponent(Graphics g){
+//        new Background();
+//        g.drawImage(Background.img,0,0,null);
+//
+//    }
 }
