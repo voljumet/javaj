@@ -1,0 +1,38 @@
+Debugging og GIT
+
+
+Debugging 
+Debugge er å fjerne feil som kan føre til uforutsette oppførselen eller krasj, det kommer fra å fjerne litterat bugs fra gamle computere som krasjet pga insekter i maskinen.
+10% er kode, 90% er debugging og fjerne bugs i programmet som vi har skrevet
+IDE er til debugging, den lar oss endre teksten i filene, men også at vi kan stoppe på visse punkt for å finne feil.
+Når vi debugger, kan programmet kjøre en og en linje om gangen, vi kan lage en breakpoint hvis man tror det er en feil omkring der. I idea som vi bruker, så får vi opp noe info nede på bunnen om hva som skjer eller ligger inne i linjen. Stack trace er en oppsummering av systemkall som kjørte da det krasjet.
+vi kan se feks. At musen ble trykket og da se hvorfor det krasjet. Man får typisk stacktrace tilsendt fra kunde når det er problemer.
+Mange muligheter i debugging. . . . . 
+CMD greie… Expression Evaluator. Man kan debugge hvis man er i tvil om ting med programmet.
+Den åpner et vindu som lar man kjøre kode for å hente frem forskjellige objekter. 
+
+GIT Merge:
+Git status
+Git commit -m «ting»
+Git push
+Git lg
+Git log
+Git pull origin master 		— hentet filer fra master
+Git checkout -b alex-ny-branch	— lage ny branch for å ikke jobbe på master lokalt
+Git push :fatal..	— funker ikke
+Git push 	—set -upstream origin alex-ny-branch 	— ny branch på server, viktig å kalle denne branched det samme som på maskinen
+Git checkput master 	— går tilbake til master
+Git pull 	—	gir info om at det er blitt laget en ny branch
+Git log		— for å se hva som ligger der
+Git checkout master		—velg branch man skal legge til ting i
+Git merge alex-ny-branch	—velg branch man skal legge til i master, eller det man har lagt til
+Git push	—oppdaterer master med det man ønsket
+Git checkout -b alex-ny-test
+Echo «asdf» >> out.txt
+Git branch 	—viser de man har lokalt, stjerna betyr den ranchen vi er på.
+gs		—git status
+Git lg		—viser en logg
+Git merge —abort 		—avbryter
+Git merge —force		—konflikt? force kan brukes, men man må være heeelt sikker
+
+Man kan feks uansett jobbe på forskjellige brancher, går noe galt. 
