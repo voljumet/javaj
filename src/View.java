@@ -14,8 +14,6 @@ public class View extends JFrame {
         Image newimg = image.getScaledInstance(900, 900, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
 
-        //JLabel background = new ImageIcon(newimg);
-
         JLabel background = new JLabel(imageIcon);
         add(background);
 
@@ -24,10 +22,4 @@ public class View extends JFrame {
 
     }
 }
-
-
-//        this.setTitle("Blowout TD");
-//        JLabel background = new JLabel(new ImageIcon("Pictures/Background.png"));
-//
-//        add(background);
 
