@@ -8,11 +8,15 @@ public class Menu extends JFrame{
 
 //    // Declaring the Java frame
     JFrame frame = new JFrame();
+    JLabel popupLabel = new JLabel();
 
     // Declaring Jmenubar, Jmenu, and JmenuItem.
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuNewGame, menuSave, menuExit;
+
+    // Declaring JpopupMenu variable
+    final JPopupMenu popupMenu;
 
     public Menu(){
 
@@ -43,14 +47,23 @@ public class Menu extends JFrame{
         menuExit = new JMenuItem("Exit Game");
         menu.add(menuExit);
 
-        // Adding background image
-        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
-        Image image = imageIcon.getImage();
-        Image newimg = image.getScaledInstance(900, 800, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newimg);
 
-        JLabel background = new JLabel(imageIcon);
-        frame.add(background);
+        // Adding JpopupMenu
+        popupLabel.setHorizontalAlignment(JLabel.CENTER);
+        popupLabel.setSize(300,300);
+        popupMenu = new JPopupMenu();
+
+
+        new BackgroundImage();
+
+//        // Adding background image
+//        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
+//        Image image = imageIcon.getImage();
+//        Image newimg = image.getScaledInstance(900, 800, Image.SCALE_SMOOTH);
+//        imageIcon = new ImageIcon(newimg);
+//
+//        JLabel background = new JLabel(imageIcon);
+//        frame.add(background);
 
 
         // Setting frame visible/ not resizeable.
@@ -58,4 +71,16 @@ public class Menu extends JFrame{
         frame.setVisible(true);
 
     }
+
+//    public static class BackgroundImage(){
+//        // Adding background image
+//        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
+//        Image image = imageIcon.getImage();
+//        Image newimg = image.getScaledInstance(900, 800, Image.SCALE_SMOOTH);
+//        imageIcon = new ImageIcon(newimg);
+//
+//        JLabel background = new JLabel(imageIcon);
+//        frame.add(background);
+//
+//    }
 }
