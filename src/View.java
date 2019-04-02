@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-public class View {
-}
-=======
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,4 +25,3 @@ public class View extends JFrame {
     }
 }
 
->>>>>>> 911ea01a0273daba13ee93af9f1b233f0549e1c5
