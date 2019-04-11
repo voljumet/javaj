@@ -79,8 +79,14 @@ public class View extends JFrame {
 
 
         // creating buttons
-//        JButton leftButton = new JButton("Left button");
-//        JButton rightButton = new JButton("Right button");
+        JButton newButton = new JButton("new button");
+        JButton saveButton = new JButton("save button");
+        JButton exitButton = new JButton("Exit button");
+
+        //Adding the buttons to the left panel
+        leftPanel.add(newButton);
+        leftPanel.add(saveButton);
+        leftPanel.add(exitButton);
 
 
         /* InternalframeGame backgorund */
