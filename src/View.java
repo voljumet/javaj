@@ -25,11 +25,11 @@ public class View extends JFrame {
 
     public View(){
 
-        super("Making an internalFrame");
+//        super("Making an internalFrame");
 
         // Adding parentFrame functionalities.
         parentFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        parentFrame.setLayout(new BorderLayout());
+        parentFrame.setLayout(new BorderLayout(0,0));
 //        parentFrame.setSize(900,800);
         parentFrame.setTitle("Oil Platform Defence");
         parentFrame.setLocationRelativeTo(null);
@@ -39,27 +39,30 @@ public class View extends JFrame {
 
         // creating a new frame
         parentFrame = new JFrame("frame");
-        parentFrame.setUndecorated(true);
+//        parentFrame.setUndecorated(true);
 
         // setting layout of frame
-        parentFrame.setLayout(new FlowLayout());
+//        parentFrame.setLayout(new FlowLayout());
 
         // creating a internal frame, with borders and titlebar set to null
-        JInternalFrame internalFrameButtons = new JInternalFrame(null, false, false, false, false);
-        internalFrameButtons.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
-        internalFrameButtons.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
-        internalFrameButtons.setBorder(null);
-        internalFrameButtons.setPreferredSize(new Dimension(180, 900));
+        //JInternalFrame internalFrameButtons = new JInternalFrame(null, false, false, false, false);
+//        internalFrameButtons.putClientProperty("JInternalFrame.isPalette", true);
+//        internalFrameButtons.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+//        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
+//        internalFrameButtons.setBorder(null);
+//        internalFrameButtons.setPreferredSize(new Dimension(160, 900));
 
         // creating game internal frame, with borders and titlebar set to null
-        JInternalFrame internalFrameGame = new JInternalFrame(null, false, false, false, false);
-        internalFrameGame.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
-        internalFrameGame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
+//        JInternalFrame internalFrameGame = new JInternalFrame(null, false, false, false, false);
+//        internalFrameGame.putClientProperty("JInternalFrame.isPalette", true);
+//        internalFrameGame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+//        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
 //        internalFrameGame.setUI(null); // dersom du vil slette alt i internalframeGame
-        internalFrameGame.setBorder(null);
-        internalFrameGame.setPreferredSize(new Dimension(900, 900));
+//        internalFrameGame.setBorder(null);
+//        internalFrameGame.setPreferredSize(new Dimension(900, 900));
+
+        // setting a gridlayout for internal frame game
+//        internalFrameGame.setLayout(new GridLayout(900,900));
 
         /* End */
 
@@ -81,9 +84,9 @@ public class View extends JFrame {
 
 
         // creating buttons
-        JButton newButton = new JButton("new button");
-        JButton saveButton = new JButton("save button");
-        JButton exitButton = new JButton("Exit button");
+        JButton newButton = new JButton("New Game");
+        JButton saveButton = new JButton("Save Game");
+        JButton exitButton = new JButton("Exit Game");
 
         //Adding the buttons to the left panel
         leftPanel.add(newButton);
@@ -95,33 +98,33 @@ public class View extends JFrame {
         // Adding background image
         ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
         Image image = imageIcon.getImage();
-        Image newImg = image.getScaledInstance(900, 865, Image.SCALE_SMOOTH);
+        Image newImg = image.getScaledInstance(900, 900, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newImg);
 
         JLabel background = new JLabel(imageIcon);
         rightPanel.add(background);
 
-        // creating menu with bar and sub menu
-        menuBar = new JMenuBar();
-//        parentFrame.setJMenuBar(menuBar); // parentFrame to set our menubar to the parentFrame.
-
-        // menu naming, and functionality
-        menu = new JMenu("Game");
-        menu.setMnemonic(KeyEvent.VK_A);
-        menu.getAccessibleContext().setAccessibleDescription("menuPackage.Menu description"); // menu to be accessible ...
-
-        // Adding menu to the menuBar
-        menuBar.add(menu);
-
-        // Adding menuitems in the submenu
-        menuNewGame = new JMenuItem("New Game");
-        menu.add(menuNewGame);
-        menu.addSeparator();
-        menuSave = new JMenuItem("Save game");
-        menu.add(menuSave);
-        menu.addSeparator();
-        menuExit = new JMenuItem("Exit Game");
-        menu.add(menuExit);
+//        // creating menu with bar and sub menu
+//        menuBar = new JMenuBar();
+////        parentFrame.setJMenuBar(menuBar); // parentFrame to set our menubar to the parentFrame.
+//
+//        // menu naming, and functionality
+//        menu = new JMenu("Game");
+//        menu.setMnemonic(KeyEvent.VK_A);
+//        menu.getAccessibleContext().setAccessibleDescription("menuPackage.Menu description"); // menu to be accessible ...
+//
+//        // Adding menu to the menuBar
+//        menuBar.add(menu);
+//
+//        // Adding menuitems in the submenu
+//        menuNewGame = new JMenuItem("New Game");
+//        menu.add(menuNewGame);
+//        menu.addSeparator();
+//        menuSave = new JMenuItem("Save game");
+//        menu.add(menuSave);
+//        menu.addSeparator();
+//        menuExit = new JMenuItem("Exit Game");
+//        menu.add(menuExit);
 
 
         //Defining new popup parentFrame
@@ -169,22 +172,26 @@ public class View extends JFrame {
 
 
         // adding panel to internal frame
-        internalFrameButtons.add(leftPanel);
-//        internalFrameButtons.setUndecorated();
-        internalFrameGame.add(rightPanel);
-
+//        internalFrameButtons.add(leftPanel);
+//        internalFrameGame.add(rightPanel);
+        parentFrame.setBackground(Color.white);
+        rightPanel.setSize(900,900);
+        rightPanel.setBackground(Color.cyan);
+        leftPanel.setBackground(Color.red);
+        parentFrame.add(leftPanel, BorderLayout.WEST);
+        parentFrame.add(rightPanel, BorderLayout.EAST);
 
         // adding internal frame to frame
-        parentFrame.add(internalFrameButtons, BorderLayout.WEST);
-        parentFrame.add(internalFrameGame, BorderLayout.EAST);
+//        parentFrame.add(internalFrameButtons, BorderLayout.WEST);
+//        parentFrame.add(internalFrameGame, BorderLayout.EAST);
 
 
         // setting visibility internal frame
-        internalFrameButtons.setVisible(true);
-        internalFrameGame.setVisible(true);
+//        internalFrameButtons.setVisible(true);
+//        internalFrameGame.setVisible(true);
 
         // parentFrame.setSize(400,400);
-        parentFrame.setSize(1100,900);
+        parentFrame.setSize(1200,900);
 
         parentFrame.show();
         
@@ -193,9 +200,13 @@ public class View extends JFrame {
         parentFrame.setVisible(true);
 
         // The popupframe to be visible after the parentFrame
-        popFrame.setVisible(true);
-
+//        popFrame.setVisible(true);
 
     }
 }
 
+/*=================================================================================*/
+
+
+
+/*=================================================================================*/
