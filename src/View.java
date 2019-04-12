@@ -25,12 +25,11 @@ public class View extends JFrame {
 
     public View(){
 
-//        super("Making an internalFrame");
 
         // Adding parentFrame functionalities.
         parentFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         parentFrame.setLayout(new BorderLayout(0,0));
-//        parentFrame.setSize(900,800);
+
         parentFrame.setTitle("Oil Platform Defence");
         parentFrame.setLocationRelativeTo(null);
 
@@ -41,30 +40,6 @@ public class View extends JFrame {
         parentFrame = new JFrame("frame");
 //        parentFrame.setUndecorated(true);
 
-        // setting layout of frame
-//        parentFrame.setLayout(new FlowLayout());
-
-        // creating a internal frame, with borders and titlebar set to null
-        //JInternalFrame internalFrameButtons = new JInternalFrame(null, false, false, false, false);
-//        internalFrameButtons.putClientProperty("JInternalFrame.isPalette", true);
-//        internalFrameButtons.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-//        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
-//        internalFrameButtons.setBorder(null);
-//        internalFrameButtons.setPreferredSize(new Dimension(160, 900));
-
-        // creating game internal frame, with borders and titlebar set to null
-//        JInternalFrame internalFrameGame = new JInternalFrame(null, false, false, false, false);
-//        internalFrameGame.putClientProperty("JInternalFrame.isPalette", true);
-//        internalFrameGame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-//        ((javax.swing.plaf.basic.BasicInternalFrameUI) internalFrameButtons.getUI()).setNorthPane(null);
-//        internalFrameGame.setUI(null); // dersom du vil slette alt i internalframeGame
-//        internalFrameGame.setBorder(null);
-//        internalFrameGame.setPreferredSize(new Dimension(900, 900));
-
-        // setting a gridlayout for internal frame game
-//        internalFrameGame.setLayout(new GridLayout(900,900));
-
-        /* End */
 
         // creating a label to display text
         label1 = new JLabel();
@@ -161,7 +136,6 @@ public class View extends JFrame {
             }
         });
         
-        
 
         popFrame.add(popupMenu);
         popFrame.setSize(300,300);
@@ -172,8 +146,7 @@ public class View extends JFrame {
 
 
         // adding panel to internal frame
-//        internalFrameButtons.add(leftPanel);
-//        internalFrameGame.add(rightPanel);
+
         parentFrame.setBackground(Color.white);
         rightPanel.setSize(900,900);
         rightPanel.setBackground(Color.cyan);
@@ -181,14 +154,6 @@ public class View extends JFrame {
         parentFrame.add(leftPanel, BorderLayout.WEST);
         parentFrame.add(rightPanel, BorderLayout.EAST);
 
-        // adding internal frame to frame
-//        parentFrame.add(internalFrameButtons, BorderLayout.WEST);
-//        parentFrame.add(internalFrameGame, BorderLayout.EAST);
-
-
-        // setting visibility internal frame
-//        internalFrameButtons.setVisible(true);
-//        internalFrameGame.setVisible(true);
 
         // parentFrame.setSize(400,400);
         parentFrame.setSize(1200,900);
