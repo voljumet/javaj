@@ -9,9 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.Flow;
 
 public class View extends JFrame {
-
-    //    // Declaring the Java parentFrame
-    static JFrame parentFrame = new JFrame("Towerdefence");
+    
 
     // Declaring Jmenubar, Jmenu, and JmenuItem.
     JMenuBar menuBar;
@@ -27,17 +25,14 @@ public class View extends JFrame {
 
 
         // Adding parentFrame functionalities.
-        parentFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        parentFrame.setLayout(new BorderLayout(0,0));
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout(0,0));
 
-        parentFrame.setTitle("Oil Platform Defence");
-        parentFrame.setLocationRelativeTo(null);
+        this.setTitle("Oil Platform Defence");
+        this.setLocationRelativeTo(null);
 
 
         /* Creating the internalframe */
-
-        // creating a new frame
-        parentFrame = new JFrame("frame");
 //        parentFrame.setUndecorated(true);
 
 
@@ -147,22 +142,22 @@ public class View extends JFrame {
 
         // adding panel to internal frame
 
-        parentFrame.setBackground(Color.white);
+        this.setBackground(Color.white);
         rightPanel.setSize(900,900);
         rightPanel.setBackground(Color.cyan);
         leftPanel.setBackground(Color.red);
-        parentFrame.add(leftPanel, BorderLayout.WEST);
-        parentFrame.add(rightPanel, BorderLayout.EAST);
+        this.add(leftPanel, BorderLayout.WEST);
+        this.add(rightPanel, BorderLayout.EAST);
 
 
         // parentFrame.setSize(400,400);
-        parentFrame.setSize(1200,900);
+        this.setSize(1200,900);
 
-        parentFrame.show();
+        this.show();
         
         // Setting parentFrame visible/ not resizeable.
-        parentFrame.setResizable(false);
-        parentFrame.setVisible(true);
+        this.setResizable(false);
+        this.setVisible(true);
 
         // The popupframe to be visible after the parentFrame
 //        popFrame.setVisible(true);
