@@ -1,15 +1,13 @@
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.Flow;
+
 
 public class View extends JFrame {
-    
+
+    //    // Declaring the Java parentFrame
+    static JFrame parentFrame = new JFrame("Towerdefence");
 
     // Declaring Jmenubar, Jmenu, and JmenuItem.
     JMenuBar menuBar;
@@ -161,6 +159,7 @@ public class View extends JFrame {
 
         // The popupframe to be visible after the parentFrame
 //        popFrame.setVisible(true);
+
 
     }
 }

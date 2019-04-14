@@ -1,16 +1,33 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
+public class Controller implements ActionListener, KeyListener, WindowListener  {
 
-public class Controller implements ActionListener, KeyListener, WindowListener {
-
-    static View View;
+    static View view;
     static Model Model;
+    static Enemies Enemies;
 
-    public Controller(){
-        View = new View();
+    private ArrayList<Enemies> EnemyArray = new ArrayList<>();
+
+    public Controller() throws IOException {
+        view = new View();
         Model = new Model();
+        Enemies = new Enemies();
+        View.parentFrame.addKeyListener(this);
+
+        Graphics gg = View.parentFrame.getGraphics();
+
+        EnemyArray.add(Enemies);
+
+        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
+        Image image = imageIcon.getImage();
+        gg.drawImage(image,0,0, 900,900,null);
+
+        Enemies.Draw(gg);
 
     }
 
@@ -23,6 +40,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener {
     @Override
     public void keyReleased(KeyEvent e){
 
+
     }
 
     @Override
@@ -32,6 +50,9 @@ public class Controller implements ActionListener, KeyListener, WindowListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+
+        }
 
     }
 
