@@ -1,20 +1,10 @@
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.Flow;
+
 
 public class View extends JFrame {
-    
-
-    // Declaring Jmenubar, Jmenu, and JmenuItem.
-    JMenuBar menuBar;
-    JMenu menu;
-    JMenuItem menuNewGame, menuSave, menuExit;
 
     // label to display text
     static JLabel label1, label2;
@@ -30,10 +20,6 @@ public class View extends JFrame {
 
         this.setTitle("Oil Platform Defence");
         this.setLocationRelativeTo(null);
-
-
-        /* Creating the internalframe */
-//        parentFrame.setUndecorated(true);
 
 
         // creating a label to display text
@@ -73,29 +59,6 @@ public class View extends JFrame {
 
         JLabel background = new JLabel(imageIcon);
         rightPanel.add(background);
-
-//        // creating menu with bar and sub menu
-//        menuBar = new JMenuBar();
-////        parentFrame.setJMenuBar(menuBar); // parentFrame to set our menubar to the parentFrame.
-//
-//        // menu naming, and functionality
-//        menu = new JMenu("Game");
-//        menu.setMnemonic(KeyEvent.VK_A);
-//        menu.getAccessibleContext().setAccessibleDescription("menuPackage.Menu description"); // menu to be accessible ...
-//
-//        // Adding menu to the menuBar
-//        menuBar.add(menu);
-//
-//        // Adding menuitems in the submenu
-//        menuNewGame = new JMenuItem("New Game");
-//        menu.add(menuNewGame);
-//        menu.addSeparator();
-//        menuSave = new JMenuItem("Save game");
-//        menu.add(menuSave);
-//        menu.addSeparator();
-//        menuExit = new JMenuItem("Exit Game");
-//        menu.add(menuExit);
-
 
         //Defining new popup parentFrame
         final JFrame popFrame;
@@ -150,17 +113,18 @@ public class View extends JFrame {
         this.add(rightPanel, BorderLayout.EAST);
 
 
-        // parentFrame.setSize(400,400);
+
         this.setSize(1200,900);
 
         this.show();
         
-        // Setting parentFrame visible/ not resizeable.
+        // Setting visible/ not resizeable.
         this.setResizable(false);
         this.setVisible(true);
 
         // The popupframe to be visible after the parentFrame
 //        popFrame.setVisible(true);
+
 
     }
 }
