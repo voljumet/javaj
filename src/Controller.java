@@ -146,9 +146,11 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
 
+//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
+//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
 
         Towers.Draw(Controller.View.background.getGraphics());
