@@ -17,9 +17,9 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
         view = new View();
         Model = new Model();
         Enemies = new Enemies();
-        View.parentFrame.addKeyListener(this);
+        view.addKeyListener(this);
 
-        Graphics gg = View.parentFrame.getGraphics();
+        Graphics gg = view.this.getGraphics();
 
         EnemyArray.add(Enemies);
 
