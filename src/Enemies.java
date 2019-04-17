@@ -3,12 +3,15 @@ import javax.swing.*;
 
 
 public class Enemies extends GraphicalElement {
-        public  Enemies() throws IOException {
-                posY = 400;
-                posX = 400;
-                height = 100;
-                width = 100;
-                i = new ImageIcon("Pictures/Icons/Iconse-02.png");
+
+        public  Enemies() {
+
+                posY = 100;
+                posX = 100;
+                height = 80;
+                width = 80;
+                description = "Enemies";
+                i = new ImageIcon("Pictures/Icons/Iconse-01.png");
                 image = i.getImage();
 
 

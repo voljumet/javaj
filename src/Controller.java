@@ -1,27 +1,36 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class Controller implements ActionListener, KeyListener, WindowListener  {
 
-    static View view;
+    static View View;
     static Model Model;
     static Enemies Enemies;
+    static PipeLine PipeLine;
+    static PPListXY PipePositionListXY;
+    static PipeBuildSound PPSound;
+    static int count;
 
     private ArrayList<Enemies> EnemyArray = new ArrayList<>();
+    static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
-    public Controller() throws IOException {
-        view = new View();
+    public Controller() throws IOException, InterruptedException {
+        View = new View();
         Model = new Model();
+        PipePositionListXY = new PPListXY();
         Enemies = new Enemies();
-        View.parentFrame.addKeyListener(this);
 
-        Graphics gg = View.parentFrame.getGraphics();
+        View.addKeyListener(this);
+
+        Graphics gg = View.getGraphics();
 
         EnemyArray.add(Enemies);
+        PipeLineArray.add(PipeLine);
 
         ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
         Image image = imageIcon.getImage();
@@ -29,8 +38,16 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
 
         Enemies.Draw(gg);
 
-    }
+        int gameLen = PPListXY.PPX.size()-1;
+        System.out.println("Game length: "+gameLen+" pipes!");
+        for (count = 0; count < PPListXY.PPX.size()-1; count++) {
+            PipeLine = new PipeLine(); //edit PipeLine icons
+            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
+            PipeLine.Draw(gg);  //draw the icons
+            Thread.sleep(100);
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e){
@@ -39,7 +56,6 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
 
     @Override
     public void keyReleased(KeyEvent e){
-
 
     }
 
@@ -50,8 +66,8 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(1);
         }
 
     }
