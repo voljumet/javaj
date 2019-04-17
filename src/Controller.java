@@ -50,33 +50,27 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
         ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
         Image image = imageIcon.getImage();
-        gg.drawImage(image,0,0, 900,900,null);
+        gg.drawImage(image, 0, 0, 900, 900, null);
 
         EnemyArray.add(Enemies);
         Enemies.Draw(gg);
 
 
-        int gameLen = PPListXY.PPX.size()-1;
-        System.out.println("Game length: "+gameLen+" pipes!");
-        for (count = 0; count < PPListXY.PPX.size()-1; count++) {
+        int gameLen = PPListXY.PPX.size() - 1;
+        System.out.println("Game length: " + gameLen + " pipes!");
+        for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
-
-        if(TowerArray.size() > 0){
-
-//            if(TowerArray[i] != EnemyArray[j]){
-            System.out.println(Towers.posX + " " + Towers.posY);
-            Towers.Draw(gg);
-//            }else{
-//                System.out.println("Cant place tower on enemy path");
+            try {
+                PPSound = new PipeBuildSound();
+            } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
             }
-
-    }
 
 
             PipeLine.Draw(gg);  //draw the icons
             Thread.sleep(100);
         }
+    }
 
 
     @Override
@@ -149,9 +143,19 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
         Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
 
+
+
 //        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
 //        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
+        if(TowerArray.size() > 0){
+
+//            if(TowerArray[i] != EnemyArray[j]){
+            System.out.println(Towers.posX + " " + Towers.posY);
+            Towers.Draw(View.background.getGraphics());
+//            }else{
+//                System.out.println("Cant place tower on enemy path");
+        }
 
         Towers.Draw(Controller.View.background.getGraphics());
 
