@@ -4,13 +4,16 @@ import java.awt.*;
 
 public class GraphicalElement extends JPanel{
 
+
     int posX, posY;
     int height, width;
     ImageIcon i;
     Image image;
 
 
-    public void Draw (Graphics g){ // g: null. HVORFOR ???????
+
+
+    public void Draw (Graphics g){
 
 
         if(image == null){
@@ -19,7 +22,8 @@ public class GraphicalElement extends JPanel{
         }
 
         g.drawImage(image, posX, posY, width, height, null);
-        System.out.println("Enemy drawn");
+        System.out.println("Element drawn");
+        System.out.println("X: " +posX+ " Y: "+posY);
 
         }
     }

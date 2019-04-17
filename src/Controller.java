@@ -5,29 +5,44 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class Controller implements ActionListener, KeyListener, WindowListener  {
+
+public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
 
     static View view;
     static Model Model;
-    static Enemies Enemies;
+    public Enemies Enemies;
+    public Towers Towers;
 
     private ArrayList<Enemies> EnemyArray = new ArrayList<>();
+    private ArrayList<Towers> TowerArray = new ArrayList<>();
+
 
     public Controller() throws IOException {
+
         view = new View();
         Model = new Model();
         Enemies = new Enemies();
+        Towers = new Towers();
         view.addKeyListener(this);
-
+        view.addMouseListener(this);
         Graphics gg = view.background.getGraphics();
-
         EnemyArray.add(Enemies);
 
         ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image,0,0, 900,900,null);
 
+        EnemyArray.add(Enemies);
         Enemies.Draw(gg);
+
+        if(TowerArray.size() > 0){
+
+//            if(TowerArray[i] != EnemyArray[j]){
+            System.out.println(Towers.posX + " " + Towers.posY);
+            Towers.Draw(gg);
+//            }else{
+//                System.out.println("Cant place tower on enemy path");
+            }
 
     }
 
@@ -95,6 +110,41 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
     public void windowDeactivated(WindowEvent e) {
         //System.out.println("window deactivated");
         //Dette er bare når man bytter mellom vindu
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+
+        TowerArray.add(Towers);
+
+        Towers.Draw(Controller.view.background.getGraphics());
+
+
+            }
+
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
 //    @Override
