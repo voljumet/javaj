@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,17 +17,21 @@ public class View extends JFrame {
     // label to display text
     static JLabel label1, label2;
 
+
     public JPanel background;
 
 
     public View(){
 
+
         // Adding parentFrame functionalities.
+
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(0,0));
         this.setSize(900,900);
         this.setTitle("Oil Platform Defence");
         this.setLocationRelativeTo(null);
+
 
 
         //background = new JPanel();
@@ -162,4 +167,5 @@ public class View extends JFrame {
 //        popFrame.setVisible(true);
 
     }
+
 }

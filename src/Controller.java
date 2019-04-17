@@ -6,28 +6,44 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller implements ActionListener, KeyListener, WindowListener  {
+
+
+
+public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
+
 
     static View View;
     static Model Model;
+
     static Enemies Enemies;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
     static int count;
+    public Towers Towers;
 
     private ArrayList<Enemies> EnemyArray = new ArrayList<>();
+    private ArrayList<Towers> TowerArray = new ArrayList<>();
     static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
     public Controller() throws IOException, InterruptedException {
         View = new View();
+
+
         Model = new Model();
         PipePositionListXY = new PPListXY();
         Enemies = new Enemies();
 
+
         View.addKeyListener(this);
 
         Graphics gg = View.getGraphics();
+
+
+        Towers = new Towers();
+        View.addKeyListener(this);
+        View.addMouseListener(this);
+//        Graphics gg = View.background.getGraphics();
 
         EnemyArray.add(Enemies);
         PipeLineArray.add(PipeLine);
@@ -36,7 +52,9 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
         Image image = imageIcon.getImage();
         gg.drawImage(image,0,0, 900,900,null);
 
+        EnemyArray.add(Enemies);
         Enemies.Draw(gg);
+
 
         int gameLen = PPListXY.PPX.size()-1;
         System.out.println("Game length: "+gameLen+" pipes!");
@@ -44,10 +62,22 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
             PipeLine = new PipeLine(); //edit PipeLine icons
             try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
+        if(TowerArray.size() > 0){
+
+//            if(TowerArray[i] != EnemyArray[j]){
+            System.out.println(Towers.posX + " " + Towers.posY);
+            Towers.Draw(gg);
+//            }else{
+//                System.out.println("Cant place tower on enemy path");
+            }
+
+    }
+
+
             PipeLine.Draw(gg);  //draw the icons
             Thread.sleep(100);
         }
-    }
+
 
     @Override
     public void actionPerformed(ActionEvent e){
@@ -111,6 +141,41 @@ public class Controller implements ActionListener, KeyListener, WindowListener  
     public void windowDeactivated(WindowEvent e) {
         //System.out.println("window deactivated");
         //Dette er bare når man bytter mellom vindu
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+
+        TowerArray.add(Towers);
+
+        Towers.Draw(Controller.View.background.getGraphics());
+
+
+            }
+
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
 //    @Override
