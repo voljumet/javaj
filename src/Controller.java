@@ -37,7 +37,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
         View.addKeyListener(this);
 
-        Graphics gg = View.getGraphics();
+        Graphics gg = View.background.getGraphics();
 
 
         Towers = new Towers();
