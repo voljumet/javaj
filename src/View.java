@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,11 +17,10 @@ public class View extends JFrame {
     public View(){
 
 
-        // Adding parentFrame functionalities.
-
+        // Adding frame functionalities.
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout(0,0));
-        this.setSize(900,900);
+        this.setLayout(new BorderLayout());
+        this.setSize(900,800);
         this.setTitle("Oil Platform Defence");
         this.setLocationRelativeTo(null);
 
@@ -125,9 +125,6 @@ public class View extends JFrame {
         // Setting parentFrame visible/ not resizeable.
         this.setResizable(false);
         this.setVisible(true);
-
-        // The popupframe to be visible after the parentFrame
-//        popFrame.setVisible(true);
 
     }
 
