@@ -14,9 +14,6 @@ public class popup {
         //Menu
         final JPopupMenu popupMenu;
 
-        View view = new View();
-
-
         JMenuItem popupItem1;
         JMenuItem popupItem2;
         JMenuItem popupItem3;
