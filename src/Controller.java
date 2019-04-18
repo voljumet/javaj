@@ -14,7 +14,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     static View View;
     static Model Model;
-
+    static menuFrame menuFrame;
     static Enemies Enemies;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
@@ -28,7 +28,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     public Controller() throws IOException, InterruptedException {
         View = new View();
-
+        menuFrame = new menuFrame();
 
         Model = new Model();
         PipePositionListXY = new PPListXY();
@@ -60,15 +60,15 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         System.out.println("Game length: " + gameLen + " pipes!");
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-            try {
-                PPSound = new PipeBuildSound();
-            } catch (LineUnavailableException | UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                PPSound = new PipeBuildSound();
+//            } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+//                e.printStackTrace();
+//            }
 
 
             PipeLine.Draw(gg);  //draw the icons
-            Thread.sleep(100);
+//            Thread.sleep(100);
         }
     }
 
@@ -139,14 +139,14 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void mouseClicked(MouseEvent e) {
+//
+//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
+//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
 
-        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
 
 
-
-//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
         if(TowerArray.size() > 0){
 
@@ -190,4 +190,8 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 //        g.drawImage(Background.img,0,0,null);
 //
 //    }
+
+
+
+
 }
