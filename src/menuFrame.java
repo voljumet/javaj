@@ -67,7 +67,8 @@ public class menuFrame extends JFrame{
             quitGame.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame,  "Quit game clicked!");
+                    //JOptionPane.showMessageDialog(frame,  "Quit game clicked!");
+                    System.exit(1);
                 }
             });
             this.add(quitGame);
