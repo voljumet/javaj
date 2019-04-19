@@ -10,6 +10,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     static View View;
     static Model Model;
+    static menuFrame menuFrame;
     static Enemies Enemies;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
@@ -24,10 +25,11 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     public Controller() throws IOException, InterruptedException {
         View = new View();
+
+        menuFrame = new menuFrame();
         Model = new Model();
         PipePositionListXY = new PPListXY();
         Enemies = new Enemies();
-
 
         View.addKeyListener(this);
         Graphics gg = View.background.getGraphics();
@@ -51,41 +53,28 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         System.out.println("Game length: " + gameLen + " pipes!");
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-            try {
-                PPSound = new PipeBuildSound();
-            } catch (LineUnavailableException | UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            }
+            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
             PipeLine.Draw(gg);  //draw the icons
             Thread.sleep(100);
         }
     }
-    
 
     @Override
-    public void actionPerformed(ActionEvent e){
-
-    }
+    public void actionPerformed(ActionEvent e){ }
 
     @Override
-    public void keyReleased(KeyEvent e){
-
-    }
+    public void keyReleased(KeyEvent e){ }
 
     @Override
-    public void keyTyped(KeyEvent e){
-
-    }
+    public void keyTyped(KeyEvent e){ }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(1);
         }
-
     }
-
 
     @Override
     public void windowOpened(WindowEvent e) {
@@ -99,32 +88,27 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void windowClosed(WindowEvent e) {
-        //System.out.println("window closing");
         //Dette er bare når vinduet er helt lukket
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        //System.out.println("window Iconified");
         //Dette er bare når man minimerer vindu til oppgavelinje
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        //System.out.println("window Deiconified");
         //Dette er bare når man henter vindu fra oppgavelinje
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        //System.out.println("window activated");
         //Dette er bare når man bytter mellom vindu
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        //System.out.println("window deactivated");
-        //Dette er bare når man bytter mellom vindu
+       //Dette er bare når man bytter mellom vindu
     }
 
     @Override
@@ -145,25 +129,15 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         Towers.Draw(Controller.View.background.getGraphics());
     }
 
-
+    @Override
+    public void mousePressed(MouseEvent e) { }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) { }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) { }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) { }
 }
