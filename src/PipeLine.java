@@ -47,8 +47,8 @@ public class PipeLine extends GraphicalElement {
         }
 
 //        Debugging til PipeLine ---- IKKE SLETT -----
-        System.out.print("Runde "+Controller.count+":X1="+X1+", X2="+X2+", X3="+X3+", X4="+X4+", X5="+X5+", X6="+X6);
-        System.out.println(" | Y1="+Y1+", Y2="+Y2+", Y3="+Y3+", Y4="+Y4+", Y5="+Y5+", Y6="+Y6);
+//        System.out.print("Runde "+Controller.count+":X1="+X1+", X2="+X2+", X3="+X3+", X4="+X4+", X5="+X5+", X6="+X6);
+//        System.out.println(" | Y1="+Y1+", Y2="+Y2+", Y3="+Y3+", Y4="+Y4+", Y5="+Y5+", Y6="+Y6);
 //        System.out.println(" ");
 
         posX = PPListXY.PPX.get(Controller.count);
