@@ -13,7 +13,7 @@ public class PPListXY {
     public PPListXY() throws FileNotFoundException {
 
         Random randomizer = new Random();
-        int randomNumber = randomizer.nextInt(3);
+        int randomNumber = randomizer.nextInt(4);
         String MapY = "";
         String MapX = "";
         System.out.println("Map "+randomNumber+" loaded!");

@@ -42,21 +42,21 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         EnemyArray.add(Enemies);
         PipeLineArray.add(PipeLine);
 
-        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
+        ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image, 0, 0, 900, 900, null);
 
         EnemyArray.add(Enemies);
-        Enemies.Draw(gg);
+        //Enemies.Draw(gg);
 
         int gameLen = PPListXY.PPX.size() - 1;
         System.out.println("Game length: " + gameLen + " pipes!");
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
+            //try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
             PipeLine.Draw(gg);  //draw the icons
-            Thread.sleep(100);
+            //Thread.sleep(100);
         }
     }
 
