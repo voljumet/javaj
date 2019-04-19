@@ -11,16 +11,16 @@ public class PipeLine extends GraphicalElement {
 
         else{
 //          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X
-            if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
-            if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count - 1))){ X2 = 1;}
+            if(PPListXY.PPX.get(Controller.count) ==(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
+            if(PPListXY.PPX.get(Controller.count) ==(PPListXY.PPX.get(Controller.count - 1))){ X2 = 1;}
             if(PPListXY.PPX.get(Controller.count) < (PPListXY.PPX.get(Controller.count + 1))){ X3 = 1;}
             if(PPListXY.PPX.get(Controller.count) < (PPListXY.PPX.get(Controller.count - 1))){ X4 = 1;}
             if(PPListXY.PPX.get(Controller.count) > (PPListXY.PPX.get(Controller.count + 1))){ X5 = 1;}
             if(PPListXY.PPX.get(Controller.count) > (PPListXY.PPX.get(Controller.count - 1))){ X6 = 1;}
 
 //          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for Y
-            if(PPListXY.PPY.get(Controller.count).equals(PPListXY.PPY.get(Controller.count + 1))){ Y1 = 1;}
-            if(PPListXY.PPY.get(Controller.count).equals(PPListXY.PPY.get(Controller.count - 1))){ Y2 = 1;}
+            if(PPListXY.PPY.get(Controller.count) ==(PPListXY.PPY.get(Controller.count + 1))){ Y1 = 1;}
+            if(PPListXY.PPY.get(Controller.count) ==(PPListXY.PPY.get(Controller.count - 1))){ Y2 = 1;}
             if(PPListXY.PPY.get(Controller.count) < (PPListXY.PPY.get(Controller.count + 1))){ Y3 = 1;}
             if(PPListXY.PPY.get(Controller.count) < (PPListXY.PPY.get(Controller.count - 1))){ Y4 = 1;}
             if(PPListXY.PPY.get(Controller.count) > (PPListXY.PPY.get(Controller.count + 1))){ Y5 = 1;}

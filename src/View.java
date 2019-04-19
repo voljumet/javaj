@@ -5,7 +5,6 @@ public class View extends JFrame{
 
     public JPanel background;
 
-
     public View(){
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -19,8 +18,5 @@ public class View extends JFrame{
 
         this.setResizable(false);
         this.setVisible(true);
-
     }
-
-
 }

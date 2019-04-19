@@ -7,7 +7,6 @@ public class popup {
 
     public popup(){
 
-
         //Defining new popup parentFrame
         JFrame popFrame;
 
@@ -22,7 +21,6 @@ public class popup {
         popupItem2 = new JMenuItem("Save Game");
         popupItem3 = new JMenuItem("Exit");
 
-
         /*JpopupMenu*/
         popFrame = new JFrame();
         popupMenu = new JPopupMenu();
@@ -30,7 +28,6 @@ public class popup {
         popupMenu.add(popupItem1);
         popupMenu.add(popupItem2);
         popupMenu.add(popupItem3);
-
 
         popFrame.setBackground(Color.LIGHT_GRAY);
         popFrame.addMouseListener(new MouseAdapter() {
@@ -42,16 +39,11 @@ public class popup {
             }
         });
 
-
         popFrame.add(popupMenu);
         popFrame.setSize(300,300);
         popFrame.setLayout(null);
         popFrame.setLocationRelativeTo(null);
 
-        /* JpopupMenu */
-
-
-//        // The popupframe to be visible after the parentFrame
         popFrame.setVisible(true);
     }
 }
