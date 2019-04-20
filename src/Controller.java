@@ -53,10 +53,10 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         System.out.println("Game length: " + gameLen + " pipes!");
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-            //try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
+            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
             PipeLine.Draw(gg);  //draw the icons
-            //Thread.sleep(100);
+            Thread.sleep(100);
         }
     }
 
