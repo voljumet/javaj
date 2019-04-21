@@ -12,8 +12,6 @@ public class menuFrame extends JFrame{
 
     public menuFrame(){
 
-
-
 //        JFrame.setDefaultLookAndFeelDecorated(true);
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setSize(200,200);
@@ -24,8 +22,6 @@ public class menuFrame extends JFrame{
 //        this.add(buttonPanel);
 
             BoxLayout boxLayout = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
-
-
 
             this.setLayout(boxLayout);
 //        this.add(new JButton("Start game"));
@@ -39,8 +35,6 @@ public class menuFrame extends JFrame{
                 }
             });
             this.add(startGame);
-
-
 
 //        this.add(new JButton("High score"));
             highScore = new JButton("High score");
@@ -66,9 +60,6 @@ public class menuFrame extends JFrame{
             });
             this.add(saveGame);
 
-
-
-
 //        this.add(new JButton("Quit game"));
             quitGame = new JButton("Quit game");
             quitGame.setMnemonic(KeyEvent.VK_P);
@@ -76,12 +67,11 @@ public class menuFrame extends JFrame{
             quitGame.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame,  "Quit game clicked!");
+                    //JOptionPane.showMessageDialog(frame,  "Quit game clicked!");
+                    System.exit(1);
                 }
             });
             this.add(quitGame);
-
-
             this.pack();
 
             this.setVisible(true);

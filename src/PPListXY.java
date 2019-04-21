@@ -13,7 +13,7 @@ public class PPListXY {
     public PPListXY() throws FileNotFoundException {
 
         Random randomizer = new Random();
-        int randomNumber = randomizer.nextInt(3);
+        int randomNumber = randomizer.nextInt(4);
         String MapY = "";
         String MapX = "";
         System.out.println("Map "+randomNumber+" loaded!");
@@ -33,19 +33,12 @@ public class PPListXY {
         }
 
         Scanner ScannerY = new Scanner(new BufferedReader(new FileReader(MapY)));
-        while(ScannerY.hasNextInt()){
-            PPY.add(ScannerY.nextInt());
-        }
-        ScannerY.close();
-
+        while(ScannerY.hasNextInt()){ PPY.add(ScannerY.nextInt()); }ScannerY.close();
 
         Scanner ScannerX = new Scanner(new BufferedReader(new FileReader(MapX)));
-        while(ScannerX.hasNextInt()){
-            PPX.add(ScannerX.nextInt());
-        }
-        ScannerX.close();
+        while(ScannerX.hasNextInt()){ PPX.add(ScannerX.nextInt()); }ScannerX.close();
 
-//        System.out.println(PPX);
-//        System.out.println(PPY);
+//        System.out.println(PPX);  //PPList.PPX debug
+//        System.out.println(PPY);  //PPList.PPY debug
     }
 }

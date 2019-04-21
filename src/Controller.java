@@ -6,11 +6,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
-
 public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
-
 
     static View View;
     static Model Model;
@@ -19,6 +15,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
+
     static int count;
     public Towers Towers;
 
@@ -28,75 +25,56 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     public Controller() throws IOException, InterruptedException {
         View = new View();
-        menuFrame = new menuFrame();
 
+        menuFrame = new menuFrame();
         Model = new Model();
         PipePositionListXY = new PPListXY();
         Enemies = new Enemies();
 
-
         View.addKeyListener(this);
-
         Graphics gg = View.background.getGraphics();
 
 
         Towers = new Towers();
         View.addKeyListener(this);
         View.addMouseListener(this);
-//        Graphics gg = View.background.getGraphics();
 
         EnemyArray.add(Enemies);
         PipeLineArray.add(PipeLine);
 
-        ImageIcon imageIcon = new ImageIcon("Pictures/Background.png");
+        ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image, 0, 0, 900, 900, null);
 
         EnemyArray.add(Enemies);
-        Enemies.Draw(gg);
-
+        //Enemies.Draw(gg);
 
         int gameLen = PPListXY.PPX.size() - 1;
         System.out.println("Game length: " + gameLen + " pipes!");
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
             PipeLine = new PipeLine(); //edit PipeLine icons
-//            try {
-//                PPSound = new PipeBuildSound();
-//            } catch (LineUnavailableException | UnsupportedAudioFileException e) {
-//                e.printStackTrace();
-//            }
-
+            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
 
             PipeLine.Draw(gg);  //draw the icons
-//            Thread.sleep(100);
+            Thread.sleep(100);
         }
     }
 
-
+    @Override
+    public void actionPerformed(ActionEvent e){ }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-
-    }
+    public void keyReleased(KeyEvent e){ }
 
     @Override
-    public void keyReleased(KeyEvent e){
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e){
-
-    }
+    public void keyTyped(KeyEvent e){ }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(1);
         }
-
     }
-
 
     @Override
     public void windowOpened(WindowEvent e) {
@@ -110,45 +88,36 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void windowClosed(WindowEvent e) {
-        //System.out.println("window closing");
         //Dette er bare når vinduet er helt lukket
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        //System.out.println("window Iconified");
         //Dette er bare når man minimerer vindu til oppgavelinje
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        //System.out.println("window Deiconified");
         //Dette er bare når man henter vindu fra oppgavelinje
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        //System.out.println("window activated");
         //Dette er bare når man bytter mellom vindu
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        //System.out.println("window deactivated");
-        //Dette er bare når man bytter mellom vindu
+       //Dette er bare når man bytter mellom vindu
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-//
-//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
-//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
-
-
 
         Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
         Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
+
         if(TowerArray.size() > 0){
 
 //            if(TowerArray[i] != EnemyArray[j]){
@@ -157,42 +126,18 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 //            }else{
 //                System.out.println("Cant place tower on enemy path");
         }
-
         Towers.Draw(Controller.View.background.getGraphics());
-
-
-            }
-
-
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) { }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) { }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseEntered(MouseEvent e) { }
 
-    }
-
-//    @Override
-//    public void paintComponent(Graphics g){
-//        new Background();
-//        g.drawImage(Background.img,0,0,null);
-//
-//    }
-
-
-
-
+    @Override
+    public void mouseExited(MouseEvent e) { }
 }

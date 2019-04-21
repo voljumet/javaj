@@ -2,7 +2,6 @@ import javax.swing.*;
 
 public class Enemies extends GraphicalElement {
 
-
         public  Enemies() {
 
                 posY = 100;
@@ -11,10 +10,7 @@ public class Enemies extends GraphicalElement {
                 width = 80;
                 description = "Enemies";
                 i = new ImageIcon("Pictures/Icons/Iconse-01.png");
-
                 image = i.getImage();
-
-
         }
 }
 
