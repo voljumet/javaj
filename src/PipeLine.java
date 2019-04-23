@@ -5,6 +5,8 @@ public class PipeLine extends GraphicalElement {
     int Y1 = 0, Y2 = 0, Y3 = 0, Y4 = 0, Y5 = 0, Y6 = 0;
     int X1 = 0, X2 = 0, X3 = 0, X4 = 0, X5 = 0, X6 = 0;
 
+    public boolean debugMode = false;
+
     public PipeLine(){
 
         if(Controller.count == 0){ i = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første Pipe
@@ -49,11 +51,12 @@ public class PipeLine extends GraphicalElement {
             height = 90; width = 90;
         }
 
-//        Debugging til PipeLine ---- IKKE SLETT -----
-//        System.out.println("X: "+PPListXY.PPX.get(Controller.count)+", Y: "+PPListXY.PPY.get(Controller.count));
-//        System.out.print("Runde "+Controller.count+":X1="+X1+", X2="+X2+", X3="+X3+", X4="+X4+", X5="+X5+", X6="+X6);
-//        System.out.println(" | Y1="+Y1+", Y2="+Y2+", Y3="+Y3+", Y4="+Y4+", Y5="+Y5+", Y6="+Y6);
-//        System.out.println(" ");
+        if (Controller.debugMode && debugMode) {
+            System.out.println("X: "+PPListXY.PPX.get(Controller.count)+", Y: "+PPListXY.PPY.get(Controller.count));
+            System.out.print("Runde "+Controller.count+":X1="+X1+", X2="+X2+", X3="+X3+", X4="+X4+", X5="+X5+", X6="+X6);
+            System.out.println(" | Y1="+Y1+", Y2="+Y2+", Y3="+Y3+", Y4="+Y4+", Y5="+Y5+", Y6="+Y6);
+            System.out.println(" ");
+        }
 
         posX = PPListXY.PPX.get(Controller.count);
         posY = PPListXY.PPY.get(Controller.count);

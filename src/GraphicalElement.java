@@ -3,7 +3,8 @@ import java.awt.*;
 
 public class GraphicalElement extends JPanel{
 
-    int posX, posY;
+    static int posX;
+    static int posY;
     int height, width;
     String description;
     ImageIcon i;

@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class View extends JFrame{
 
-    public JPanel background;
+    public static JPanel background;
 
     public View(){
 

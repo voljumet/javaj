@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class PPListXY {
 
-    static ArrayList<Integer> PPX = new ArrayList<>();
-    static ArrayList<Integer> PPY = new ArrayList<>();
+    static public ArrayList<Integer> PPX = new ArrayList<>();
+    static public ArrayList<Integer> PPY = new ArrayList<>();
 
     public PPListXY() throws FileNotFoundException {
 
@@ -16,7 +16,6 @@ public class PPListXY {
         int randomNumber = randomizer.nextInt(4);
         String MapY = "";
         String MapX = "";
-        System.out.println("Map "+randomNumber+" loaded!");
 
         if (randomNumber == 0){
             MapY = "Maps/Y-tall1.txt";
@@ -37,6 +36,8 @@ public class PPListXY {
 
         Scanner ScannerX = new Scanner(new BufferedReader(new FileReader(MapX)));
         while(ScannerX.hasNextInt()){ PPX.add(ScannerX.nextInt()); }ScannerX.close();
+
+        System.out.println("Map "+randomNumber+" loaded!");
 
 //        System.out.println(PPX);  //PPList.PPX debug
 //        System.out.println(PPY);  //PPList.PPY debug

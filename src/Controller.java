@@ -1,3 +1,4 @@
+import javax.management.monitor.MonitorMBean;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -7,56 +8,67 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
-
     static View View;
-    static Model Model;
     static menuFrame menuFrame;
-    static Enemies Enemies;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
 
+    public static boolean debugMode = false;
+
     static int count;
     public Towers Towers;
 
-    private ArrayList<Enemies> EnemyArray = new ArrayList<>();
-    private ArrayList<Towers> TowerArray = new ArrayList<>();
-    static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
+    public static ArrayList<Towers> TowerArray = new ArrayList<>();
+    public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
-    public Controller() throws IOException, InterruptedException {
+    public Controller() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
         View = new View();
-
-        menuFrame = new menuFrame();
-        Model = new Model();
+        Towers = new Towers();
         PipePositionListXY = new PPListXY();
-        Enemies = new Enemies();
+        Screen screen = new Screen(View);
 
         View.addKeyListener(this);
-        Graphics gg = View.background.getGraphics();
-
-
-        Towers = new Towers();
         View.addKeyListener(this);
         View.addMouseListener(this);
 
-        EnemyArray.add(Enemies);
+        Background(View.getGraphics());     // Tegner bakgrun
+
+        Menu();                             // Tegner menyen
+
+        SPawnPipe(View.getGraphics());      // Tegner Pipeline
+
         PipeLineArray.add(PipeLine);
 
+        View.add(screen);
+    }
+
+    public void Menu(){
+        menuFrame = new menuFrame();
+    }
+
+    public void Background(Graphics g){
+        Graphics gg = View.background.getGraphics();
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image, 0, 0, 900, 900, null);
+    }
 
-        EnemyArray.add(Enemies);
-        //Enemies.Draw(gg);
+    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+        debugMode = true;
+        int sleep = 100;
 
-        int gameLen = PPListXY.PPX.size() - 1;
-        System.out.println("Game length: " + gameLen + " pipes!");
+        if (debugMode){
+            int gameLen = PPListXY.PPX.size() - 1;
+            System.out.println("Game length: " + gameLen + " pipes!");
+            sleep = 0;
+        }
+
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
-            PipeLine = new PipeLine(); //edit PipeLine icons
-            try { PPSound = new PipeBuildSound(); } catch (LineUnavailableException | UnsupportedAudioFileException e) { e.printStackTrace(); }
-
-            PipeLine.Draw(gg);  //draw the icons
-            Thread.sleep(100);
+            PipeLine = new PipeLine();          //using correct Pipe icons from this
+            PPSound = new PipeBuildSound();     //Lyden av Pipes
+            PipeLine.Draw(g);                   //Tegner Pipe ikon
+            Thread.sleep(sleep);            //venter 100ms før den fortsetter loopen
         }
     }
 
