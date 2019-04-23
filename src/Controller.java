@@ -18,6 +18,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     static int count;
     public Towers Towers;
+    public int highScore;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
@@ -36,15 +37,16 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
         Menu();                             // Tegner menyen
 
-        SPawnPipe(View.getGraphics());      // Tegner Pipeline
+//        SPawnPipe(View.getGraphics());      // Tegner Pipeline
 
         PipeLineArray.add(PipeLine);
 
-        View.add(screen);
+        //View.add(screen);
     }
 
     public void Menu(){
         menuFrame = new menuFrame();
+
     }
 
     public void Background(Graphics g){
@@ -54,8 +56,8 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         gg.drawImage(image, 0, 0, 900, 900, null);
     }
 
-    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
-        debugMode = true;
+    public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+        debugMode = false;
         int sleep = 100;
 
         if (debugMode){
@@ -86,6 +88,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(1);
         }
+
     }
 
     @Override
@@ -129,6 +132,9 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
         Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
+
+
+
 
         if(TowerArray.size() > 0){
 
