@@ -140,13 +140,12 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     @Override
     public void mouseClicked(MouseEvent e) {
 //
-//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX());
-//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY());
+//        Towers.posX = e.getX();
+//        Towers.posY = e.getY();
 
+        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 464;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 158;
 
-
-        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
         TowerArray.add(Towers);
         if(TowerArray.size() > 0){
 
@@ -158,7 +157,6 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         }
 
         Towers.Draw(Controller.View.background.getGraphics());
-
 
             }
 
