@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
+public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener {
     static View View;
     static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
@@ -170,7 +170,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     public void mouseClicked(MouseEvent e) {
 
         Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 464;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 158;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 145;
         TowerArray.add(Towers);
 
 
@@ -198,4 +198,14 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void mouseExited(MouseEvent e) { }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
