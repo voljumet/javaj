@@ -1,5 +1,8 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Screen extends JPanel implements Runnable {
     public Thread thread = new Thread(this);
@@ -13,9 +16,9 @@ public class Screen extends JPanel implements Runnable {
 
     public static Mob[] mobs = new Mob[20]; // antall mobs
 
-    public Screen(View view){
-        view.addMouseListener(new KeyHandel());
-        view.addMouseMotionListener(new KeyHandel());
+    public Screen(View view) throws InterruptedException, UnsupportedAudioFileException, LineUnavailableException, IOException {
+        view.addMouseListener(new Controller());
+        view.addMouseMotionListener(new Controller());
 
         thread.start();
         System.out.println("Screen");

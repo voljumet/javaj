@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
+public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener {
     static View View;
     static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
@@ -82,7 +82,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     }
 
     public void Background(Graphics g){
-        Graphics gg = View.background.getGraphics();
+        Graphics gg = Controller.View.getGraphics();
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image, 0, 0, 900, 900, null);
@@ -170,8 +170,11 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 100;
+//        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
+//        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 100;
+
+        Towers.posX = e.getX();
+        Towers.posY = e.getY();
         TowerArray.add(Towers);
 
 
@@ -199,4 +202,14 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void mouseExited(MouseEvent e) { }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
