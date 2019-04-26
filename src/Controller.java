@@ -1,4 +1,3 @@
-import javax.management.monitor.MonitorMBean;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -9,16 +8,23 @@ import java.util.ArrayList;
 
 public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
     static View View;
-    static menuFrame menuFrame;
+    static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
+    static menuFrameStart menuFrameStart;
+    public static boolean pause = false;
+    public static boolean newG = true;
+//    static Score score;
 
     public static boolean debugMode = false;
 
     static int count;
     public Towers Towers;
-    public int highScore;
+    static int Cash = 20;
+    static int kills = 0;
+    static int health = 100;
+
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
@@ -27,26 +33,52 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         View = new View();
         Towers = new Towers();
         PipePositionListXY = new PPListXY();
-        Screen screen = new Screen(View);
+//        Screen screen = new Screen(View);
+
 
         View.addKeyListener(this);
         View.addKeyListener(this);
         View.addMouseListener(this);
 
-        Background(View.getGraphics());     // Tegner bakgrun
 
-        Menu();                             // Tegner menyen
+        Background(View.getGraphics());     // Tegner bakgrunn
 
-//        SPawnPipe(View.getGraphics());      // Tegner Pipeline
+        menuStart();// Tegner menyen
+
+        Score(View.getGraphics());
+
 
         PipeLineArray.add(PipeLine);
 
         //View.add(screen);
+
     }
 
-    public void Menu(){
-        menuFrame = new menuFrame();
+    public void menuStart(){
+        menuFrameStart = new menuFrameStart();
 
+    }
+
+
+    public void menuNew(){
+
+        menuFrameNew = new menuFrameNew();
+
+
+    }
+    public void Score(Graphics graphics){
+
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-01.png").getImage(), 20,15, 18,18, null);
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-04.png").getImage(), 20,45, 18,18, null);
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Towers-02.png").getImage(), 20,75, 18,18, null);
+
+        graphics.setColor(new Color(0, 0, 0, 252));
+        graphics.setFont(new Font("Corier New", Font.BOLD, 16));
+        graphics.drawString("Cash: "+ Controller.Cash, 50,30);
+//        graphics.setColor(new Color(255, 255, 255));
+        graphics.drawString("Kills: "+ Controller.kills, 50,60);
+//        graphics.setColor(new Color(255, 9, 19));
+        graphics.drawString("Health: "+ Controller.health, 50,90);
     }
 
     public void Background(Graphics g){
@@ -57,7 +89,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     }
 
     public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
-        debugMode = false;
+        debugMode = true;
         int sleep = 100;
 
         if (debugMode){
@@ -86,7 +118,16 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(1);
+//            System.exit(1);
+            menuNew();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
+
         }
 
     }
@@ -130,7 +171,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     public void mouseClicked(MouseEvent e) {
 
         Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 100;
         TowerArray.add(Towers);
 
 

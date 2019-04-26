@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 
-public class menuFrame extends JFrame{
+public class menuFrameNew extends JFrame{
 
 //    final JFrame frame = new JFrame();
     JButton newGame, highScore, saveGame, quitGame;
@@ -16,7 +16,7 @@ public class menuFrame extends JFrame{
 
 
 
-    public menuFrame(){
+    public menuFrameNew(){
 
 //        JFrame.setDefaultLookAndFeelDecorated(true);
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,26 +33,26 @@ public class menuFrame extends JFrame{
 
 
             newGame = new JButton("New game");
-            newGame.setMnemonic(KeyEvent.VK_P);
+            newGame.setMnemonic(KeyEvent.VK_N);
             newGame.getAccessibleContext().setAccessibleDescription("New game");
             newGame.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
                     meny = "new game";
-                    menuFrame.this.setVisible(false);
+                    menuFrameNew.this.setVisible(false);
 
-                    try {
-                        Controller.SPawnPipe(Controller.View.getGraphics());
-                    } catch (UnsupportedAudioFileException ex) {
-                        ex.printStackTrace();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    } catch (LineUnavailableException ex) {
-                        ex.printStackTrace();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
+//                    try {
+//                        Controller.SPawnPipe(Controller.View.getGraphics());
+//                    } catch (UnsupportedAudioFileException ex) {
+//                        ex.printStackTrace();
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    } catch (LineUnavailableException ex) {
+//                        ex.printStackTrace();
+//                    } catch (InterruptedException ex) {
+//                        ex.printStackTrace();
+//                    }
                 }
 
             });
@@ -73,7 +73,7 @@ public class menuFrame extends JFrame{
 
 //        this.add(new JButton("Save game"));
             saveGame = new JButton("Save game");
-            saveGame.setMnemonic(KeyEvent.VK_P);
+            saveGame.setMnemonic(KeyEvent.VK_S);
             saveGame.getAccessibleContext().setAccessibleDescription("Save game");
             saveGame.addActionListener(new ActionListener() {
                 @Override
@@ -85,7 +85,7 @@ public class menuFrame extends JFrame{
 
 //        this.add(new JButton("Quit game"));
             quitGame = new JButton("Quit game");
-            quitGame.setMnemonic(KeyEvent.VK_P);
+            quitGame.setMnemonic(KeyEvent.VK_Q);
             quitGame.getAccessibleContext().setAccessibleDescription("Quit game");
             quitGame.addActionListener(new ActionListener() {
                 @Override

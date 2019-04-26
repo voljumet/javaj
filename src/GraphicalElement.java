@@ -10,6 +10,7 @@ public class GraphicalElement extends JPanel{
     ImageIcon i;
     Image image;
 
+
     public void Draw (Graphics g){
 
         //direction direction;
