@@ -1,3 +1,4 @@
+import javax.sound.sampled.Control;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -6,7 +7,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener  {
+public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener {
     static View View;
     static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
@@ -16,22 +17,29 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     public static boolean pause = false;
     public static boolean newG = true;
 //    static Score score;
+    public int mseClicked;
+    public int mseposX;
+    public int mseposY;
+
 
     public static boolean debugMode = false;
 
     static int count;
-    public Towers Towers;
+    public static Towers Towers;
+    public static Enemies Enemies;
     static int Cash = 20;
     static int kills = 0;
     static int health = 100;
 
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
+    public static ArrayList<Enemies> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
     public Controller() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
         View = new View();
         Towers = new Towers();
+        Enemies = new Enemies();
         PipePositionListXY = new PPListXY();
 //        Screen screen = new Screen(View);
 
@@ -39,7 +47,6 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         View.addKeyListener(this);
         View.addKeyListener(this);
         View.addMouseListener(this);
-
 
         Background(View.getGraphics());     // Tegner bakgrunn
 
@@ -79,10 +86,12 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         graphics.drawString("Kills: "+ Controller.kills, 50,60);
 //        graphics.setColor(new Color(255, 9, 19));
         graphics.drawString("Health: "+ Controller.health, 50,90);
+
+
     }
 
     public void Background(Graphics g){
-        Graphics gg = View.background.getGraphics();
+        Graphics gg = Controller.View.getGraphics();
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         gg.drawImage(image, 0, 0, 900, 900, null);
@@ -104,7 +113,16 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
             PipeLine.Draw(g);                   //Tegner Pipe ikon
             Thread.sleep(sleep);            //venter 100ms før den fortsetter loopen
         }
+
     }
+
+    //Shootmob er kun testing av logikk.
+    public static void ShootMob(Graphics g){
+        if(TowerArray.get(0).TowerReach.intersects(EnemyArray.get(0).EnemyReach)){
+            g.drawLine(Towers.posX, Towers.posY, Enemies.posX, Enemies.posY);
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e){ }
@@ -122,7 +140,7 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
             menuNew();
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
@@ -169,23 +187,22 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
+        mseposX = e.getX();
+        mseposY = e.getY();
 
-        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) - 100;
+        Towers.posX = mseposX - 35;
+        Towers.posY = mseposY - 35;
+
         TowerArray.add(Towers);
+        Towers.Draw(View.getGraphics());
 
+        Enemies.posX = 300;
+        Enemies.posY = 300;
 
+        EnemyArray.add(Enemies);
 
-
-        if(TowerArray.size() > 0){
-
-//            if(TowerArray[i] != EnemyArray[j]){
-            System.out.println(Towers.posX + " " + Towers.posY);
-            Towers.Draw(View.background.getGraphics());
-//            }else{
-//                System.out.println("Cant place tower on enemy path");
-        }
-        Towers.Draw(Controller.View.background.getGraphics());
+        Enemies.Draw(View.getGraphics());
     }
 
     @Override
@@ -199,4 +216,14 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 
     @Override
     public void mouseExited(MouseEvent e) { }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }

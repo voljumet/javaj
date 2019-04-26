@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class KeyHandel implements MouseMotionListener, MouseListener, KeyListener {
+public class KeyHandel extends GraphicalElement implements MouseMotionListener, MouseListener, KeyListener {
+
     @Override
     public void keyTyped(KeyEvent e) {
+
 
     }
 
@@ -19,7 +21,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener, KeyListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
-//
+
 //        Towers.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
 //        Towers.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
 //        Controller.TowerArray.add(Towers);
@@ -33,7 +35,7 @@ public class KeyHandel implements MouseMotionListener, MouseListener, KeyListene
 ////                System.out.println("Cant place tower on enemy path");
 //        }
 //        Towers.Draw(Controller.View.background.getGraphics());
-//
+
     }
 
     @Override
