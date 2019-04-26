@@ -91,10 +91,10 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     }
 
     public void Background(Graphics g){
-        Graphics gg = Controller.View.getGraphics();
+//        Graphics gg = Controller.View.getGraphics();
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
-        gg.drawImage(image, 0, 0, 900, 900, null);
+        g.drawImage(image, 0, 0, 900, 900, null);
     }
 
     public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {

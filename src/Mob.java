@@ -48,9 +48,9 @@ public class Mob extends Rectangle {
         //getmoney!!
     }
 
-    public void looseHealth(){
-        Screen.health -=1;
-    }
+//    public void looseHealth(){
+//        Screen.health -=1;
+//    }
 
     public int walkFrame = 0, walkSpeed = 20;
     public void Physics(){
@@ -78,11 +78,11 @@ public class Mob extends Rectangle {
         }
     }
 
-    public void draw(Graphics g){
-        System.out.println("draw mob");
-        g.drawImage(Screen.image_mob[mobID],x,y,width,height,null);
-
-    }
+//    public void draw(Graphics g){
+//        System.out.println("draw mob");
+//        g.drawImage(Screen.image_mob[mobID],x,y,width,height,null);
+//
+//    }
 
 
 }
