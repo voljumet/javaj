@@ -3,14 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class menuFrame extends JFrame{
+public class menuFrameNew extends JFrame{
 
     final JFrame frame = new JFrame();
     JButton startGame, highScore, saveGame, quitGame;
 
 //    JPanel buttonPanel = new JPanel();
 
-    public menuFrame(){
+    public menuFrameNew(){
 
 
 

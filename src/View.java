@@ -1,10 +1,10 @@
+
 import javax.swing.*;
 import java.awt.*;
 
 public class View extends JFrame{
 
-    public JPanel background;
-
+    public static JPanel background;
 
     public View(){
 
@@ -12,15 +12,14 @@ public class View extends JFrame{
         this.setLayout(new BorderLayout());
         this.setSize(900,900);
         this.setTitle("Oil Platform Defence");
+
         this.setLocationRelativeTo(null);
 
         background = new JPanel();
         this.add(background);
-
+        setUndecorated(true);
         this.setResizable(false);
         this.setVisible(true);
-
+        
     }
-
-
 }
