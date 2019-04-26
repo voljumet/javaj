@@ -6,15 +6,21 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller extends JPanel implements ActionListener, KeyListener,
-        WindowListener, MouseListener, Runnable {
+public class Controller extends JPanel implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
 
     static View View;
-    static menuFrame menuFrame;
+    static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
     static Mob Mob;
+    static menuFrameStart menuFrameStart;
+    public static boolean pause = false;
+    public static boolean newG = true;
+
+    public int mseClicked;
+    public int mseposX;
+    public int mseposY;
 
     public static boolean debugMode = false;
     public static boolean pipe = false;
@@ -22,9 +28,15 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
     public static boolean timeToDraw = false;
 
     public static int count, timer = 0, countDown = 1, pipeBlocks = 32, mobCount = 0;
-    public Towers Towers;
+
+    public static Towers Towers;
+    public static MobsElement MobsElement;
+    static int Cash = 20;
+    static int kills = 0;
+    static int health = 100;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
+    public static ArrayList<MobsElement> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
     public Controller() throws IOException, InterruptedException,
@@ -32,19 +44,16 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
         View = new View();
         Towers = new Towers();
 
-
         PipePositionListXY = new PPListXY();
 
         View.addKeyListener(this);
         View.addKeyListener(this);
 
+        Background(View.getGraphics());     // Tegner bakgrunn
 
+        menuStart();    // Tegner menyen
 
-        Background(View.getGraphics());     // Tegner bakgrun
-
-//        Menu();                             // Tegner menyen
-
-        SPawnPipe(View.getGraphics());      // Tegner Pipeline
+        Score(View.getGraphics());
 
         PipeLineArray.add(PipeLine);
 
@@ -59,15 +68,32 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
 
     public void mobs(Graphics gg) {
         while (true) {
-            try { Mob = new Mob();
-            } catch (InterruptedException e) { }
+            try { Mob = new Mob(); } catch (InterruptedException e) { }
             Mob.Draw(gg);
             timeToDraw = false;
         }
     }
 
-    public void Menu(){
-        menuFrame = new menuFrame();
+    public void menuStart(){
+        menuFrameStart = new menuFrameStart();
+    }
+
+    public void menuNew(){
+        menuFrameNew = new menuFrameNew();
+    }
+
+    public void Score(Graphics graphics){
+
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-01.png").getImage(), 20,15, 18,18, null);
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-04.png").getImage(), 20,45, 18,18, null);
+        graphics.drawImage(new ImageIcon("Pictures/Icons/Towers-02.png").getImage(), 20,75, 18,18, null);
+
+        graphics.setColor(new Color(0, 0, 0, 252));
+        graphics.setFont(new Font("Corier New", Font.BOLD, 16));
+        graphics.drawString("Cash: "+ Controller.Cash, 50,30);
+        graphics.drawString("Kills: "+ Controller.kills, 50,60);
+        graphics.drawString("Health: "+ Controller.health, 50,90);
+
     }
 
     public void Background(Graphics g){
@@ -76,7 +102,7 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
         g.drawImage(image, 0, 0, 900, 900, null);
     }
 
-    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
+    public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
             IOException, LineUnavailableException, InterruptedException {
         debugMode = true;
         int sleep = 100;
@@ -96,6 +122,13 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
         }
     }
 
+    //Shootmob er kun testing av logikk.
+    public static void ShootMob(Graphics g){
+        if(TowerArray.get(0).TowerReach.intersects(EnemyArray.get(0).MobReach)){
+            g.drawLine(Towers.posX, Towers.posY, MobsElement.posX, MobsElement.posY);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){ }
 
@@ -108,87 +141,74 @@ public class Controller extends JPanel implements ActionListener, KeyListener,
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(1);
+//            System.exit(1);
+            menuNew();
+
+            try { Thread.sleep(100); } catch (InterruptedException ex) { }
         }
     }
 
     @Override
-    public void windowOpened(WindowEvent e) {
-        //sjekker om det som er i vinduet er lagret,
-        // hvis ikke spør den om man skal lagre før man begynner.
-    }
+    public void windowOpened(WindowEvent e) { }
 
     @Override
-    public void windowClosing(WindowEvent e) {
-        //sjekker om det som er i vinduet er lagret, hvis ikke spør den om man skal lagre
-    }
+    public void windowClosing(WindowEvent e) { }
 
     @Override
-    public void windowClosed(WindowEvent e) {
-        //Dette er bare når vinduet er helt lukket
-    }
+    public void windowClosed(WindowEvent e) { }
 
     @Override
-    public void windowIconified(WindowEvent e) {
-        //Dette er bare når man minimerer vindu til oppgavelinje
-    }
+    public void windowIconified(WindowEvent e) { }
 
     @Override
-    public void windowDeiconified(WindowEvent e) {
-        //Dette er bare når man henter vindu fra oppgavelinje
-    }
+    public void windowDeiconified(WindowEvent e) { }
 
     @Override
-    public void windowActivated(WindowEvent e) {
-        //Dette er bare når man bytter mellom vindu
-    }
+    public void windowActivated(WindowEvent e) { }
 
     @Override
-    public void windowDeactivated(WindowEvent e) {
-       //Dette er bare når man bytter mellom vindu
-    }
+    public void windowDeactivated(WindowEvent e) { }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
+        mseposX = e.getX();
+        mseposY = e.getY();
 
-        GraphicalElement.posX = (int)(MouseInfo.getPointerInfo().getLocation().getX()) - 321;
-        GraphicalElement.posY = (int)(MouseInfo.getPointerInfo().getLocation().getY()) -100;
+        Towers.posX = mseposX - 35;
+        Towers.posY = mseposY - 35;
+
         TowerArray.add(Towers);
+        Towers.Draw(View.getGraphics());
 
-        if(TowerArray.size() > 0){
+        MobsElement.posX = 300;
+        MobsElement.posY = 300;
 
-//            if(TowerArray[i] != EnemyArray[j]){
-            System.out.println(GraphicalElement.posX + " " + GraphicalElement.posY);
-            Towers.Draw(View.background.getGraphics());
-//            }else{
-//                System.out.println("Cant place tower on enemy path");
-        }
-        Towers.Draw(View.background.getGraphics());
+        EnemyArray.add(MobsElement);
+
+        MobsElement.Draw(View.getGraphics());
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) { }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) { }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) { }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) { }
 
     @Override
     public void run() {
         System.out.println("run Controller");
-
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) { }
+
+    @Override
+    public void mouseMoved(MouseEvent e) { }
 }

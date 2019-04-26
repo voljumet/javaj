@@ -1,40 +1,63 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
-public class menuFrame extends JFrame{
 
-    final JFrame frame = new JFrame();
-    JButton startGame, highScore, saveGame, quitGame;
+public class menuFrameNew extends JFrame{
 
-//    JPanel buttonPanel = new JPanel();
+//    final JFrame frame = new JFrame();
+    JButton newGame, highScore, saveGame, quitGame;
 
-    public menuFrame(){
+    public String meny = "";
+
+
+
+    public menuFrameNew(){
 
 //        JFrame.setDefaultLookAndFeelDecorated(true);
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setSize(200,200);
             this.setLocationRelativeTo(null);
-            this.setTitle("Java menu");
+//            this.setTitle("Java menu");
             this.setUndecorated(true);
 
-//        this.add(buttonPanel);
+
 
             BoxLayout boxLayout = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
 
             this.setLayout(boxLayout);
-//        this.add(new JButton("Start game"));
-            startGame = new JButton("New game");
-            startGame.setMnemonic(KeyEvent.VK_P);
-            startGame.getAccessibleContext().setAccessibleDescription("New game");
-            startGame.addActionListener(new ActionListener() {
+
+
+            newGame = new JButton("New game");
+            newGame.setMnemonic(KeyEvent.VK_N);
+            newGame.getAccessibleContext().setAccessibleDescription("New game");
+            newGame.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame,  "New game clicked!");
+
+                    meny = "new game";
+                    menuFrameNew.this.setVisible(false);
+
+//                    try {
+//                        Controller.SPawnPipe(Controller.View.getGraphics());
+//                    } catch (UnsupportedAudioFileException ex) {
+//                        ex.printStackTrace();
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    } catch (LineUnavailableException ex) {
+//                        ex.printStackTrace();
+//                    } catch (InterruptedException ex) {
+//                        ex.printStackTrace();
+//                    }
                 }
+
             });
-            this.add(startGame);
+
+            this.add(newGame);
 
 //        this.add(new JButton("High score"));
             highScore = new JButton("High score");
@@ -43,26 +66,26 @@ public class menuFrame extends JFrame{
             highScore.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame,  "High score clicked!");
+                    JOptionPane.showMessageDialog(null,  "High score clicked!");
                 }
             });
             this.add(highScore);
 
 //        this.add(new JButton("Save game"));
             saveGame = new JButton("Save game");
-            saveGame.setMnemonic(KeyEvent.VK_P);
+            saveGame.setMnemonic(KeyEvent.VK_S);
             saveGame.getAccessibleContext().setAccessibleDescription("Save game");
             saveGame.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame,  "Save Game clicked!");
+                    JOptionPane.showMessageDialog(null,  "Save Game clicked!");
                 }
             });
             this.add(saveGame);
 
 //        this.add(new JButton("Quit game"));
             quitGame = new JButton("Quit game");
-            quitGame.setMnemonic(KeyEvent.VK_P);
+            quitGame.setMnemonic(KeyEvent.VK_Q);
             quitGame.getAccessibleContext().setAccessibleDescription("Quit game");
             quitGame.addActionListener(new ActionListener() {
                 @Override
@@ -73,7 +96,8 @@ public class menuFrame extends JFrame{
             });
             this.add(quitGame);
             this.pack();
-
             this.setVisible(true);
+
+
     }
 }

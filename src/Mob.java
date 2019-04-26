@@ -21,7 +21,7 @@ public class Mob extends MobsElement {
                     posX = (PPListXY.PPX.get(k) + (mobSize/2));
                     posY = (PPListXY.PPY.get(k) + (mobSize/2));
 
-                    i = new ImageIcon("Pictures/Icons/Enemies-01.png");
+                    i = new ImageIcon("Pictures/Icons/MobsElement-01.png");
                     description = "Mob";
                     image = i.getImage();
 
