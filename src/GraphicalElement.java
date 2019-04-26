@@ -16,8 +16,9 @@ public class GraphicalElement extends JPanel{
         if(image == null){
             System.out.println("IMAGE NULL");
             return;
+        }else {
+            g.drawImage(image, posX, posY, width, height, null);
         }
-        g.drawImage(image, posX, posY, width, height, null);
 
 //        System.out.println(description+" number "+Controller.count+" drawn!");    //debug for PPList
 //        System.out.println("Element drawn");
