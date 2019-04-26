@@ -8,7 +8,6 @@ public class Towers extends GraphicalElement {
     public Towers(){
 
 
-
         posX = 0;
         posY = 0;
         height = 70;

@@ -1,4 +1,3 @@
-import javax.sound.sampled.Control;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -7,72 +6,82 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener {
+public class Controller extends JPanel implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
+
     static View View;
     static menuFrameNew menuFrameNew;
     static PipeLine PipeLine;
     static PPListXY PipePositionListXY;
     static PipeBuildSound PPSound;
+    static Mob Mob;
     static menuFrameStart menuFrameStart;
     public static boolean pause = false;
     public static boolean newG = true;
-//    static Score score;
+
     public int mseClicked;
     public int mseposX;
     public int mseposY;
 
-
     public static boolean debugMode = false;
+    public static boolean pipe = false;
+    public static boolean gameRunning = false;
+    public static boolean timeToDraw = false;
 
-    static int count;
+    public static int count, timer = 0, countDown = 1, pipeBlocks = 32, mobCount = 0;
+
     public static Towers Towers;
-    public static Enemies Enemies;
+    public static MobsElement MobsElement;
     static int Cash = 20;
     static int kills = 0;
     static int health = 100;
 
-
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
-    public static ArrayList<Enemies> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
+    public static ArrayList<MobsElement> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
 
-    public Controller() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
+    public Controller() throws IOException, InterruptedException,
+            LineUnavailableException, UnsupportedAudioFileException {
         View = new View();
         Towers = new Towers();
-        Enemies = new Enemies();
+
         PipePositionListXY = new PPListXY();
-//        Screen screen = new Screen(View);
-
 
         View.addKeyListener(this);
         View.addKeyListener(this);
-        View.addMouseListener(this);
 
         Background(View.getGraphics());     // Tegner bakgrunn
 
-        menuStart();// Tegner menyen
+        menuStart();    // Tegner menyen
 
         Score(View.getGraphics());
 
-
         PipeLineArray.add(PipeLine);
 
-        //View.add(screen);
+        if (count >= pipeBlocks) {
+            for (int tim = countDown*1000; tim > timer; tim -= countDown*1000) {
+                System.out.println("Game starts in " + tim/1000 + " sek");
+                Thread.sleep(countDown*1000);
+            }
+            mobs(View.getGraphics());   // Tegner mobsArrayList
+        }
+    }
 
+    public void mobs(Graphics gg) {
+        while (true) {
+            try { Mob = new Mob(); } catch (InterruptedException e) { }
+            Mob.Draw(gg);
+            timeToDraw = false;
+        }
     }
 
     public void menuStart(){
         menuFrameStart = new menuFrameStart();
-
     }
-
 
     public void menuNew(){
-
         menuFrameNew = new menuFrameNew();
-
-
     }
+
     public void Score(Graphics graphics){
 
         graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-01.png").getImage(), 20,15, 18,18, null);
@@ -82,22 +91,20 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         graphics.setColor(new Color(0, 0, 0, 252));
         graphics.setFont(new Font("Corier New", Font.BOLD, 16));
         graphics.drawString("Cash: "+ Controller.Cash, 50,30);
-//        graphics.setColor(new Color(255, 255, 255));
         graphics.drawString("Kills: "+ Controller.kills, 50,60);
-//        graphics.setColor(new Color(255, 9, 19));
         graphics.drawString("Health: "+ Controller.health, 50,90);
-
 
     }
 
     public void Background(Graphics g){
-//        Graphics gg = Controller.View.getGraphics();
+
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
         Image image = imageIcon.getImage();
         g.drawImage(image, 0, 0, 900, 900, null);
     }
 
-    public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
+            IOException, LineUnavailableException, InterruptedException {
         debugMode = true;
         int sleep = 100;
 
@@ -108,21 +115,20 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         }
 
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
-            PipeLine = new PipeLine();          //using correct Pipe icons from this
+            PipeLine = new PipeLine();          //using correct pipe icons from this
             PPSound = new PipeBuildSound();     //Lyden av Pipes
-            PipeLine.Draw(g);                   //Tegner Pipe ikon
+            PipeLine.Draw(g);                   //Tegner pipe ikon
             Thread.sleep(sleep);            //venter 100ms før den fortsetter loopen
+            pipe = true;
         }
-
     }
 
     //Shootmob er kun testing av logikk.
     public static void ShootMob(Graphics g){
-        if(TowerArray.get(0).TowerReach.intersects(EnemyArray.get(0).EnemyReach)){
-            g.drawLine(Towers.posX, Towers.posY, Enemies.posX, Enemies.posY);
+        if(TowerArray.get(0).TowerReach.intersects(EnemyArray.get(0).MobReach)){
+            g.drawLine(Towers.posX, Towers.posY, MobsElement.posX, MobsElement.posY);
         }
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e){ }
@@ -139,51 +145,30 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
 //            System.exit(1);
             menuNew();
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-
-
+            try { Thread.sleep(100); } catch (InterruptedException ex) { }
         }
-
     }
 
     @Override
-    public void windowOpened(WindowEvent e) {
-        //sjekker om det som er i vinduet er lagret, hvis ikke spør den om man skal lagre før man begynner.
-    }
+    public void windowOpened(WindowEvent e) { }
 
     @Override
-    public void windowClosing(WindowEvent e) {
-        //sjekker om det som er i vinduet er lagret, hvis ikke spør den om man skal lagre
-    }
+    public void windowClosing(WindowEvent e) { }
 
     @Override
-    public void windowClosed(WindowEvent e) {
-        //Dette er bare når vinduet er helt lukket
-    }
+    public void windowClosed(WindowEvent e) { }
 
     @Override
-    public void windowIconified(WindowEvent e) {
-        //Dette er bare når man minimerer vindu til oppgavelinje
-    }
+    public void windowIconified(WindowEvent e) { }
 
     @Override
-    public void windowDeiconified(WindowEvent e) {
-        //Dette er bare når man henter vindu fra oppgavelinje
-    }
+    public void windowDeiconified(WindowEvent e) { }
 
     @Override
-    public void windowActivated(WindowEvent e) {
-        //Dette er bare når man bytter mellom vindu
-    }
+    public void windowActivated(WindowEvent e) { }
 
     @Override
-    public void windowDeactivated(WindowEvent e) {
-       //Dette er bare når man bytter mellom vindu
-    }
+    public void windowDeactivated(WindowEvent e) { }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -197,12 +182,12 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
         TowerArray.add(Towers);
         Towers.Draw(View.getGraphics());
 
-        Enemies.posX = 300;
-        Enemies.posY = 300;
+        MobsElement.posX = 300;
+        MobsElement.posY = 300;
 
-        EnemyArray.add(Enemies);
+        EnemyArray.add(MobsElement);
 
-        Enemies.Draw(View.getGraphics());
+        MobsElement.Draw(View.getGraphics());
     }
 
     @Override
@@ -218,12 +203,13 @@ public class Controller implements ActionListener, KeyListener, WindowListener, 
     public void mouseExited(MouseEvent e) { }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-
+    public void run() {
+        System.out.println("run Controller");
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
+    public void mouseDragged(MouseEvent e) { }
 
-    }
+    @Override
+    public void mouseMoved(MouseEvent e) { }
 }
