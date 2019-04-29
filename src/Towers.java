@@ -1,9 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class Towers extends GraphicalElement {
     Rectangle TowerReach;
     int UpgradeCount;
+
+    // variables for circle range for tower
+
 
     public Towers(){
 
@@ -16,5 +20,8 @@ public class Towers extends GraphicalElement {
         image = i.getImage();
 
         TowerReach = new Rectangle(posX -100, posY - 100, 200, 200);
+
+
     }
+
 }

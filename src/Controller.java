@@ -17,10 +17,15 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
     static menuFrameStart menuFrameStart;
     public static boolean pause = false;
     public static boolean newG = true;
+    public static GraphicalElement graphicalElement;
 
     public int mseClicked;
     public int mseposX;
     public int mseposY;
+
+    // Tower range in mouseClicked
+    public int tRangeX;
+    public int tRangeY;
 
     public static boolean debugMode = false;
     public static boolean pipe = false;
@@ -47,11 +52,12 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
         PipePositionListXY = new PPListXY();
 
         View.addKeyListener(this);
-        View.addKeyListener(this);
+        View.addMouseListener(this);
 
         Background(View.getGraphics());     // Tegner bakgrunn
 
         menuStart();    // Tegner menyen
+        towerRange(View.getGraphics());
 
         Score(View.getGraphics());
 
@@ -96,6 +102,7 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
 
     }
 
+
     public void Background(Graphics g){
 
         ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
@@ -122,6 +129,12 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
             pipe = true;
         }
     }
+
+    public static void towerRange(Graphics g) {
+        g.drawOval(150, 150, 150, 150);
+
+    }
+
 
     //Shootmob er kun testing av logikk.
     public static void ShootMob(Graphics g){
@@ -172,22 +185,26 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
         mseposX = e.getX();
         mseposY = e.getY();
 
+        //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
         Towers.posX = mseposX - 35;
         Towers.posY = mseposY - 35;
 
+//        tRangeY = mseposY - 35;
+
         TowerArray.add(Towers);
         Towers.Draw(View.getGraphics());
+
+
 
         MobsElement.posX = 300;
         MobsElement.posY = 300;
 
         EnemyArray.add(MobsElement);
 
-        MobsElement.Draw(View.getGraphics());
+//        MobsElement.Draw(View.getGraphics());
     }
 
     @Override

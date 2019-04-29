@@ -26,6 +26,8 @@ public class GraphicalElement extends JPanel{
 //        System.out.println("X: " +posX+ " Y: "+posY);
         
         }
+
+
     }
 
 
