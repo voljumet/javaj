@@ -3,8 +3,9 @@ import java.awt.*;
 
 public class GraphicalElement extends JPanel{
 
-    static int posX;
-    static int posY;
+    public boolean mob = false;
+    static int posX, mobPosX;
+    static int posY, mobPosY;
     int height, width;
     String description;
     ImageIcon i;
@@ -18,13 +19,13 @@ public class GraphicalElement extends JPanel{
             System.out.println("IMAGE NULL");
             return;
         }else {
-            g.drawImage(image, posX, posY, width, height, null);
+            if (mob){
+                g.drawImage(image, mobPosX, mobPosY, width, height, null);
+            } else{
+                g.drawImage(image, posX, posY, width, height, null);
+            }
         }
 
-//        System.out.println(description+" number "+Controller.count+" drawn!");    //debug for PPList
-//        System.out.println("Element drawn");
-//        System.out.println("X: " +posX+ " Y: "+posY);
-        
         }
     }
 

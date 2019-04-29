@@ -5,7 +5,10 @@ public class MobsElement extends GraphicalElement {
 
         int mobSize;
         int mobArmySize;
-        int mobNumber;
+        int mobCount;
+        int mobPictureNumber = 1;
+        int mobHealth;
+        int mobPayout;
         Rectangle MobReach;
 
         public MobsElement() {
@@ -15,7 +18,10 @@ public class MobsElement extends GraphicalElement {
                 height = mobSize;
                 width = mobSize;
                 description = "MobsElement";
-                i = new ImageIcon("Pictures/Icons/Iconse-01.png");
+//                mobPosX = PPListXY.PPX.get(0);
+//                mobPosY = 810;
+
+                i = new ImageIcon();
                 image = i.getImage();
         }
 }

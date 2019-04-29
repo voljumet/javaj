@@ -1,99 +1,59 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 
-public class menuFrameStart extends JFrame{
+public class menuFrameStart extends JFrame {
 
-    //    final JFrame frame = new JFrame();
-    JButton startGame, highScore, saveGame, quitGame;
-
-    public String meny = "";
-
+    JButton startGame, highScore, saveGame, quitGame, newGame;
 
     public menuFrameStart(){
 
-//        JFrame.setDefaultLookAndFeelDecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(200,200);
         this.setLocationRelativeTo(null);
-//            this.setTitle("Java menu");
         this.setUndecorated(true);
 
-
-
         BoxLayout boxLayout = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
-
         this.setLayout(boxLayout);
 
-
         startGame = new JButton("Start Game");
-        startGame.setMnemonic(KeyEvent.VK_N);
-        startGame.getAccessibleContext().setAccessibleDescription("Start Game");
-        startGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                meny = "Start game";
-                menuFrameStart.this.setVisible(false);
-
-                try {
-                    Controller.SPawnPipe(Controller.View.getGraphics());
-                } catch (UnsupportedAudioFileException ex) {
-                    ex.printStackTrace();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (LineUnavailableException ex) {
-                    ex.printStackTrace();
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
+        startGame.addActionListener(e -> {
+            menuFrameStart.this.setVisible(false);
+            Controller.gameRunning = true;
         });
 
-        this.add(startGame);
+        newGame = new JButton("New game");
+        newGame.addActionListener(e -> {
+            menuFrameStart.this.setVisible(false);
+            Controller.gameRunning = true;
+        });
 
-//        this.add(new JButton("High score"));
         highScore = new JButton("High score");
-        highScore.setMnemonic(KeyEvent.VK_P);
-        highScore.getAccessibleContext().setAccessibleDescription("High score");
-        highScore.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,  "High score clicked!");
-            }
-        });
-        this.add(highScore);
+        highScore.addActionListener(e -> JOptionPane.showMessageDialog(null,  "High score clicked!"));
 
-//        this.add(new JButton("Save game"));
         saveGame = new JButton("Save game");
-        saveGame.setMnemonic(KeyEvent.VK_S);
-        saveGame.getAccessibleContext().setAccessibleDescription("Save game");
-        saveGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,  "Save Game clicked!");
-            }
-        });
-        this.add(saveGame);
+        saveGame.addActionListener(e -> JOptionPane.showMessageDialog(null,  "Save Game clicked!"));
 
-//        this.add(new JButton("Quit game"));
         quitGame = new JButton("Quit game");
-        quitGame.setMnemonic(KeyEvent.VK_Q);
-        quitGame.getAccessibleContext().setAccessibleDescription("Quit game");
-        quitGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(frame,  "Quit game clicked!");
-                System.exit(1);
-            }
-        });
+        quitGame.addActionListener(e -> { System.exit(1); });
+
+        if (Controller.newG){
+            Controller.newG = false;
+            this.add(startGame);
+        }else {
+            this.add(newGame);
+        }
+
+        this.add(highScore);
+        this.add(saveGame);
         this.add(quitGame);
         this.pack();
         this.setVisible(true);
+
     }
+
+
 }

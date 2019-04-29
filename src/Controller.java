@@ -4,73 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class Controller extends JPanel implements ActionListener, KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
+public class Controller extends ContSetup implements ActionListener,
+        KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
 
-    static View View;
-    static menuFrameNew menuFrameNew;
-    static PipeLine PipeLine;
-    static PPListXY PipePositionListXY;
-    static PipeBuildSound PPSound;
-    static Mob Mob;
-    static menuFrameStart menuFrameStart;
-    public static boolean pause = false;
-    public static boolean newG = true;
+    public Controller() throws IOException, UnsupportedAudioFileException,
+            InterruptedException, LineUnavailableException {
 
-    public int mseClicked;
-    public int mseposX;
-    public int mseposY;
-
-    public static boolean debugMode = false;
-    public static boolean pipe = false;
-    public static boolean gameRunning = false;
-    public static boolean timeToDraw = false;
-
-    public static int count, timer = 0, countDown = 1, pipeBlocks = 32, mobCount = 0;
-
-    public static Towers Towers;
-    public static MobsElement MobsElement;
-    static int Cash = 20;
-    static int kills = 0;
-    static int health = 100;
-
-    public static ArrayList<Towers> TowerArray = new ArrayList<>();
-    public static ArrayList<MobsElement> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
-    public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
-
-    public Controller() throws IOException, InterruptedException,
-            LineUnavailableException, UnsupportedAudioFileException {
         View = new View();
         Towers = new Towers();
+        MobsElement = new MobsElement();
 
         PipePositionListXY = new PPListXY();
 
         View.addKeyListener(this);
-        View.addKeyListener(this);
-
-        Background(View.getGraphics());     // Tegner bakgrunn
-
-        menuStart();    // Tegner menyen
-
-        Score(View.getGraphics());
-
+        View.addMouseListener(this);
+        mobsArrayList.add(MobsElement);
         PipeLineArray.add(PipeLine);
 
-        if (count >= pipeBlocks) {
-            for (int tim = countDown*1000; tim > timer; tim -= countDown*1000) {
-                System.out.println("Game starts in " + tim/1000 + " sek");
-                Thread.sleep(countDown*1000);
-            }
-            mobs(View.getGraphics());   // Tegner mobsArrayList
-        }
+        System.out.println("array: "+mobsArrayList);
+        Background(View.getGraphics());     // Tegner bakgrunn
+
+        //menu = new menuStart();    // Tegner menyen
+
+        SPawnPipe(View.getGraphics());   // Tegner Pipes
+
+        CountDown();
+
+        Score(View.getGraphics());  // Tegner score osv.
+
+
+        /* Må være siste linje, denne looper til spillet blir avsluttet */
+        mobs(View.getGraphics());   // Tegner mobs
+        /* Må være siste linje, denne looper til spillet blir avsluttet */
     }
 
     public void mobs(Graphics gg) {
-        while (true) {
-            try { Mob = new Mob(); } catch (InterruptedException e) { }
-            Mob.Draw(gg);
-            timeToDraw = false;
+        try {
+            while (true) {
+
+                Mob = new Mob();
+                Mob.Draw(gg);
+//                timeToDraw = false;
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e){
+            System.out.println("Paused");
         }
     }
 
@@ -78,32 +57,24 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
         menuFrameStart = new menuFrameStart();
     }
 
-    public void menuNew(){
-        menuFrameNew = new menuFrameNew();
-    }
+    public void Score(Graphics g){
 
-    public void Score(Graphics graphics){
+        g.drawImage(new ImageIcon("Pictures/Icons/Enemies-08.png").getImage(), 20,15, 18,18, null);
+        g.drawImage(new ImageIcon("Pictures/Icons/Enemies-07.png").getImage(), 20,45, 18,18, null);
+        g.drawImage(new ImageIcon("Pictures/Icons/Enemies-09.png").getImage(), 20,75, 18,18, null);
 
-        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-01.png").getImage(), 20,15, 18,18, null);
-        graphics.drawImage(new ImageIcon("Pictures/Icons/Enemies-04.png").getImage(), 20,45, 18,18, null);
-        graphics.drawImage(new ImageIcon("Pictures/Icons/Towers-02.png").getImage(), 20,75, 18,18, null);
-
-        graphics.setColor(new Color(0, 0, 0, 252));
-        graphics.setFont(new Font("Corier New", Font.BOLD, 16));
-        graphics.drawString("Cash: "+ Controller.Cash, 50,30);
-        graphics.drawString("Kills: "+ Controller.kills, 50,60);
-        graphics.drawString("Health: "+ Controller.health, 50,90);
-
+        g.setColor(new Color(0, 0, 0, 252));
+        g.setFont(new Font("Corier New", Font.BOLD, 16));
+        g.drawString("Cash: "+ Controller.Cash, 50,30);
+        g.drawString("Kills: "+ Controller.kills, 50,60);
+        g.drawString("Health: "+ Controller.health, 50,90);
     }
 
     public void Background(Graphics g){
-
-        ImageIcon imageIcon = new ImageIcon("Pictures/Background-01.png");
-        Image image = imageIcon.getImage();
-        g.drawImage(image, 0, 0, 900, 900, null);
+        g.drawImage(new ImageIcon("Pictures/Background-01.png").getImage(), 0, 0, 900, 900, null);
     }
 
-    public static void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
+    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
             IOException, LineUnavailableException, InterruptedException {
         debugMode = true;
         int sleep = 100;
@@ -115,11 +86,27 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
         }
 
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
-            PipeLine = new PipeLine();          //using correct pipe icons from this
+            PipeLine = new PipeLine();          //using correct pipeDrawn icons from this
             PPSound = new PipeBuildSound();     //Lyden av Pipes
-            PipeLine.Draw(g);                   //Tegner pipe ikon
+            PipeLine.Draw(g);                   //Tegner pipeDrawn ikon
             Thread.sleep(sleep);            //venter 100ms før den fortsetter loopen
-            pipe = true;
+            pipeDrawn = true;
+        }
+    }
+
+    public void CountDownPrint(Graphics g, int tim){
+        g.setColor(new Color(0, 0, 0, 252));
+        g.setFont(new Font("Corier New", Font.BOLD, 50));
+        g.drawString("Game Starts in: "+ tim/1000, 250,450);
+    }
+
+    public void CountDown() throws InterruptedException {
+        if (count >= pipeBlocks) {
+            for (int tim = countDown*1000; tim > timerT; tim -= 1000) {
+                System.out.println("Game starts in " + tim/1000 + " sek");
+                CountDownPrint(View.getGraphics(), tim);            // Countdown tekst
+                Thread.sleep(1000);
+            }
         }
     }
 
@@ -143,7 +130,7 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 //            System.exit(1);
-            menuNew();
+            menuStart();
 
             try { Thread.sleep(100); } catch (InterruptedException ex) { }
         }
@@ -187,7 +174,7 @@ public class Controller extends JPanel implements ActionListener, KeyListener, W
 
         EnemyArray.add(MobsElement);
 
-        MobsElement.Draw(View.getGraphics());
+//        MobsElement.Draw(View.getGraphics());
     }
 
     @Override
