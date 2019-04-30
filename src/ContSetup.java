@@ -36,7 +36,6 @@ public class ContSetup extends JFrame {
     static int health = 100;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
-    public static ArrayList<MobsElement> EnemyArray = new ArrayList<>(); //Placeholder for MobArray.
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
     public static ArrayList<MobsElement> mobsArrayList = new ArrayList<>();
 

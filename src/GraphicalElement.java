@@ -16,7 +16,7 @@ public class GraphicalElement extends JPanel{
 
         //direction direction;
         if(image == null){
-            System.out.println("IMAGE NULL");
+//            System.out.println("IMAGE NULL");
             return;
         }else {
             if (mob){

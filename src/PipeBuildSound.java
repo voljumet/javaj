@@ -8,7 +8,7 @@ public class PipeBuildSound {
 
         if (!Controller.debugMode) {
             if (Controller.count < 31) {
-                File PipeBuildSound = new File("Sounds/pipeDrawn.wav");
+                File PipeBuildSound = new File("Sounds/PipeBuildSound.wav");
                 AudioInputStream AISPipeBuildSound = AudioSystem.getAudioInputStream(PipeBuildSound);
                 Clip PipeBuildSoundClip = AudioSystem.getClip();
                 PipeBuildSoundClip.open(AISPipeBuildSound);

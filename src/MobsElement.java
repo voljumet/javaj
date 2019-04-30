@@ -13,7 +13,6 @@ public class MobsElement extends GraphicalElement {
 
         public MobsElement() {
 
-                MobReach = new Rectangle(posX,posY,100,100);
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
@@ -21,8 +20,11 @@ public class MobsElement extends GraphicalElement {
 //                mobPosX = PPListXY.PPX.get(0);
 //                mobPosY = 810;
 
+                MobReach = new Rectangle(mobPosX, mobPosY,45,45);
+
                 i = new ImageIcon();
                 image = i.getImage();
+
         }
 }
 

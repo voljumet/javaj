@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+import static java.awt.Font.BOLD;
+
 public class Controller extends ContSetup implements ActionListener,
         KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
 
@@ -22,14 +24,14 @@ public class Controller extends ContSetup implements ActionListener,
         mobsArrayList.add(MobsElement);
         PipeLineArray.add(PipeLine);
 
-        System.out.println("array: "+mobsArrayList);
+        System.out.println("array: " + mobsArrayList);
         Background(View.getGraphics());     // Tegner bakgrunn
 
         //menu = new menuStart();    // Tegner menyen
 
         SPawnPipe(View.getGraphics());   // Tegner Pipes
 
-        CountDown();
+//        CountDown();
 
         Score(View.getGraphics());  // Tegner score osv.
 
@@ -39,13 +41,14 @@ public class Controller extends ContSetup implements ActionListener,
         /* Må være siste linje, denne looper til spillet blir avsluttet */
     }
 
+
     public void mobs(Graphics gg) {
         try {
             while (true) {
-
                 Mob = new Mob();
                 Mob.Draw(gg);
 //                timeToDraw = false;
+                mobCount +=1;
                 Thread.sleep(1000);
             }
         } catch (InterruptedException e){
@@ -64,7 +67,7 @@ public class Controller extends ContSetup implements ActionListener,
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-09.png").getImage(), 20,75, 18,18, null);
 
         g.setColor(new Color(0, 0, 0, 252));
-        g.setFont(new Font("Corier New", Font.BOLD, 16));
+        g.setFont(new Font("Corier New", BOLD, 16));
         g.drawString("Cash: "+ Controller.Cash, 50,30);
         g.drawString("Kills: "+ Controller.kills, 50,60);
         g.drawString("Health: "+ Controller.health, 50,90);
@@ -96,7 +99,7 @@ public class Controller extends ContSetup implements ActionListener,
 
     public void CountDownPrint(Graphics g, int tim){
         g.setColor(new Color(0, 0, 0, 252));
-        g.setFont(new Font("Corier New", Font.BOLD, 50));
+        g.setFont(new Font("Corier New", BOLD, 50));
         g.drawString("Game Starts in: "+ tim/1000, 250,450);
     }
 
@@ -111,11 +114,25 @@ public class Controller extends ContSetup implements ActionListener,
     }
 
     //Shootmob er kun testing av logikk.
-    public static void ShootMob(Graphics g){
-        if(TowerArray.get(0).TowerReach.intersects(EnemyArray.get(0).MobReach)){
-            g.drawLine(Towers.posX, Towers.posY, MobsElement.posX, MobsElement.posY);
+    public static void ShootMob(Graphics g) {
+            for (int i = 0; i < TowerArray.size(); i++) {
+                for (int j = 0; j < mobsArrayList.size(); j++) {
+                    Mob.MobReach = new Rectangle(mobsArrayList.get(j).mobPosX, mobsArrayList.get(j).mobPosY, 45, 45);
+                    if (TowerArray.get(i).TowerReach != null && mobsArrayList.get(j).MobReach != null && TowerArray.get(i).TowerReach.intersects(Mob.MobReach)) {
+
+                        g.setColor(Color.RED);
+                        g.drawLine(Towers.posX + 35, Towers.posY + 35, MobsElement.mobPosX + 22, MobsElement.mobPosY + 23);
+                        System.out.println("Mob er i rekkevidde");
+
+                    } else {
+                        System.out.println("Mob er ikke i rekkevidde");
+                    }
+                }
+            }
         }
-    }
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e){ }
@@ -167,12 +184,12 @@ public class Controller extends ContSetup implements ActionListener,
         Towers.posY = mseposY - 35;
 
         TowerArray.add(Towers);
+        Towers.TowerReach = new Rectangle(Towers.posX - 100, Towers.posY - 100, 400, 400);
         Towers.Draw(View.getGraphics());
 
-        MobsElement.posX = 300;
-        MobsElement.posY = 300;
 
-        EnemyArray.add(MobsElement);
+
+        ShootMob(View.getGraphics());
 
 //        MobsElement.Draw(View.getGraphics());
     }
