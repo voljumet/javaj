@@ -38,8 +38,5 @@ public class PPListXY {
         while(ScannerX.hasNextInt()){ PPX.add(ScannerX.nextInt()); }ScannerX.close();
 
         System.out.println("Map "+randomNumber+" loaded!");
-
-//        System.out.println(PPX);  //PPList.PPX debug
-//        System.out.println(PPY);  //PPList.PPY debug
     }
 }

@@ -4,30 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.awt.Font.BOLD;
 
 public class Controller extends ContSetup implements ActionListener,
-        KeyListener, WindowListener, MouseListener, MouseMotionListener, Runnable {
+        KeyListener, WindowListener, MouseListener, MouseMotionListener{
 
     public Controller() throws IOException, UnsupportedAudioFileException,
             InterruptedException, LineUnavailableException {
 
-        View = new View();
-        Towers = new Towers();
-        MobsElement = new MobsElement();
-
         PipePositionListXY = new PPListXY();
+
+        View = new View();
+        mobsArrayList.add(new Mob());
 
         View.addKeyListener(this);
         View.addMouseListener(this);
-        mobsArrayList.add(MobsElement);
-        PipeLineArray.add(PipeLine);
 
         System.out.println("array: " + mobsArrayList);
         Background(View.getGraphics());     // Tegner bakgrunn
 
-        //menu = new menuStart();    // Tegner menyen
 
         SPawnPipe(View.getGraphics());   // Tegner Pipes
 
@@ -35,24 +32,25 @@ public class Controller extends ContSetup implements ActionListener,
 
         Score(View.getGraphics());  // Tegner score osv.
 
+        /* Må være siste linje, denne looper til spillet blir avsluttet */
+        GameLoop(View.getGraphics());   // Tegner GameLoop
 
-        /* Må være siste linje, denne looper til spillet blir avsluttet */
-        mobs(View.getGraphics());   // Tegner mobs
-        /* Må være siste linje, denne looper til spillet blir avsluttet */
     }
 
-
-    public void mobs(Graphics gg) {
-        try {
-            while (true) {
-                Mob = new Mob();
-                Mob.Draw(gg);
-//                timeToDraw = false;
-                mobCount +=1;
-                Thread.sleep(1000);
+    public void GameLoop(Graphics gg) throws InterruptedException {
+        while (true) {
+            for(PipeLine p : PipeLineArray){
+                p.Draw(gg);
             }
-        } catch (InterruptedException e){
-            System.out.println("Paused");
+            for(MobsElement m : mobsArrayList){
+                m.posY -= 0.5;
+                m.Draw(gg);
+            }
+            for(Towers t : TowerArray){
+                t.Draw(gg);
+            }
+            
+            Thread.sleep(100);
         }
     }
 
@@ -89,11 +87,12 @@ public class Controller extends ContSetup implements ActionListener,
         }
 
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
-            PipeLine = new PipeLine();          //using correct pipeDrawn icons from this
+
+            PipeLine pipeLine = new PipeLine();          //using correct pipeDrawn icons from this
             PPSound = new PipeBuildSound();     //Lyden av Pipes
-            PipeLine.Draw(g);                   //Tegner pipeDrawn ikon
+            pipeLine.Draw(g);                   //Tegner pipeDrawn ikon
+            PipeLineArray.add(pipeLine);
             Thread.sleep(sleep);            //venter 100ms før den fortsetter loopen
-            pipeDrawn = true;
         }
     }
 
@@ -104,6 +103,8 @@ public class Controller extends ContSetup implements ActionListener,
     }
 
     public void CountDown() throws InterruptedException {
+        int timerT = 0;
+        int countDown = 5;
         if (count >= pipeBlocks) {
             for (int tim = countDown*1000; tim > timerT; tim -= 1000) {
                 System.out.println("Game starts in " + tim/1000 + " sek");
@@ -115,24 +116,18 @@ public class Controller extends ContSetup implements ActionListener,
 
     //Shootmob er kun testing av logikk.
     public static void ShootMob(Graphics g) {
-            for (int i = 0; i < TowerArray.size(); i++) {
-                for (int j = 0; j < mobsArrayList.size(); j++) {
-                    Mob.MobReach = new Rectangle(mobsArrayList.get(j).mobPosX, mobsArrayList.get(j).mobPosY, 45, 45);
-                    if (TowerArray.get(i).TowerReach != null && mobsArrayList.get(j).MobReach != null && TowerArray.get(i).TowerReach.intersects(Mob.MobReach)) {
+        for (Towers t : TowerArray) {
+            for (MobsElement m : mobsArrayList) {
+                m.MobReach = new Rectangle(m.posX, m.posY, 45, 45);
+                if (t.TowerReach != null && m.MobReach != null && t.TowerReach.intersects(m.MobReach)) {
 
-                        g.setColor(Color.RED);
-                        g.drawLine(Towers.posX + 35, Towers.posY + 35, MobsElement.mobPosX + 22, MobsElement.mobPosY + 23);
-                        System.out.println("Mob er i rekkevidde");
-
-                    } else {
-                        System.out.println("Mob er ikke i rekkevidde");
-                    }
+                    g.setColor(Color.RED);
+                    g.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
+//                        System.out.println("Mob er i rekkevidde");
                 }
             }
         }
-
-
-
+    }
 
     @Override
     public void actionPerformed(ActionEvent e){ }
@@ -146,10 +141,7 @@ public class Controller extends ContSetup implements ActionListener,
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            System.exit(1);
             menuStart();
-
-            try { Thread.sleep(100); } catch (InterruptedException ex) { }
         }
     }
 
@@ -177,21 +169,21 @@ public class Controller extends ContSetup implements ActionListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
-        mseposX = e.getX();
-        mseposY = e.getY();
 
-        Towers.posX = mseposX - 35;
-        Towers.posY = mseposY - 35;
+        int mseposX = e.getX();
+        int mseposY = e.getY();
 
-        TowerArray.add(Towers);
-        Towers.TowerReach = new Rectangle(Towers.posX - 100, Towers.posY - 100, 400, 400);
-        Towers.Draw(View.getGraphics());
+        Towers tower = new Towers();
 
+        tower.posX = mseposX - 35;
+        tower.posY = mseposY - 35;
 
+        tower.TowerReach = new Rectangle(tower.posX - 165, tower.posY - 165, 400, 400);
+        tower.Draw(View.getGraphics());
+
+        TowerArray.add(tower);
 
         ShootMob(View.getGraphics());
-
-//        MobsElement.Draw(View.getGraphics());
     }
 
     @Override
@@ -205,11 +197,6 @@ public class Controller extends ContSetup implements ActionListener,
 
     @Override
     public void mouseExited(MouseEvent e) { }
-
-    @Override
-    public void run() {
-        System.out.println("run Controller");
-    }
 
     @Override
     public void mouseDragged(MouseEvent e) { }

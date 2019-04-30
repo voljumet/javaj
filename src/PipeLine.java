@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class PipeLine extends GraphicalElement {
 
@@ -9,8 +10,8 @@ public class PipeLine extends GraphicalElement {
 
     public PipeLine(){
 
-        if(Controller.count == 0){ i = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første pipeDrawn
-        else if(Controller.count == 31){  i = new ImageIcon("Pictures/Icons/Icons-08.png"); height = 200;   width = 180;}  //Siste pipeDrawn
+        if(Controller.count == 0){ img = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første pipeDrawn
+        else if(Controller.count == 31){  img = new ImageIcon("Pictures/Icons/Icons-08.png"); height = 200;   width = 180;}  //Siste pipeDrawn
         else{
 //          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X
             if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
@@ -29,24 +30,23 @@ public class PipeLine extends GraphicalElement {
             if(PPListXY.PPY.get(Controller.count)   >   (PPListXY.PPY.get(Controller.count - 1))){ Y6 = 1;}
 
 //          if-er koordinater og setter icon på riktig sett med koordinater
-                 if(X1 == 1 && X2 == 1 && Y4 == 1 && Y5 == 1){ i = new ImageIcon("Pictures/Icons/Icons-01.png");}
-            //else if(X1 == 1 && X2 == 1 && Y1 == 1 && Y6 == 1){ i = new ImageIcon("Pictures/Icons/Icons-01.png");}
-            else if(X1 == 1 && X2 == 1 && Y3 == 1 && Y6 == 1){ i = new ImageIcon("Pictures/Icons/Icons-01.png");}
+                 if(X1 == 1 && X2 == 1 && Y4 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-01.png");}
+            else if(X1 == 1 && X2 == 1 && Y3 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-01.png");}
 
-            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y4 == 1){ i = new ImageIcon("Pictures/Icons/Icons-02.png");}
-            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y3 == 1){ i = new ImageIcon("Pictures/Icons/Icons-02.png");}
+            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y4 == 1){ img = new ImageIcon("Pictures/Icons/Icons-02.png");}
+            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y3 == 1){ img = new ImageIcon("Pictures/Icons/Icons-02.png");}
 
-            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y4 == 1){ i = new ImageIcon("Pictures/Icons/Icons-03.png");}
-            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y3 == 1){ i = new ImageIcon("Pictures/Icons/Icons-03.png");}
+            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y4 == 1){ img = new ImageIcon("Pictures/Icons/Icons-03.png");}
+            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y3 == 1){ img = new ImageIcon("Pictures/Icons/Icons-03.png");}
 
-            else if(X3 == 1 && X6 == 1 && Y1 == 1 && Y2 == 1){ i = new ImageIcon("Pictures/Icons/Icons-04.png");}
-            else if(X4 == 1 && X5 == 1 && Y1 == 1 && Y2 == 1){ i = new ImageIcon("Pictures/Icons/Icons-04.png");}
+            else if(X3 == 1 && X6 == 1 && Y1 == 1 && Y2 == 1){ img = new ImageIcon("Pictures/Icons/Icons-04.png");}
+            else if(X4 == 1 && X5 == 1 && Y1 == 1 && Y2 == 1){ img = new ImageIcon("Pictures/Icons/Icons-04.png");}
 
-            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y5 == 1){ i = new ImageIcon("Pictures/Icons/Icons-05.png");}
-            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y6 == 1){ i = new ImageIcon("Pictures/Icons/Icons-05.png");}
+            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-05.png");}
+            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-05.png");}
 
-            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y5 == 1){ i = new ImageIcon("Pictures/Icons/Icons-06.png");}
-            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y6 == 1){ i = new ImageIcon("Pictures/Icons/Icons-06.png");}
+            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-06.png");}
+            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-06.png");}
 
             height = 90; width = 90;
         }
@@ -61,7 +61,11 @@ public class PipeLine extends GraphicalElement {
         posX = PPListXY.PPX.get(Controller.count);
         posY = PPListXY.PPY.get(Controller.count);
 
-        description = "Pipeline";
-        image = i.getImage();
+        image = img.getImage();
+    }
+
+    @Override
+    public void Draw(Graphics g) {
+        g.drawImage(image, posX, posY, width, height, null);
     }
 }

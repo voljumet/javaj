@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MobsElement extends GraphicalElement {
+public abstract class MobsElement extends GraphicalElement {
+
+        Direction dir = Direction.UP;
 
         int mobSize;
-        int mobArmySize;
-        int mobCount;
-        int mobPictureNumber = 1;
+        int PictureNumber;
         int mobHealth;
         int mobPayout;
+        int mobArmySize;
         Rectangle MobReach;
 
         public MobsElement() {
@@ -16,15 +17,17 @@ public class MobsElement extends GraphicalElement {
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
-                description = "MobsElement";
-//                mobPosX = PPListXY.PPX.get(0);
-//                mobPosY = 810;
 
-                MobReach = new Rectangle(mobPosX, mobPosY,45,45);
+                MobReach = new Rectangle(posX, posY,45,45);
 
-                i = new ImageIcon();
-                image = i.getImage();
+                img = new ImageIcon();
+                image = img.getImage();
 
+        }
+
+        @Override
+        public void Draw(Graphics g) {
+                g.drawImage(image, posX, posY, width, height, null);
         }
 }
 
