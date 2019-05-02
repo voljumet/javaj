@@ -14,8 +14,7 @@ public class Towers extends GraphicalElement {
         img = new ImageIcon("Pictures/Icons/Towers-0"+PictureNumber+".png");
         image = img.getImage();
 
-//        TowerReach = new Rectangle(posX, posY, 300, 300);
-
+        TowerReach = new Rectangle(posX - 165, posY - 165, 300, 300);
     }
 
     @Override
