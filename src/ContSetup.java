@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.awt.Rectangle;
 
 public class ContSetup extends JFrame {
 
