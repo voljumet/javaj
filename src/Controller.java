@@ -44,13 +44,11 @@ public class Controller extends ContSetup implements ActionListener,
 
     //  Gameloop er hvor spillet kjører.
     public void GameLoop(Graphics gg) throws InterruptedException {
-        int spawnRate = 0, spawn = 100;
+        int spawnRate = 0, spawn = 70;
         while (true) {
             Background(gg); // tegner bakgrunn
             Score(gg);  //tegner scores
-            for(PipeLine p : PipeLineArray){
-                p.Draw(gg);
-            }
+            for(PipeLine p : PipeLineArray){ p.Draw(gg); }
 
             if (mobsArrayList.size() < 20)
             if (spawnRate == spawn){
@@ -61,7 +59,10 @@ public class Controller extends ContSetup implements ActionListener,
             for(MobsElement m : mobsArrayList){
 
                 new MobPysics(m);
-                m.Draw(gg);
+                if (m.inGame){
+                    m.Draw(gg);
+                }
+
 
             }
             for (Towers t : TowerArray) {
