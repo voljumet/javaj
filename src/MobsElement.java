@@ -4,6 +4,7 @@ import java.awt.*;
 public abstract class MobsElement extends GraphicalElement {
 
         Direction dir = Direction.DOWN_UP;
+        boolean inGame = false;
 
         int mapPlace;
         int mobSize;

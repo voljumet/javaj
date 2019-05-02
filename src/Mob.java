@@ -9,11 +9,9 @@ public class Mob extends MobsElement{
         posY = (PPListXY.PPY.get(0) + (mobSize/2));
 
         mapPlace = 0;
-        mobHealth = 100;
-        mobPayout = 5;
 
         Random randomizer = new Random();
-        PictureNumber = randomizer.nextInt(3);
+        PictureNumber = randomizer.nextInt(4);
         mobArmySize = 20;
 
         //if statements under bestemmer sammen med math.random hvilken mob som skal spawne i arraylisten.
@@ -29,13 +27,13 @@ public class Mob extends MobsElement{
             mobHealth = 30;
             mobPayout = 5;
         }
-        if(PictureNumber == 0){
+        if(PictureNumber == 4){
             mobHealth = 40;
             mobPayout = 8;
-            PictureNumber = 4;
         }
 
         img = new ImageIcon("Pictures/Icons/Enemies-0" + PictureNumber + ".png");
         image = img.getImage();
+        inGame = true;
     }
 }
