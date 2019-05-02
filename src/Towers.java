@@ -14,12 +14,13 @@ public class Towers extends GraphicalElement {
         img = new ImageIcon("Pictures/Icons/Towers-0"+PictureNumber+".png");
         image = img.getImage();
 
-        TowerReach = new Rectangle(posX - 115, posY - 115, 200, 200);
+
     }
 
     @Override
     public void Draw(Graphics g) {
         g.drawImage(image, posX, posY, width, height, null);
+        TowerReach = new Rectangle((posX - 115), (posY - 115), 200, 200);
 
     }
 }

@@ -20,11 +20,6 @@ public class Controller extends ContSetup implements ActionListener,
         mobsArrayList.add(new Mob());
 
 
-//        for(int i = 0; i < 20; i++) {
-//            mobsArrayList.add(new Mob());
-//            Thread.sleep(1000);
-//        }
-
         View.addKeyListener(this);
         View.addMouseListener(this);
 
@@ -44,22 +39,26 @@ public class Controller extends ContSetup implements ActionListener,
 
     //  Gameloop er hvor spillet kjører.
     public void GameLoop(Graphics gg) throws InterruptedException {
-        int spawnRate = 0, spawn = 70;
+        int mobcontroll = 0;
+        int spawnRate = 0, spawn = 40;
         while (true) {
             Background(gg); // tegner bakgrunn
             Score(gg);  //tegner scores
-            for(PipeLine p : PipeLineArray){ p.Draw(gg); }
-
-            if (mobsArrayList.size() < 20)
-            if (spawnRate == spawn){
-                mobsArrayList.add(new Mob());
-                spawnRate = 0;
+            for (PipeLine p : PipeLineArray) {
+                p.Draw(gg);
             }
+
+            if (mobsArrayList.size() < 50)
+                if (spawnRate == spawn) {
+                    mobsArrayList.add(new Mob());
+                    spawnRate = 0;
+                }
             spawnRate += 1;
-            for(MobsElement m : mobsArrayList){
+            for (MobsElement m : mobsArrayList) {
 
                 new MobPysics(m);
-                if (m.inGame){
+
+                if (m.inGame) {
                     m.Draw(gg);
                 }
 
@@ -70,43 +69,52 @@ public class Controller extends ContSetup implements ActionListener,
             }
             for (Towers t : TowerArray) {
                 for (MobsElement m : mobsArrayList) {
-                    if (t.TowerReach.intersects(m.MobReach)) {
+                    if (t.TowerReach.intersects(m.MobReach) && m.inGame && mobsArrayList.indexOf(m) == mobcontroll) {
+
+                        gg.setColor(Color.red);
                         gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
                         m.mobHealth -= 1;
-                        if(m.mobHealth <= 0){
-                            Cash += m.mobPayout;
-                            mobsArrayList.remove(0);
-                        }else{
+                        if (m.mobHealth <= 0) {
+                            m.inGame = false;
+                            mobcontroll += 1;
                             Cash += m.mobPayout;
                             Kills += 1;
-                            break;
                         }
                     }
                 }
             }
 
-
-            Thread.sleep(50);
-            if (health <= 0){
+            if (health <= 0) {
                 System.out.println("GG");
                 break;
             }
+            Thread.sleep(60);
         }
     }
 
-
-    public void menuStart() {
-        menuFrameStart = new menuFrameStart();
-    }
-
     public void Score(Graphics g) {
+
+        JButton store = new JButton(new ImageIcon("Pictures/Icons/Towers-01.png"));
+        store.setBounds(845, 5, 45, 45);
+        store.setText("$20");
+        store.setEnabled(true);
+        store.addActionListener(this);
+        store.setSize(45, 45);
+        store.setLayout(null);
+        store.setVisible(true);
+        View.add(store);
+
 
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-08.png").getImage(), 20, 15, 18, 18, null);
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-07.png").getImage(), 20, 45, 18, 18, null);
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-09.png").getImage(), 20, 75, 18, 18, null);
 
+        //Store
+//        g.drawImage(new ImageIcon("Pictures/Icons/Towers-01.png").getImage(), 845, 5, 45, 45 ,null);
+
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 16));
+//        g.drawString("$20", 850, 32);
         g.drawString("Cash: " + Controller.Cash, 50, 30);
         g.drawString("Kills: " + Controller.Kills, 50, 60);
         g.drawString("Health: " + Controller.health, 50, 90);
@@ -163,7 +171,7 @@ public class Controller extends ContSetup implements ActionListener,
                 mob.mobHealth -= 1;
                 g.setColor(Color.RED);
                 g.drawLine(t.posX + 35, t.posY + 35, mob.posX + 22, mob.posY + 23);
-                if(mob.mobHealth <= 0) {
+                if (mob.mobHealth <= 0) {
                     Cash += mob.mobPayout;
                     break;
                 }
@@ -174,6 +182,7 @@ public class Controller extends ContSetup implements ActionListener,
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 
     @Override
