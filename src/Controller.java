@@ -254,8 +254,8 @@ public class Controller extends ContSetup implements ActionListener,
             posX(e);
             posY(e);
 
-            tower.posX = mseposX;
-            tower.posY = mseposY;
+            tower.posX = mseposX + 10;
+            tower.posY = mseposY + 10;
 
             if (!outOfMap){
 
