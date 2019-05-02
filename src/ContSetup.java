@@ -9,13 +9,19 @@ public class ContSetup extends JFrame {
     PipeBuildSound PPSound;
 
     public static boolean debugMode = false;
+    boolean outOfMap = false;
 
     static int count;
     public static int pipeBlocks = 32;
 
-    static int Cash = 100;
+    static int Cash = 1000;
     static int Kills = 0;
     static int health = 100;
+    int mseposX;
+    int mseposY;
+    int countDown = 5;
+    int timer = 1;
+    int wave = 1;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();

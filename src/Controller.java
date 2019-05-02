@@ -19,12 +19,6 @@ public class Controller extends ContSetup implements ActionListener,
         View = new View();
         mobsArrayList.add(new Mob());
 
-
-//        for(int i = 0; i < 20; i++) {
-//            mobsArrayList.add(new Mob());
-//            Thread.sleep(1000);
-//        }
-
         View.addKeyListener(this);
         View.addMouseListener(this);
 
@@ -33,7 +27,6 @@ public class Controller extends ContSetup implements ActionListener,
 
         SPawnPipe(View.getGraphics());   // Tegner Pipes
 
-//        CountDown();
 
         Score(View.getGraphics());  // Tegner score osv.
 
@@ -46,52 +39,62 @@ public class Controller extends ContSetup implements ActionListener,
     public void GameLoop(Graphics gg) throws InterruptedException {
         int spawnRate = 0, spawn = 70;
         while (true) {
+
             Background(gg); // tegner bakgrunn
             Score(gg);  //tegner scores
-            for(PipeLine p : PipeLineArray){ p.Draw(gg); }
+            for (PipeLine p : PipeLineArray) { p.Draw(gg); }
 
-            if (mobsArrayList.size() < 20)
-            if (spawnRate == spawn){
-                mobsArrayList.add(new Mob());
-                spawnRate = 0;
-            }
-            spawnRate += 1;
-            for(MobsElement m : mobsArrayList){
+            if (countDown > 0) {
+                CountDown();
+                countDown -=1;
+            } else {
 
-                new MobPysics(m);
-                if (m.inGame){
-                    m.Draw(gg);
-                }
-
-
-            }
-            for (Towers t : TowerArray) {
-                t.Draw(gg);
-            }
-            for (Towers t : TowerArray) {
+                if (mobsArrayList.size() < 20)
+                    if (spawnRate == spawn) {
+                        mobsArrayList.add(new Mob());
+                        spawnRate = 0;
+                    }
+                spawnRate += 1;
                 for (MobsElement m : mobsArrayList) {
-                    if (t.TowerReach.intersects(m.MobReach)) {
-                        gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
-                        m.mobHealth -= 1;
-                        if(m.mobHealth <= 0){
-                            Cash += m.mobPayout;
-                            mobsArrayList.remove(0);
-                        }else{
-                            Cash += m.mobPayout;
-                            Kills += 1;
-                            break;
+
+                    new MobPysics(m);
+                    if (m.inGame) {
+                        m.Draw(gg);
+                    }
+                }
+                for (Towers t : TowerArray) {
+                    t.Draw(gg);
+                }
+                for (Towers t : TowerArray) {
+                    for (MobsElement m : mobsArrayList) {
+                        if (t.TowerReach.intersects(m.MobReach) && m.inGame) {
+                            System.out.println("t.TowerReach = " + t.TowerReach + " | m.MobReach = " + m.MobReach);
+                            gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
+                            m.mobHealth -= 1;
+                            if (m.mobHealth <= 0) {
+                                m.inGame = false;
+                                Cash += m.mobPayout;
+                                Kills += 1;
+                            }
                         }
                     }
                 }
-            }
 
+                Thread.sleep(50);
+                if (health <= 0) {
+                    System.out.println("Game Lost");
+                    continue;
+                }
+                if (Kills == 20) {
 
-            Thread.sleep(50);
-            if (health <= 0){
-                System.out.println("GG");
-                break;
+                    System.out.println("Wave 1 done");
+                    wave += 1;
+                    countDown = 5;
+                }
             }
         }
+
+
     }
 
 
@@ -140,19 +143,20 @@ public class Controller extends ContSetup implements ActionListener,
     public void CountDownPrint(Graphics g, int tim) {
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 50));
-        g.drawString("Game Starts in: " + tim / 1000, 250, 450);
+        g.drawString("Wave "+wave+" starts in: " + tim / 1000, 250, 450);
     }
 
     public void CountDown() throws InterruptedException {
-        int timerT = 0;
-        int countDown = 5;
-        if (count >= pipeBlocks) {
-            for (int tim = countDown * 1000; tim > timerT; tim -= 1000) {
-                System.out.println("Game starts in " + tim / 1000 + " sek");
-                CountDownPrint(View.getGraphics(), tim);            // Countdown tekst
-                Thread.sleep(1000);
-            }
-        }
+
+        timer = 1000*countDown;
+
+        System.out.println("Game starts in " + timer / 1000 + " sek");
+
+        CountDownPrint(View.getGraphics(), timer);    // Countdown tekst
+
+        Thread.sleep(1000);
+
+
     }
 
     //Shootmob sjekker om en mob kommer innenfor tårnets rekkevidde og tegnger
@@ -187,8 +191,8 @@ public class Controller extends ContSetup implements ActionListener,
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(0);
-//            menuStart();
+//            System.exit(0);
+            menuStart();
         }
     }
 
@@ -224,23 +228,55 @@ public class Controller extends ContSetup implements ActionListener,
     public void mouseClicked(MouseEvent e) {
         //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
 
-        int mseposX = e.getX();
-        int mseposY = e.getY();
-
         if (Cash >= 20) {
-            Cash -= 20;
             Towers tower = new Towers();
 
-            tower.posX = mseposX - 35;
-            tower.posY = mseposY - 35;
+            posX(e);
+            posY(e);
 
-            tower.Draw(View.getGraphics());
+            tower.posX = mseposX;
+            tower.posY = mseposY;
 
-            TowerArray.add(tower);
+            if (!outOfMap){
+
+                Cash -= 20;
+
+                tower.Draw(View.getGraphics());
+                TowerArray.add(tower);
+            }
+
 
         } else {
             System.out.println("Not enough cash for sponge!");
         }
+    }
+
+    private void posX(MouseEvent e) {
+        mseposX = e.getX();
+        if (mseposX >= 0   && mseposX < 90 ){mseposX = 0  ; outOfMap = false;}
+        if (mseposX >= 90  && mseposX < 180){mseposX = 90 ; outOfMap = false;}
+        if (mseposX >= 180 && mseposX < 270){mseposX = 180; outOfMap = false;}
+        if (mseposX >= 270 && mseposX < 360){mseposX = 270; outOfMap = false;}
+        if (mseposX >= 360 && mseposX < 450){mseposX = 360; outOfMap = false;}
+        if (mseposX >= 450 && mseposX < 540){mseposX = 450; outOfMap = false;}
+        if (mseposX >= 540 && mseposX < 630){mseposX = 540; outOfMap = false;}
+        if (mseposX >= 630 && mseposX < 720){mseposX = 630; outOfMap = false;}
+        if (mseposX >= 720 && mseposX < 810){mseposX = 720; outOfMap = false;}
+        if (mseposX >= 810 && mseposX < 900){mseposX = 810; outOfMap = false;}
+    }
+
+    private void posY(MouseEvent e) {
+        mseposY = e.getY();
+        if (mseposY >= 0   && mseposY < 90 ){mseposY = 0  ; outOfMap = true; }
+        if (mseposY >= 90  && mseposY < 180){mseposY = 90 ; outOfMap = true; }
+        if (mseposY >= 180 && mseposY < 270){mseposY = 180; outOfMap = false;}
+        if (mseposY >= 270 && mseposY < 360){mseposY = 270; outOfMap = false;}
+        if (mseposY >= 360 && mseposY < 450){mseposY = 360; outOfMap = false;}
+        if (mseposY >= 450 && mseposY < 540){mseposY = 450; outOfMap = false;}
+        if (mseposY >= 540 && mseposY < 630){mseposY = 540; outOfMap = false;}
+        if (mseposY >= 630 && mseposY < 720){mseposY = 630; outOfMap = false;}
+        if (mseposY >= 720 && mseposY < 810){mseposY = 720; outOfMap = false;}
+        if (mseposY >= 810 && mseposY < 900){mseposY = 810; outOfMap = false;}
     }
 
     @Override
