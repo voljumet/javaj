@@ -69,25 +69,29 @@ public class Controller extends ContSetup implements ActionListener,
             }
             for (Towers t : TowerArray) {
                 for (MobsElement m : mobsArrayList) {
-                    if (m.mobHealth != 0) {
-                        ShootMob(gg);
-                    } else {
-                        Cash += m.mobPayout;
-
+                    if (t.TowerReach.intersects(m.MobReach)) {
+                        gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
+                        m.mobHealth -= 1;
+                        if(m.mobHealth <= 0){
+                            Cash += m.mobPayout;
+                            mobsArrayList.remove(0);
+                        }else{
+                            Cash += m.mobPayout;
+                            Kills += 1;
+                            break;
+                        }
                     }
                 }
             }
 
 
-            Thread.sleep(100);
+            Thread.sleep(50);
             if (health <= 0){
                 System.out.println("GG");
                 break;
             }
         }
     }
-
-
 
 
     public void menuStart() {
@@ -103,7 +107,7 @@ public class Controller extends ContSetup implements ActionListener,
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 16));
         g.drawString("Cash: " + Controller.Cash, 50, 30);
-        g.drawString("Kills: " + Controller.kills, 50, 60);
+        g.drawString("Kills: " + Controller.Kills, 50, 60);
         g.drawString("Health: " + Controller.health, 50, 90);
     }
 
@@ -155,20 +159,17 @@ public class Controller extends ContSetup implements ActionListener,
     public static void ShootMob(Graphics g) {
         for (Towers t : TowerArray) {
             for (MobsElement mob : mobsArrayList) {
-                if (t.TowerReach.intersects(mob.MobReach)) {
-
-                    mob.mobHealth -= 1;
-                    g.setColor(Color.RED);
-                    g.drawLine(t.posX + 35, t.posY + 35, mob.posX + 22, mob.posY + 23);
-                    break;
-
-                } else if (mob.mobHealth == 0) {
-                    mobsArrayList.remove(mob);
+                mob.mobHealth -= 1;
+                g.setColor(Color.RED);
+                g.drawLine(t.posX + 35, t.posY + 35, mob.posX + 22, mob.posY + 23);
+                if(mob.mobHealth <= 0) {
+                    Cash += mob.mobPayout;
                     break;
                 }
             }
         }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

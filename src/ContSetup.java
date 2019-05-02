@@ -14,7 +14,7 @@ public class ContSetup extends JFrame {
     public static int pipeBlocks = 32;
 
     static int Cash = 100;
-    static int kills = 0;
+    static int Kills = 0;
     static int health = 100;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();

@@ -13,7 +13,7 @@ public class Mob extends MobsElement{
         mobPayout = 5;
 
         Random randomizer = new Random();
-        PictureNumber = randomizer.nextInt(3);
+        PictureNumber = randomizer.nextInt(4);
         mobArmySize = 20;
 
         //if statements under bestemmer sammen med math.random hvilken mob som skal spawne i arraylisten.
@@ -23,7 +23,7 @@ public class Mob extends MobsElement{
         }
         if(PictureNumber == 2){
             mobHealth = 20;
-            mobPayout = 2;
+            mobPayout = 3;
         }
         if(PictureNumber == 3){
             mobHealth = 30;
@@ -31,7 +31,7 @@ public class Mob extends MobsElement{
         }
         if(PictureNumber == 0){
             mobHealth = 40;
-            mobPayout = 8;
+            mobPayout = 7;
             PictureNumber = 4;
         }
 
