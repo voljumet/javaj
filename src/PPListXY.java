@@ -10,10 +10,11 @@ public class PPListXY {
     static public ArrayList<Integer> PPX = new ArrayList<>();
     static public ArrayList<Integer> PPY = new ArrayList<>();
 
+    static int randomNumber;
     public PPListXY() throws FileNotFoundException {
 
         Random randomizer = new Random();
-        int randomNumber = randomizer.nextInt(4);
+        randomNumber = 0; //randomizer.nextInt(4);
         String MapY = "";
         String MapX = "";
 
@@ -30,6 +31,9 @@ public class PPListXY {
             MapY = "Maps/Y-tall4.txt";
             MapX = "Maps/X-tall4.txt";
         }
+
+        MapY = "Maps/Y-tall1.txt";
+        MapX = "Maps/X-tall1.txt";
 
         Scanner ScannerY = new Scanner(new BufferedReader(new FileReader(MapY)));
         while(ScannerY.hasNextInt()){ PPY.add(ScannerY.nextInt()); }ScannerY.close();

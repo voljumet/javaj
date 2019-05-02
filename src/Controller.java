@@ -22,7 +22,6 @@ public class Controller extends ContSetup implements ActionListener,
         View.addKeyListener(this);
         View.addMouseListener(this);
 
-        System.out.println("array: " + mobsArrayList);
         Background(View.getGraphics());     // Tegner bakgrunn
 
 
@@ -33,24 +32,39 @@ public class Controller extends ContSetup implements ActionListener,
         Score(View.getGraphics());  // Tegner score osv.
 
         /* Må være siste linje, denne looper til spillet blir avsluttet */
-        GameLoop(View.getGraphics());   // Tegner GameLoop
+        GameLoop(View.getGraphics());   // kjører GameLoop
 
     }
 
     public void GameLoop(Graphics gg) throws InterruptedException {
+        int spawnRate = 0, spawn = 100;
         while (true) {
+            Background(gg); // tegner bakgrunn
+            Score(gg);  //tegner scores
             for(PipeLine p : PipeLineArray){
                 p.Draw(gg);
             }
+
+            if (mobsArrayList.size() < 20)
+            if (spawnRate == spawn){
+                mobsArrayList.add(new Mob());
+                spawnRate = 0;
+            }
+            spawnRate += 1;
             for(MobsElement m : mobsArrayList){
-                m.posY -= 0.5;
+
+                new MobPysics(m);
                 m.Draw(gg);
             }
             for(Towers t : TowerArray){
                 t.Draw(gg);
             }
-            
+
             Thread.sleep(100);
+            if (health <= 0){
+                System.out.println("GG");
+                break;
+            }
         }
     }
 

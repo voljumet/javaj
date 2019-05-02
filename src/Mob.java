@@ -7,6 +7,7 @@ public class Mob extends MobsElement{
         posX = (PPListXY.PPX.get(0) + (mobSize/2));
         posY = (PPListXY.PPY.get(0) + (mobSize/2));
 
+        mapPlace = 0;
         mobHealth = 100;
         mobPayout = 5;
         PictureNumber = 4;
@@ -15,8 +16,4 @@ public class Mob extends MobsElement{
         img = new ImageIcon("Pictures/Icons/Enemies-0" + PictureNumber + ".png");
         image = img.getImage();
     }
-
-
 }
-
-

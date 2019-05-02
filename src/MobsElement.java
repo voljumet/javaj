@@ -3,8 +3,9 @@ import java.awt.*;
 
 public abstract class MobsElement extends GraphicalElement {
 
-        Direction dir = Direction.UP;
+        Direction dir = Direction.DOWN_UP;
 
+        int mapPlace;
         int mobSize;
         int PictureNumber;
         int mobHealth;
