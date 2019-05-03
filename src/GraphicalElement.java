@@ -11,6 +11,7 @@ public abstract class GraphicalElement extends JPanel{
 
     public abstract void Draw(Graphics g);
 
+
 }
 
 

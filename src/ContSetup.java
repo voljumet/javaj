@@ -11,12 +11,20 @@ public class ContSetup extends JFrame {
 
     public static boolean debugMode = true;
     boolean outOfMap = false;
+    boolean MenuX = false;
+    boolean MenuY1 = false;
+    boolean MenuY2 = false;
+    boolean MenuY3 = false;
+    boolean MenuY4 = false;
 
+   public static boolean towerbutton = false;
 
-    static int count;
+    public static int count;
+    public static int timerT = 0;
+
     public static int pipeBlocks = 32;
 
-    static int Cash = 1000;
+    static int Cash = 20;
     static int Kills = 0;
     static int health = 100;
     int mseposX;

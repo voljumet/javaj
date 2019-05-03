@@ -65,6 +65,7 @@ public class MobPysics extends Mob{
     }
 
     void mobDeath(){
+        if(inGame)
         Controller.health -= 5;
         inGame = false;
     }

@@ -14,6 +14,7 @@ public class Controller extends ContSetup implements ActionListener,
     public Controller() throws IOException, UnsupportedAudioFileException,
             InterruptedException, LineUnavailableException {
 
+
         PipePositionListXY = new PPListXY();
 
         View = new View();
@@ -35,12 +36,17 @@ public class Controller extends ContSetup implements ActionListener,
 
     //  Gameloop er hvor spillet kjører.
     public void GameLoop(Graphics gg) throws InterruptedException {
+
+
+
+
         int mobcontroll = 0;
         int spawnRate = 0, spawn = 40;
         while (true) {
 
             Background(gg); // tegner bakgrunn
             Score(gg);  //tegner scores
+            Store(gg); //tegner butikk for tårn.
 
             for (PipeLine p : PipeLineArray) { p.Draw(gg); }
 
@@ -84,7 +90,9 @@ public class Controller extends ContSetup implements ActionListener,
                     }
                 }
 
+
                 Thread.sleep(80);
+
                 if (health <= 0) {
                     System.out.println("Game Lost");
                     continue;
@@ -99,29 +107,36 @@ public class Controller extends ContSetup implements ActionListener,
         }
     }
 
+
+    public void Store(Graphics g) {
+
+
+        g.setColor(new Color(242, 40, 40, 178));
+
+        g.fillOval(845, 0, 55, 55);
+        g.fillOval(845, 55, 55, 55);
+        g.fillOval(845, 110, 55, 55);
+        g.fillOval(845, 165, 55, 55);
+
+
+        g.drawImage(new ImageIcon("Pictures/Icons/Towers-01.png").getImage(), 850, 5, 45, 45, null);
+        g.setColor(new Color(0, 0, 0, 252));
+        g.setFont(new Font("Corier New", BOLD, 16));
+        g.drawString("$20", 855, 32);
+    }
+
     public void Score(Graphics g) {
-
-        JButton store = new JButton(new ImageIcon("Pictures/Icons/Towers-01.png"));
-        store.setBounds(845, 5, 45, 45);
-        store.setText("$20");
-        store.setEnabled(true);
-        store.addActionListener(this);
-        store.setSize(45, 45);
-        store.setLayout(null);
-        store.setVisible(true);
-        View.add(store);
-
 
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-08.png").getImage(), 20, 15, 18, 18, null);
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-07.png").getImage(), 20, 45, 18, 18, null);
         g.drawImage(new ImageIcon("Pictures/Icons/Enemies-09.png").getImage(), 20, 75, 18, 18, null);
 
         //Store
-//        g.drawImage(new ImageIcon("Pictures/Icons/Towers-01.png").getImage(), 845, 5, 45, 45 ,null);
+
 
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 16));
-//        g.drawString("$20", 850, 32);
+
         g.drawString("Cash: " + Controller.Cash, 50, 30);
         g.drawString("Kills: " + Controller.Kills, 50, 60);
         g.drawString("Health: " + Controller.health, 50, 90);
@@ -155,7 +170,7 @@ public class Controller extends ContSetup implements ActionListener,
     public void CountDownPrint(Graphics g, int tim) {
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 50));
-        g.drawString("Wave "+wave+" starts in: " + tim / 1000, 250, 450);
+        g.drawString("Wave " + wave + " starts in: " + tim / 1000, 250, 450);
     }
 
     public void CountDown() throws InterruptedException {
@@ -164,6 +179,7 @@ public class Controller extends ContSetup implements ActionListener,
             System.out.println("Game starts in " + timer / 1000 + " sek");
             CountDownPrint(View.getGraphics(), timer);    // Countdown tekst
             Thread.sleep(1000);
+
         }
     }
 
@@ -172,13 +188,7 @@ public class Controller extends ContSetup implements ActionListener,
     public static void ShootMob(Graphics g) {
         for (Towers t : TowerArray) {
             for (MobsElement mob : mobsArrayList) {
-                mob.mobHealth -= 1;
-                g.setColor(Color.RED);
-                g.drawLine(t.posX + 35, t.posY + 35, mob.posX + 22, mob.posY + 23);
-                if (mob.mobHealth <= 0) {
-                    Cash += mob.mobPayout;
-                    break;
-                }
+
             }
         }
     }
@@ -205,8 +215,8 @@ public class Controller extends ContSetup implements ActionListener,
 
     @Override public void windowActivated(WindowEvent e) { }
 
-
     @Override public void windowDeactivated(WindowEvent e) { }
+
     @Override public void mouseClicked(MouseEvent e) {
         //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
 
@@ -221,17 +231,51 @@ public class Controller extends ContSetup implements ActionListener,
             tower.posX = mseposX + 10;
             tower.posY = mseposY + 10;
 
-            if (!outOfMap){ //sjekker om man prøver å lage tårn utenfor det som er lovlig plassering
-                Cash -= 20;
-                tower.Draw(View.getGraphics());
-                TowerArray.add(tower);
+            if (!outOfMap) {//sjekker om man prøver å lage tårn utenfor det som er lovlig plassering
+                if (towerbutton) {
+
+
+                    Cash -= 20;
+                    towerbutton = false;
+
+                    tower.Draw(View.getGraphics());
+                    TowerArray.add(tower);
+                }
             }
         } else {
             System.out.println("Not enough cash for sponge!");
+
         }
+        if (MenuX && MenuY1) {
+            towerbutton = true;
+            System.out.println("Knapp en trykket");
+            MenuY1 = false;
+
+        }
+        if (MenuX && MenuY2) {
+            //Knapp 2 trykket
+            System.out.println("Knapp to trykket");
+            MenuY2 = false;
+        }
+        if (MenuX && MenuY3) {
+
+            menuFrameStart = new menuFrameStart();
+            System.out.println("Knapp tre trykket");
+            MenuY3 = false;
+
+        }
+        if (MenuX && MenuY4) {
+            //Knapp 4 trykket
+            System.out.println("Knapp fire trykket");
+            MenuY4 = false;
+
+        }
+        MenuX = false;
     }
 
+
     private void posX(MouseEvent e) { mseposX = e.getX();
+        if (mseposX >= 845 && mseposX < 900) { MenuX = true; }
         if (mseposX >= 0   && mseposX < 90 ){mseposX = 0  ; outOfMap = false;}
         if (mseposX >= 90  && mseposX < 180){mseposX = 90 ; outOfMap = false;}
         if (mseposX >= 180 && mseposX < 270){mseposX = 180; outOfMap = false;}
@@ -245,6 +289,10 @@ public class Controller extends ContSetup implements ActionListener,
     }
 
     private void posY(MouseEvent e) { mseposY = e.getY();
+        if (mseposY >= 0   && mseposY < 55 ) { MenuY1 = true; }
+        if (mseposY >= 55  && mseposY < 110) { MenuY2 = true; }
+        if (mseposY >= 110 && mseposY < 165) { MenuY3 = true; }
+        if (mseposY >= 165 && mseposY < 220) { MenuY4 = true; }
         if (mseposY >= 0   && mseposY < 90 ){mseposY = 0  ; outOfMap = true; }
         if (mseposY >= 90  && mseposY < 180){mseposY = 90 ; outOfMap = true; }
         if (mseposY >= 180 && mseposY < 270){mseposY = 180; outOfMap = false;}

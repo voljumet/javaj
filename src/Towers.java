@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class Towers extends GraphicalElement {
     Rectangle TowerReach;
+
+    // variables for circle range for tower
+
 
     public Towers(){
         int towerSize = 70;
@@ -23,5 +27,8 @@ public class Towers extends GraphicalElement {
         g.drawImage(image, posX, posY, width, height, null);
         TowerReach = new Rectangle((posX - 115), (posY - 115), 200, 200);
 
+
+
     }
+
 }
