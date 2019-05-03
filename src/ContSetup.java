@@ -21,7 +21,9 @@ public class ContSetup extends JFrame {
 
 
 
-    static int count;
+    public static int count;
+    public static int timerT = 0;
+
     public static int pipeBlocks = 32;
 
     static int Cash = 20;
