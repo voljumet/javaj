@@ -1,28 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MobsElement extends GraphicalElement {
+public abstract class MobsElement extends GraphicalElement {
 
+        Direction dir = Direction.DOWN_UP;
+        boolean inGame = false;
+
+        int mapPlace;
         int mobSize;
-        int mobArmySize;
-        int mobCount;
-        int mobPictureNumber = 1;
+        int PictureNumber;
         int mobHealth;
         int mobPayout;
+        int mobArmySize;
         Rectangle MobReach;
 
         public MobsElement() {
 
-                MobReach = new Rectangle(posX,posY,100,100);
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
-                description = "MobsElement";
-//                mobPosX = PPListXY.PPX.get(0);
-//                mobPosY = 810;
 
-                i = new ImageIcon();
-                image = i.getImage();
+                img = new ImageIcon();
+                image = img.getImage();
+
+        }
+
+        @Override
+        public void Draw(Graphics g) {
+                g.drawImage(image, posX, posY, width, height, null);
+                MobReach = new Rectangle((posX - 22), (posY-23),45,45);
         }
 }
 

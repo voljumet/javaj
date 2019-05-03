@@ -16,7 +16,7 @@ public class View extends JFrame{
 
         background = new JPanel();
         this.add(background);
-        //setUndecorated(true);
+        setUndecorated(true);
         this.setResizable(false);
         this.setVisible(true);
     }

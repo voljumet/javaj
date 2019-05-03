@@ -4,22 +4,28 @@ import java.util.Vector;
 
 public class Towers extends GraphicalElement {
     Rectangle TowerReach;
-    int UpgradeCount;
 
     // variables for circle range for tower
 
 
     public Towers(){
+        int towerSize = 70;
+
+        int PictureNumber = 1;  //"+PictureNumber+"+
+        height = towerSize;
+        width = towerSize;
+
+        img = new ImageIcon("Pictures/Icons/Towers-0"+PictureNumber+".png");
+        image = img.getImage();
 
 
-        posX = 0;
-        posY = 0;
-        height = 70;
-        width = 70;
-        i = new ImageIcon("Pictures/Icons/Towers-01.png");
-        image = i.getImage();
+    }
 
-        TowerReach = new Rectangle(posX -100, posY - 100, 200, 200);
+    @Override
+    public void Draw(Graphics g) {
+        g.drawImage(image, posX, posY, width, height, null);
+        TowerReach = new Rectangle((posX - 115), (posY - 115), 200, 200);
+
 
 
     }
