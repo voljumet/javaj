@@ -9,8 +9,8 @@ public class PipeLine extends GraphicalElement {
 
     public PipeLine(){
 
-        if(Controller.count == 0){ i = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første pipe
-        else if(Controller.count == 31){  i = new ImageIcon("Pictures/Icons/Icons-08.png"); height = 200;   width = 180;}  //Siste pipe
+        if(Controller.count == 0){ i = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første pipeDrawn
+        else if(Controller.count == 31){  i = new ImageIcon("Pictures/Icons/Icons-08.png"); height = 200;   width = 180;}  //Siste pipeDrawn
         else{
 //          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X
             if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
