@@ -9,8 +9,9 @@ public class ContSetup extends JFrame {
     public menuFrameStart menuFrameStart;
     PipeBuildSound PPSound;
 
-    public static boolean debugMode = false;
+    public static boolean debugMode = true;
     boolean outOfMap = false;
+
 
     static int count;
     public static int pipeBlocks = 32;

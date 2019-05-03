@@ -1,17 +1,10 @@
 public class MobPysics extends Mob{
 
     public MobPysics(MobsElement m){
-
-        if (PPListXY.randomNumber == 0){
-            mapOne(m);
-        } else if (PPListXY.randomNumber == 1){
-            mapTwo(m);
-        } else if (PPListXY.randomNumber == 2){
-            mapThree(m);
-        } else if (PPListXY.randomNumber == 3){
-            mapFour(m);
-        }
-
+             if (PPListXY.randomNumber == 0){ mapOne(m); }
+        else if (PPListXY.randomNumber == 1){ mapTwo(m); }
+        else if (PPListXY.randomNumber == 2){ mapThree(m); }
+        else if (PPListXY.randomNumber == 3){ mapFour(m); }
         m.mapPlace += 1;
     }
 
@@ -26,7 +19,8 @@ public class MobPysics extends Mob{
         if (m.mapPlace >= 1980 && m.mapPlace < 2160){ m.posX -= 1;} //22
         if (m.mapPlace >= 2160 && m.mapPlace < 2520){ m.posY -= 1;} //24
         if (m.mapPlace >= 2520 && m.mapPlace < 2610){ m.posX += 1;} //28
-        if (m.mapPlace >= 2610 && m.mapPlace < 2701){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY = -1;} //29
+        if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
     }
 
     void mapTwo(MobsElement m){
@@ -38,7 +32,8 @@ public class MobPysics extends Mob{
         if (m.mapPlace >= 1530 && m.mapPlace < 1980){ m.posX += 1;} //17
         if (m.mapPlace >= 1980 && m.mapPlace < 2610){ m.posY -= 1;} //22
         if (m.mapPlace >= 2610 && m.mapPlace < 2700){ m.posX -= 1;} //29
-        if (m.mapPlace >= 2700 && m.mapPlace < 2701){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        if (m.mapPlace >= 2700 && m.mapPlace < 2745){ m.posY -= 1;} //30
+        if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
     }
 
     void mapThree(MobsElement m){
@@ -48,7 +43,8 @@ public class MobPysics extends Mob{
         if (m.mapPlace >= 1350 && m.mapPlace < 1980){ m.posX -= 1;} //15
         if (m.mapPlace >= 1980 && m.mapPlace < 2430){ m.posY -= 1;} //22
         if (m.mapPlace >= 2430 && m.mapPlace < 2610){ m.posX += 1;} //27
-        if (m.mapPlace >= 2610 && m.mapPlace < 2701){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY -= 1;} //29
+        if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
     }
 
     void mapFour(MobsElement m){
@@ -64,7 +60,8 @@ public class MobPysics extends Mob{
         if (m.mapPlace >= 2160 && m.mapPlace < 2250){ m.posX += 1;} //24
         if (m.mapPlace >= 2250 && m.mapPlace < 2430){ m.posY -= 1;} //25
         if (m.mapPlace >= 2430 && m.mapPlace < 2700){ m.posX -= 1;} //27
-        if (m.mapPlace >= 2700 && m.mapPlace < 2701){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        if (m.mapPlace >= 2700 && m.mapPlace < 2745){ m.posY -= 1;} //30
+        if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
     }
 
     void mobDeath(){

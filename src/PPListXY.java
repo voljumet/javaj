@@ -32,7 +32,6 @@ public class PPListXY {
             MapX = "Maps/X-tall4.txt";
         }
 
-
         Scanner ScannerY = new Scanner(new BufferedReader(new FileReader(MapY)));
         while(ScannerY.hasNextInt()){ PPY.add(ScannerY.nextInt()); }ScannerY.close();
 

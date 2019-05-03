@@ -42,8 +42,6 @@ public class Mob extends MobsElement{
             mobPayout = 11;
         }
 
-
-
         img = new ImageIcon("Pictures/Icons/Enemies-0" + PictureNumber + ".png");
         image = img.getImage();
         inGame = true;

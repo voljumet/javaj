@@ -19,15 +19,12 @@ public class Controller extends ContSetup implements ActionListener,
         View = new View();
         mobsArrayList.add(new Mob());
 
-
         View.addKeyListener(this);
         View.addMouseListener(this);
 
         Background(View.getGraphics());     // Tegner bakgrunn
 
-
         SPawnPipe(View.getGraphics());   // Tegner Pipes
-
 
         Score(View.getGraphics());  // Tegner score osv.
 
@@ -45,16 +42,17 @@ public class Controller extends ContSetup implements ActionListener,
             Background(gg); // tegner bakgrunn
             Score(gg);  //tegner scores
 
-            for (PipeLine p : PipeLineArray) {
-                p.Draw(gg);
-            }
+            for (PipeLine p : PipeLineArray) { p.Draw(gg); }
 
             if (countDown > 0) {
+
                 CountDown();
                 countDown -= 1;
+
+
             } else {
 
-                if (mobsArrayList.size() < 50)
+                if (mobsArrayList.size() < 20)
                     if (spawnRate == spawn) {
                         mobsArrayList.add(new Mob());
                         spawnRate = 0;
@@ -67,9 +65,7 @@ public class Controller extends ContSetup implements ActionListener,
                         m.Draw(gg);
                     }
                 }
-                for (Towers t : TowerArray) {
-                    t.Draw(gg);
-                }
+                for (Towers t : TowerArray) { t.Draw(gg); }
 
                 for (Towers t : TowerArray) {
                     for (MobsElement m : mobsArrayList) {
@@ -88,7 +84,7 @@ public class Controller extends ContSetup implements ActionListener,
                     }
                 }
 
-                Thread.sleep(50);
+                Thread.sleep(80);
                 if (health <= 0) {
                     System.out.println("Game Lost");
                     continue;
@@ -99,11 +95,8 @@ public class Controller extends ContSetup implements ActionListener,
                     wave += 1;
                     countDown = 5;
                 }
-
-
             }
         }
-
     }
 
     public void Score(Graphics g) {
@@ -140,7 +133,7 @@ public class Controller extends ContSetup implements ActionListener,
 
     public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
             IOException, LineUnavailableException, InterruptedException {
-        debugMode = true;
+
         int sleep = 100;
 
         if (debugMode) {
@@ -166,16 +159,12 @@ public class Controller extends ContSetup implements ActionListener,
     }
 
     public void CountDown() throws InterruptedException {
-
-        timer = 1000*countDown;
-
-        System.out.println("Game starts in " + timer / 1000 + " sek");
-
-        CountDownPrint(View.getGraphics(), timer);    // Countdown tekst
-
-        Thread.sleep(1000);
-
-
+        if (!debugMode) {
+            timer = 1000 * countDown;
+            System.out.println("Game starts in " + timer / 1000 + " sek");
+            CountDownPrint(View.getGraphics(), timer);    // Countdown tekst
+            Thread.sleep(1000);
+        }
     }
 
     //Shootmob sjekker om en mob kommer innenfor tårnets rekkevidde og tegnger
@@ -194,85 +183,55 @@ public class Controller extends ContSetup implements ActionListener,
         }
     }
 
+    @Override public void update(Graphics g){ paintComponents(g); }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    @Override public void actionPerformed(ActionEvent e) { }
 
-    }
+    @Override public void keyReleased(KeyEvent e) { }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
+    @Override public void keyTyped(KeyEvent e) { }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { System.exit(0); } }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            System.exit(0);
-//            menuStart();
-        }
-    }
+    @Override public void windowOpened(WindowEvent e) { }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-    }
+    @Override public void windowClosing(WindowEvent e) { }
 
-    @Override
-    public void windowClosing(WindowEvent e) {
-    }
+    @Override public void windowClosed(WindowEvent e) { }
 
-    @Override
-    public void windowClosed(WindowEvent e) {
-    }
+    @Override public void windowIconified(WindowEvent e) { }
 
-    @Override
-    public void windowIconified(WindowEvent e) {
-    }
+    @Override public void windowDeiconified(WindowEvent e) { }
 
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-    }
+    @Override public void windowActivated(WindowEvent e) { }
 
-    @Override
-    public void windowActivated(WindowEvent e) {
-    }
 
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    @Override public void windowDeactivated(WindowEvent e) { }
+    @Override public void mouseClicked(MouseEvent e) {
         //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
 
         if (Cash >= 20) {
             Towers tower = new Towers();
 
+            //setter posisjon til rutenett
             posX(e);
             posY(e);
 
+            //legger posisjon i tower
             tower.posX = mseposX + 10;
             tower.posY = mseposY + 10;
 
-            if (!outOfMap){
-
+            if (!outOfMap){ //sjekker om man prøver å lage tårn utenfor det som er lovlig plassering
                 Cash -= 20;
-
                 tower.Draw(View.getGraphics());
                 TowerArray.add(tower);
             }
-
-
         } else {
             System.out.println("Not enough cash for sponge!");
         }
     }
 
-    private void posX(MouseEvent e) {
-        mseposX = e.getX();
+    private void posX(MouseEvent e) { mseposX = e.getX();
         if (mseposX >= 0   && mseposX < 90 ){mseposX = 0  ; outOfMap = false;}
         if (mseposX >= 90  && mseposX < 180){mseposX = 90 ; outOfMap = false;}
         if (mseposX >= 180 && mseposX < 270){mseposX = 180; outOfMap = false;}
@@ -285,8 +244,7 @@ public class Controller extends ContSetup implements ActionListener,
         if (mseposX >= 810 && mseposX < 900){mseposX = 810; outOfMap = false;}
     }
 
-    private void posY(MouseEvent e) {
-        mseposY = e.getY();
+    private void posY(MouseEvent e) { mseposY = e.getY();
         if (mseposY >= 0   && mseposY < 90 ){mseposY = 0  ; outOfMap = true; }
         if (mseposY >= 90  && mseposY < 180){mseposY = 90 ; outOfMap = true; }
         if (mseposY >= 180 && mseposY < 270){mseposY = 180; outOfMap = false;}
@@ -299,27 +257,15 @@ public class Controller extends ContSetup implements ActionListener,
         if (mseposY >= 810 && mseposY < 900){mseposY = 810; outOfMap = false;}
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
+    @Override public void mousePressed(MouseEvent e) { }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+    @Override public void mouseReleased(MouseEvent e) { }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+    @Override public void mouseEntered(MouseEvent e) { }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
+    @Override public void mouseExited(MouseEvent e) { }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-    }
+    @Override public void mouseDragged(MouseEvent e) { }
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-    }
+    @Override public void mouseMoved(MouseEvent e) { }
 }

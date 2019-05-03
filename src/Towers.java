@@ -11,6 +11,7 @@ public class Towers extends GraphicalElement {
         height = towerSize;
         width = towerSize;
 
+
         img = new ImageIcon("Pictures/Icons/Towers-0"+PictureNumber+".png");
         image = img.getImage();
 
