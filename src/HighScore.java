@@ -1,16 +1,25 @@
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class HighScore {
+public class HighScore{
 
-    String hs;
+    int hs;
     String name;
     String file = "HS.juice";
     String HSString;
 
+
+
     public HighScore() throws IOException {
+
         name = JOptionPane.showInputDialog(null,"Enter name to highscore list");
-        hs = Integer.toString(ContSetup.Kills);
+        hs = ContSetup.Kills;
+
+
+
 
         SaveFile();
         SortFile();

@@ -16,8 +16,8 @@ public class menuFrameStart extends ContSetup {
         newGame = new JButton("Continue");
         newGame.addActionListener(e -> { menuFrameStart.this.setVisible(false); MenuX = false; MenuY3 = false; });
 
-//        highScore = new JButton("High score");
-//        highScore.addActionListener(e -> JOptionPane.showMessageDialog(null,  "High score clicked!"));
+/*        highScore = new JButton("High score");
+        highScore.addActionListener(e -> JOptionPane.showMessageDialog(null,  "High score clicked!"));*/
 
         saveGame = new JButton("Save game");
         saveGame.addActionListener(e -> JOptionPane.showMessageDialog(null,  "Save Game clicked!"));

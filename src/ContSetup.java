@@ -7,16 +7,18 @@ public class ContSetup extends JFrame {
     static View View;
     static PPListXY PipePositionListXY;
     public menuFrameStart menuFrameStart;
+    public ShootMob Shootmob;
     PipeBuildSound PPSound;
-
+            /*DEBUG MODE*/
     public static boolean debugMode = true;
+            /*DEBUG MODE*/
     boolean outOfMap = false;
     boolean MenuX = false;
     boolean MenuY1 = false;
     boolean MenuY2 = false;
     boolean MenuY3 = false;
     boolean MenuY4 = false;
-    boolean drawFPS = false;
+    static boolean drawFPS = false;
 
     public static boolean towerbutton = false;
 
