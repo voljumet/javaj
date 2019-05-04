@@ -4,9 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 import static java.awt.Font.BOLD;
+import static java.lang.Math.min;
+import static java.lang.Math.sqrt;
 
 public class Controller extends ContSetup implements ActionListener,
         KeyListener, WindowListener, MouseListener, MouseMotionListener {
@@ -73,22 +79,26 @@ public class Controller extends ContSetup implements ActionListener,
                 }
                 for (Towers t : TowerArray) { t.Draw(gg); }
 
-                for (Towers t : TowerArray) {
-                    for (MobsElement m : mobsArrayList) {
-                        if (t.TowerReach.intersects(m.MobReach) && m.inGame && mobsArrayList.indexOf(m) == mobcontroll) {
+                ShootMob(gg);
 
-                            gg.setColor(Color.red);
-                            gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
-                            m.mobHealth -= 1;
-                            if (m.mobHealth <= 0) {
-                                m.inGame = false;
-                                mobcontroll += 1;
-                                Cash += m.mobPayout;
-                                Kills += 1;
-                            }
-                        }
-                    }
-                }
+//                for (Towers t : TowerArray) {
+//                    for (MobsElement m : mobsArrayList) {
+//                        if (t.TowerReach.intersects(m.MobReach) && m.inGame) {
+//
+//                            ShootMob(gg);
+//
+//                            gg.setColor(Color.red);
+//                            gg.drawLine(t.posX + 35, t.posY + 35, m.posX + 22, m.posY + 23);
+//                            m.mobHealth -= 1;
+//                            if (m.mobHealth <= 0) {
+//                                m.inGame = false;
+//                                mobcontroll += 1;
+//                                Cash += m.mobPayout;
+//                                Kills += 1;
+//                            }
+//                        }
+//                    }
+//                }
 
 
                 Thread.sleep(80);
@@ -111,7 +121,9 @@ public class Controller extends ContSetup implements ActionListener,
     public void Store(Graphics g) {
 
 
-        g.setColor(new Color(242, 40, 40, 178));
+        g.setColor(new Color(238, 240, 242, 100));
+
+
 
         g.fillOval(845, 0, 55, 55);
         g.fillOval(845, 55, 55, 55);
@@ -120,6 +132,9 @@ public class Controller extends ContSetup implements ActionListener,
 
 
         g.drawImage(new ImageIcon("Pictures/Icons/Towers-01.png").getImage(), 850, 5, 45, 45, null);
+        g.drawImage(new ImageIcon("Pictures/Icons/Towers-02.png").getImage(), 850, 60, 45, 45, null);
+        g.drawImage(new ImageIcon("Pictures/Icons/Enemies-10.png").getImage(), 850, 115, 45, 45, null);
+        g.drawImage(new ImageIcon("Pictures/Icons/Enemies-11.png").getImage(), 850, 170, 45, 45, null);
         g.setColor(new Color(0, 0, 0, 252));
         g.setFont(new Font("Corier New", BOLD, 16));
         g.drawString("$20", 855, 32);
@@ -182,16 +197,56 @@ public class Controller extends ContSetup implements ActionListener,
 
         }
     }
-
-    //Shootmob sjekker om en mob kommer innenfor tårnets rekkevidde og tegnger
-    // i tilfellet en "Stråle" fra tårn til mob.
-    public static void ShootMob(Graphics g) {
-        for (Towers t : TowerArray) {
-            for (MobsElement mob : mobsArrayList) {
-
-            }
+    public int Comparator(MobsElement m1, MobsElement m2){
+        if(m1.distance < m2.distance){
+            return 1;
+        }
+        else if(m1.distance > m2.distance){
+            return -1;
+        }
+        else{
+            return 0;
         }
     }
+
+    /*Shootmob sjekker om en mob kommer innenfor tårnets rekkevidde og tegnger
+     i tilfellet en "Stråle" fra tårn til mob.*/
+    public void ShootMob(Graphics g) {
+        for (Towers t : TowerArray) {
+                if (t.target == null) {
+                    for (MobsElement m : mobsArrayList) {
+                        m.distance = sqrt((m.posY - t.posY) * (m.posY - t.posY) + (m.posY - t.posY) * (m.posY - t.posY));
+
+                    }
+                    Collections.sort(mobsArrayList, this::Comparator);
+                    mobsArrayList.get(0);
+                    System.out.println("mobsArrayList.get(0) = " + mobsArrayList.get(0));
+
+
+                }else if(t.target != null) {
+//                    Sjekker om nærmeste mob er i rekkevidde til tårnet.
+                    for (MobsElement m : mobsArrayList) {
+                        if (t.TowerReach.intersects(m.MobReach))
+                            g.setColor(Color.RED);
+                        g.drawLine(t.posX, t.posY, t.target.posX, t.target.posY);
+
+                    }
+                }
+        }
+
+    }
+
+//Bruker pytagoras theorem for å finne nærmeste mob.
+//                        m.distance = sqrt((m.posY - t.posY) * (m.posY - t.posY) + (m.posY - t.posY) * (m.posY - t.posY));
+//
+//                                m = Collections.min(mobsArrayList, Comparator());
+//
+//                                if (t.target != null && m.inGame) {
+//                                //Sjekker om nærmeste mob er i rekkevidde til tårnet.
+//                                if (t.TowerReach.intersects(m.MobReach))
+//                                g.setColor(Color.RED);
+//                                g.drawLine(t.posX, t.posY, m.posX, m.posY);
+
 
     @Override public void update(Graphics g){ paintComponents(g); }
 
@@ -220,28 +275,68 @@ public class Controller extends ContSetup implements ActionListener,
     @Override public void mouseClicked(MouseEvent e) {
         //Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.
 
-        if (Cash >= 20) {
-            Towers tower = new Towers();
 
+        if (Cash >= 20) {
             //setter posisjon til rutenett
             posX(e);
             posY(e);
 
+
+
             //legger posisjon i tower
-            tower.posX = mseposX + 10;
-            tower.posY = mseposY + 10;
+//            tower.posX = mseposX + 10;
+//            tower.posY = mseposY + 10;
 
-            if (!outOfMap) {//sjekker om man prøver å lage tårn utenfor det som er lovlig plassering
+            if(!outOfMap) {//sjekker om man prøver å lage tårn utenfor det som er lovlig plassering
                 if (towerbutton) {
-
-
-                    Cash -= 20;
                     towerbutton = false;
 
-                    tower.Draw(View.getGraphics());
+
+                    Towers tower = new Towers(mseposX+10, mseposY+10);
+                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
+
+                    for(int i = 0; i < TowerArray.size() - 1; i++) {//må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.
+                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
+                            System.out.println("Tårn overlapper");
+                            System.out.println(TowerArray.size());
+                            break;
+                        }
+                    }
+
                     TowerArray.add(tower);
-                }
-            }
+                    Cash -= 20;
+
+                    System.out.println(TowerArray.size());
+
+                    tower.Draw(View.getGraphics());
+
+//                    if(TowerArray.size() == 0){
+//                        Cash -= 20;
+//                        towerbutton = false;
+//
+//                        tower.Draw(View.getGraphics());
+//                        TowerArray.add(tower);
+//                    }
+//                    else {
+
+//                    for(int i = 0; i < TowerArray.size() - 1; i++) {//må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.
+//                           if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
+//                               System.out.println("Tårn overlapper");
+//                               System.out.println(TowerArray.size());
+//                               break;
+//                           } else{
+//                               Cash -= 20;
+//
+//                               System.out.println(TowerArray.size());
+//
+//                               tower.Draw(View.getGraphics());
+//
+//                           }
+//                       }
+                    }
+                    }
+//                }
+
         } else {
             System.out.println("Not enough cash for sponge!");
 

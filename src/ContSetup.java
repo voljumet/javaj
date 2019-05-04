@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
-import java.awt.Rectangle;
+
 
 public class ContSetup extends JFrame {
 
@@ -24,7 +24,7 @@ public class ContSetup extends JFrame {
 
     public static int pipeBlocks = 32;
 
-    static int Cash = 20;
+    static int Cash = 200;
     static int Kills = 0;
     static int health = 100;
     int mseposX;
@@ -36,5 +36,6 @@ public class ContSetup extends JFrame {
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
     public static ArrayList<MobsElement> mobsArrayList = new ArrayList<>();
+
 
 }

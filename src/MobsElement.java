@@ -3,7 +3,7 @@ import java.awt.*;
 
 public abstract class MobsElement extends GraphicalElement {
 
-        Direction dir = Direction.DOWN_UP;
+
         boolean inGame = false;
 
         int mapPlace;
@@ -12,6 +12,7 @@ public abstract class MobsElement extends GraphicalElement {
         int mobHealth;
         int mobPayout;
         int mobArmySize;
+        double distance;
         Rectangle MobReach;
 
         public MobsElement() {
@@ -19,6 +20,7 @@ public abstract class MobsElement extends GraphicalElement {
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
+
 
                 img = new ImageIcon();
                 image = img.getImage();

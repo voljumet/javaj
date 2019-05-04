@@ -5,6 +5,8 @@ public class Mob extends MobsElement{
 
     public Mob(){
 
+
+
         posX = (PPListXY.PPX.get(0) + (mobSize/2));
         posY = (PPListXY.PPY.get(0) + (mobSize/2));
 
