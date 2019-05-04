@@ -12,6 +12,7 @@ public abstract class MobsElement extends GraphicalElement {
         int mobPayout;
         int mobArmySize;
         double distance;
+        int mobNR;
         Rectangle MobReach;
 
         public MobsElement() {
@@ -19,7 +20,7 @@ public abstract class MobsElement extends GraphicalElement {
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
-
+                mobNR = 0;
 
                 img = new ImageIcon();
                 image = img.getImage();
