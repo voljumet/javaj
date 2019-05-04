@@ -9,9 +9,11 @@ public class ContSetup extends JFrame {
     public menuFrameStart menuFrameStart;
     public Store store;
     public PipeBuildSound PPSound;
+    public ShootMob Shootmob;
 
-    /* DEBUG MODE*/
+            /*DEBUG MODE*/
     public static boolean debugMode = true;
+            /*DEBUG MODE*/
 
     boolean outOfMap = false;
     boolean MenuX = false;
@@ -20,6 +22,7 @@ public class ContSetup extends JFrame {
     boolean MenuY3 = false;
     boolean MenuY4 = false;
     static boolean drawFPS = false;
+
     boolean HoldItem = false;
 
     Point mse = new Point(0,0);

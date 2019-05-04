@@ -1,15 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Vector;
 
 public class Towers extends GraphicalElement {
     Rectangle TowerReach;
     Rectangle TowerOverlap;
     int towerSize = 70;
+    int offset = 65;
 
     MobsElement target = null;
-    private ImageIcon tower1 = new ImageIcon("Pictures/Icons/Towers-01.png");
 
+    private ImageIcon tower1 = new ImageIcon("Pictures/Icons/Towers-01.png");
 
     public Towers(int posX, int posY){
 
@@ -22,8 +22,13 @@ public class Towers extends GraphicalElement {
         this.posX = posX;
         this.posY = posY;
 
-        TowerReach = new Rectangle((this.posX - 115), (this.posY - 115), 200, 200);
+        TowerReach = new Rectangle((this.posX - offset), (this.posY - offset), 220, 220);
         TowerOverlap = new Rectangle(this.posX - towerSize/2, this.posY - towerSize/2, towerSize, towerSize);
+    }
+
+    public double getDistance(GraphicalElement e){
+        return (e.posX - this.posX) * (e.posX - this.posX) + (e.posY - this.posY) * (e.posY - this.posY);
+//        return Math.sqrt((e.posX - this.posX) * (e.posX - this.posX) + (e.posY - this.posY) * (e.posY - this.posY));
     }
 
     @Override
@@ -31,3 +36,4 @@ public class Towers extends GraphicalElement {
         g.drawImage(image, posX, posY, width, height, null);
     }
 }
+

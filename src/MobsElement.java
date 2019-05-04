@@ -11,8 +11,6 @@ public abstract class MobsElement extends GraphicalElement {
         int mobHealth;
         int mobPayout;
         int mobArmySize;
-        double distance;
-        int mobNR;
         Rectangle MobReach;
 
         public MobsElement() {
@@ -20,7 +18,7 @@ public abstract class MobsElement extends GraphicalElement {
                 mobSize = 45;
                 height = mobSize;
                 width = mobSize;
-                mobNR = 0;
+
 
                 img = new ImageIcon();
                 image = img.getImage();
@@ -29,7 +27,7 @@ public abstract class MobsElement extends GraphicalElement {
         @Override
         public void Draw(Graphics g) {
                 g.drawImage(image, posX, posY, width, height, null);
-                MobReach = new Rectangle((posX - 22), (posY-23),45,45);
+                MobReach = new Rectangle(posX, posY,45,45);
         }
 }
 

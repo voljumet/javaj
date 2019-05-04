@@ -12,6 +12,7 @@ public class View extends JFrame{
         this.setSize(900,900);
         this.setTitle("Oil Platform Defence");
 
+
         this.setLocationRelativeTo(null);
 
         background = new JPanel();
