@@ -3,7 +3,6 @@ import java.awt.*;
 
 public abstract class MobsElement extends GraphicalElement {
 
-        Direction dir = Direction.DOWN_UP;
         boolean inGame = false;
 
         int mapPlace;
@@ -22,7 +21,6 @@ public abstract class MobsElement extends GraphicalElement {
 
                 img = new ImageIcon();
                 image = img.getImage();
-
         }
 
         @Override

@@ -7,20 +7,18 @@ public class Towers extends GraphicalElement {
 
     // variables for circle range for tower
 
-
     public Towers(){
         int towerSize = 70;
 
-        int PictureNumber = 1;  //"+PictureNumber+"+
         height = towerSize;
         width = towerSize;
 
-
-        img = new ImageIcon("Pictures/Icons/Towers-0"+PictureNumber+".png");
+        img = tower1;
         image = img.getImage();
 
-
     }
+
+    private ImageIcon tower1 = new ImageIcon("Pictures/Icons/Towers-01.png");
 
     @Override
     public void Draw(Graphics g) {

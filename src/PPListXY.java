@@ -18,19 +18,10 @@ public class PPListXY {
         String MapY = "";
         String MapX = "";
 
-        if (randomNumber == 0){
-            MapY = "Maps/Y-tall1.txt";
-            MapX = "Maps/X-tall1.txt";
-        }else if(randomNumber == 1){
-            MapY = "Maps/Y-tall2.txt";
-            MapX = "Maps/X-tall2.txt";
-        }else if(randomNumber == 2){
-            MapY = "Maps/Y-tall3.txt";
-            MapX = "Maps/X-tall3.txt";
-        }else if(randomNumber == 3){
-            MapY = "Maps/Y-tall4.txt";
-            MapX = "Maps/X-tall4.txt";
-        }
+             if(randomNumber == 0){ MapY = "Maps/Y-tall1.txt"; MapX = "Maps/X-tall1.txt"; }
+        else if(randomNumber == 1){ MapY = "Maps/Y-tall2.txt"; MapX = "Maps/X-tall2.txt"; }
+        else if(randomNumber == 2){ MapY = "Maps/Y-tall3.txt"; MapX = "Maps/X-tall3.txt"; }
+        else if(randomNumber == 3){ MapY = "Maps/Y-tall4.txt"; MapX = "Maps/X-tall4.txt"; }
 
         Scanner ScannerY = new Scanner(new BufferedReader(new FileReader(MapY)));
         while(ScannerY.hasNextInt()){ PPY.add(ScannerY.nextInt()); }ScannerY.close();

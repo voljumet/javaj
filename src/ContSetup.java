@@ -16,13 +16,12 @@ public class ContSetup extends JFrame {
     boolean MenuY2 = false;
     boolean MenuY3 = false;
     boolean MenuY4 = false;
+    boolean drawFPS = false;
 
-   public static boolean towerbutton = false;
+    public static boolean towerbutton = false;
+
 
     public static int count;
-    public static int timerT = 0;
-
-    public static int pipeBlocks = 32;
 
     static int Cash = 20;
     static int Kills = 0;
@@ -31,10 +30,11 @@ public class ContSetup extends JFrame {
     int mseposY;
     int countDown = 5;
     int timer = 1;
-    int wave = 1;
+    public static int wave = 1;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
     public static ArrayList<MobsElement> mobsArrayList = new ArrayList<>();
+    public static ArrayList<String> HighScoreArrayList = new ArrayList<>();
 
 }

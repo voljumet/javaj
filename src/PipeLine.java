@@ -8,11 +8,18 @@ public class PipeLine extends GraphicalElement {
 
     public boolean debugMode = false;
 
+    private ImageIcon pipe1 = new ImageIcon("Pictures/Icons/Pipes-01.png");
+    private ImageIcon pipe2 = new ImageIcon("Pictures/Icons/Pipes-02.png");
+    private ImageIcon pipe3 = new ImageIcon("Pictures/Icons/Pipes-03.png");
+    private ImageIcon pipe4 = new ImageIcon("Pictures/Icons/Pipes-04.png");
+    private ImageIcon pipe5 = new ImageIcon("Pictures/Icons/Pipes-05.png");
+    private ImageIcon pipe6 = new ImageIcon("Pictures/Icons/Pipes-06.png");
+    private ImageIcon pipe7 = new ImageIcon("Pictures/Icons/Pipes-07.png");
+    private ImageIcon pipe8 = new ImageIcon("Pictures/Icons/Pipes-08.png");
 
     public PipeLine(){
-    Direction direction;
-        if(Controller.count == 0){ img = new ImageIcon("Pictures/Icons/Icons-07.png"); height = 90;    width = 90;}  //Første pipeDrawn
-        else if(Controller.count == 31){  img = new ImageIcon("Pictures/Icons/Icons-08.png"); height = 200;   width = 180;}  //Siste pipeDrawn
+        if(Controller.count == 0){ img = pipe7; height = 90; width = 90;}  //Første pipeDrawn
+        else if(Controller.count == 31){  img = pipe8; height = 200; width = 180;}  //Siste pipeDrawn
         else{
 //          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X
             if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
@@ -31,28 +38,28 @@ public class PipeLine extends GraphicalElement {
             if(PPListXY.PPY.get(Controller.count)   >   (PPListXY.PPY.get(Controller.count - 1))){ Y6 = 1;}
 
 //          if-er koordinater og setter icon på riktig sett med koordinater
-                 if(X1 == 1 && X2 == 1 && Y4 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-01.png"); direction = Direction.DOWN_UP;}
-            else if(X1 == 1 && X2 == 1 && Y3 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-01.png"); direction = Direction.UP_DOWN;}
+                 if(X1 == 1 && X2 == 1 && Y4 == 1 && Y5 == 1){ img = pipe1;}
+            else if(X1 == 1 && X2 == 1 && Y3 == 1 && Y6 == 1){ img = pipe1;}
 
-            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y4 == 1){ img = new ImageIcon("Pictures/Icons/Icons-02.png"); direction = Direction.UP_RIGHT;}
-            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y3 == 1){ img = new ImageIcon("Pictures/Icons/Icons-02.png"); direction = Direction.LEFT_DOWN;}
+            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y4 == 1){ img = pipe2;}
+            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y3 == 1){ img = pipe2;}
 
-            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y4 == 1){ img = new ImageIcon("Pictures/Icons/Icons-03.png"); direction = Direction.UP_LEFT;}
-            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y3 == 1){ img = new ImageIcon("Pictures/Icons/Icons-03.png"); direction = Direction.RIGHT_DOWN;}
+            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y4 == 1){ img = pipe3;}
+            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y3 == 1){ img = pipe3;}
 
-            else if(X3 == 1 && X6 == 1 && Y1 == 1 && Y2 == 1){ img = new ImageIcon("Pictures/Icons/Icons-04.png"); direction = Direction.LEFT_RIGHT;}
-            else if(X4 == 1 && X5 == 1 && Y1 == 1 && Y2 == 1){ img = new ImageIcon("Pictures/Icons/Icons-04.png"); direction = Direction.RIGHT_LEFT;}
+            else if(X3 == 1 && X6 == 1 && Y1 == 1 && Y2 == 1){ img = pipe4;}
+            else if(X4 == 1 && X5 == 1 && Y1 == 1 && Y2 == 1){ img = pipe4;}
 
-            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-05.png"); direction = Direction.LEFT_UP;}
-            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-05.png"); direction = Direction.DOWN_RIGHT;}
+            else if(X1 == 1 && X4 == 1 && Y2 == 1 && Y5 == 1){ img = pipe5;}
+            else if(X2 == 1 && X3 == 1 && Y1 == 1 && Y6 == 1){ img = pipe5;}
 
-            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y5 == 1){ img = new ImageIcon("Pictures/Icons/Icons-06.png"); direction = Direction.RIGHT_UP;}
-            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y6 == 1){ img = new ImageIcon("Pictures/Icons/Icons-06.png"); direction = Direction.DOWN_LEFT;}
+            else if(X1 == 1 && X6 == 1 && Y2 == 1 && Y5 == 1){ img = pipe6;}
+            else if(X2 == 1 && X5 == 1 && Y1 == 1 && Y6 == 1){ img = pipe6;}
 
             height = 90; width = 90;
         }
 
-        if (Controller.debugMode && debugMode) {
+        if (debugMode) {
             System.out.println("X: "+PPListXY.PPX.get(Controller.count)+", Y: "+PPListXY.PPY.get(Controller.count));
             System.out.print("Runde "+Controller.count+":X1="+X1+", X2="+X2+", X3="+X3+", X4="+X4+", X5="+X5+", X6="+X6);
             System.out.println(" | Y1="+Y1+", Y2="+Y2+", Y3="+Y3+", Y4="+Y4+", Y5="+Y5+", Y6="+Y6);
