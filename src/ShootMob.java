@@ -24,7 +24,6 @@ public class ShootMob extends ContSetup {
                 }
                 /** sjekker om target er i rekkevidden til tårnet. dersom den er det, skyter tårnet*/
                 else {
-
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
                         t.target.inReach = true;
                         g.setColor(new Color(0xF8EE2B));

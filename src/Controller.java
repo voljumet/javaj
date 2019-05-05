@@ -43,7 +43,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         /** ------------- GameLoop --------------- */
         GameLoop(View.getGraphics());
         /** ------------- GameLoop --------------- */
-
     }
 
     public void initiateGameOptions() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
@@ -278,6 +277,12 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     store.holdsItem = false;
                     tower.Draw(View.getGraphics());
                 }
+
+                /** Knapp 3 i Meny, logikk for når man trykker på knappen*/
+                if (MenuButton3) { MenuButton3 = false; }
+
+                /** Knapp 4 i Meny, logikk for når man trykker på knappen*/
+                if (MenuButton4) { MenuButton4 = false; }
             }
 
         } else { System.out.println("Not enough cash for sponge!"); }
@@ -285,7 +290,17 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         /** Sjekker hvilken knapp som blir trykket på */
         if (MenuX && MenuY1) { MenuY1 = false; System.out.println("Knapp en trykket");   MenuButton1 = true; }
         if (MenuX && MenuY2) { MenuY2 = false; System.out.println("Knapp to trykket");   MenuButton2 = true; }
-        if (MenuX && MenuY3) { MenuY3 = false; System.out.println("Knapp tre trykket");  MenuButton2 = true; try { onlyHS = true; new HighScore(); } catch (IOException e1) { } }
+
+        if (MenuX && MenuY3) { MenuY3 = false; System.out.println("Knapp tre trykket");  MenuButton2 = true;
+            onlyHS = true;
+            try {
+                highScore.HighSc();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            onlyHS = false;
+        }
+
         if (MenuX && MenuY4) { MenuY4 = false; System.out.println("Knapp fire trykket"); MenuButton2 = true; new MenuBox(); }
         MenuX = false;
     }
