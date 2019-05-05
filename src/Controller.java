@@ -243,15 +243,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     MenuButton1 = false;
 
                     Towers tower = new Towers(mseposX+10, mseposY+10);
-//                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
-//                    /* Må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
-//                    for(int i = 0; i < TowerArray.size() - 1; i++) {
-//                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
-//                            System.out.println("Tårn overlapper");
-//                            System.out.println(TowerArray.size());
-//                            break;
-//                        }
-//                    }
                     TowerArray.add(tower);
                     Cash -= 20;
                     store.holdsItem = false;
@@ -263,15 +254,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     MenuButton2 = false;
 
                     Towers tower = new Towers(mseposX+10, mseposY+10);
-//                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
-//                    /** Må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
-//                    for(int i = 0; i < TowerArray.size() - 1; i++) {
-//                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
-//                            System.out.println("Tårn overlapper");
-//                            System.out.println(TowerArray.size());
-//                            break;
-//                        }
-//                    }
                     TowerArray.add(tower);
                     Cash -= 30;
                     store.holdsItem = false;
