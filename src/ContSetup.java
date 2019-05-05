@@ -15,7 +15,7 @@ public class ContSetup extends JFrame {
     public Sound Sound;
 
     /**----------DEBUG MODE----------*/
-    public static boolean debugMode = true;
+    public static boolean debugMode = false;
     /**----------DEBUG MODE----------*/
 
     boolean outOfMap = false;

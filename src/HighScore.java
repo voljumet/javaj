@@ -25,7 +25,7 @@ public class HighScore{
         }
 
         HSString = sb.toString();
-        
+
         buf.close();
     }
 
