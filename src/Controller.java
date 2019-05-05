@@ -24,7 +24,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         View.addMouseMotionListener(this);
 
         /** Laster ikoner */
-        tileset[0] = new ImageIcon("Pictures/Icons/button-01.png").getImage();
+        tileset[0] = new ImageIcon("Pictures/Icons/button-02.png").getImage();
         tileset[1] = new ImageIcon("Pictures/Icons/Towers-01.png").getImage();
         tileset[2] = new ImageIcon("Pictures/Icons/Towers-02.png").getImage();
         tileset[3] = new ImageIcon("Pictures/Icons/Icon-06.png").getImage();
@@ -229,12 +229,15 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
         /**bruker health = 0 for debugging*/
 //        health = 0;
+
+        /** Setter Mus Pos X & Y i rutenett */
+        posX(e);
+        posY(e);
+
             /** Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
         if (Cash >= 20) {
 
-            /** Setter Mus Pos X & Y i rutenett */
-            posX(e);
-            posY(e);
+
 
             /** Sjekker om man prøver å lage tårn utenfor det som er lovlig plassering*/
             if(!outOfMap) {
@@ -262,14 +265,17 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     tower.Draw(View.getGraphics());
                 }
 
-                /** Knapp 3 i Meny, logikk for når man trykker på knappen*/
-                if (MenuButton3) { MenuButton3 = false; }
-
-                /** Knapp 4 i Meny, logikk for når man trykker på knappen*/
-                if (MenuButton4) { MenuButton4 = false; }
             }
 
-        } else { System.out.println("Not enough cash for sponge!"); }
+        } else {
+            System.out.println("Not enough cash for sponge!");
+        }
+
+        /** Knapp 3 i Meny, logikk for når man trykker på knappen*/
+        if (MenuButton3) { MenuButton3 = false; }
+
+        /** Knapp 4 i Meny, logikk for når man trykker på knappen*/
+        if (MenuButton4) { MenuButton4 = false; }
 
         /** Sjekker hvilken knapp som blir trykket på */
         if (MenuX && MenuY1) { MenuY1 = false; System.out.println("Knapp en trykket");   MenuButton1 = true; }

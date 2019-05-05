@@ -48,7 +48,7 @@ public class Store{
             /** Hvis man holder musepeker over Shop, farges laget over til lysere for å vise dette*/
             if (mse != null && button[i].contains(mse)) {
                 g.setColor(new Color(255, 255, 255, 170));
-                g.fillRect(button[i].x, button[i].y, button[i].width, button[i].height);
+                g.fillOval(button[i].x, button[i].y, button[i].width, button[i].height);
 
             }
             if (Controller.drawFPS) {
@@ -60,7 +60,7 @@ public class Store{
                 if (buttonPrice[i] > 0) {
                     g.setColor(new Color(0, 0, 0));
                     g.setFont(new Font("Courier New", Font.BOLD, 16));
-                    g.drawString("$" + buttonPrice[i], button[i].x + itemIn * 2, button[i].y + itemIn * 9);
+                    g.drawString("$" + buttonPrice[i], button[i].x + itemIn * 2, button[i].y + itemIn * 7);
                 }
 
                 /** Hvis man trykker i shop, vil bilde festes til mus Pos X & Y */
