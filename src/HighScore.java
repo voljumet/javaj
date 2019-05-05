@@ -49,7 +49,7 @@ public class HighScore{
         OpenFile();
         JOptionPane.showMessageDialog(null, HSString,"Highscore",JOptionPane.INFORMATION_MESSAGE);
         String[] Options = {"New Game", "Quit Game"};
-        int Option = JOptionPane.showOptionDialog(null, "Options", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, Options, Options[1]);
+        int Option = JOptionPane.showOptionDialog(null, null, "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, Options, Options[1]);
         if(Option == 0){
             System.out.println("New Game");
             return true;

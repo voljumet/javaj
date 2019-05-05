@@ -11,6 +11,7 @@ public abstract class MobsElement extends GraphicalElement {
         int mobHealth;
         int mobPayout;
         int mobArmySize;
+        int mobDamage;
         Rectangle MobReach;
         boolean inReach;
 

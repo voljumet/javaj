@@ -47,6 +47,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
     public void initiateGameOptions() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
         gameWon = false;
+        countDown = 5;
         TowerArray.clear();
         health = 100;
         Kills = 0;
