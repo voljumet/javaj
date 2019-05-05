@@ -3,7 +3,9 @@ import java.awt.*;
 /** Shootmob sjekker intersect mellom tårn og mob og tegner strek*/
 public class ShootMob extends ContSetup {
 
-    public void Draw(Graphics g) {
+//    public ShootMob() { }
+
+    public void ShootMob(Graphics g) {
         for (Towers t : TowerArray) {
             if (!mobsArrayList.isEmpty()) {
 
@@ -20,11 +22,10 @@ public class ShootMob extends ContSetup {
                         }
                     }
                 }
-
                 /** sjekker om target er i rekkevidden til tårnet. dersom den er det, skyter tårnet*/
                 else {
+
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
-                        t.target.mobHealth -= 1;
                         t.target.inReach = true;
                         g.setColor(new Color(0xF8EE2B));
                         g.drawLine(t.posX + t.towerSize / 2, t.posY + t.towerSize / 2, t.target.posX + 22, t.target.posY + 23);

@@ -54,8 +54,8 @@ public class ContSetup extends JFrame {
     int timer = 1;
 
     public static int wave;
-    public static int mobsInWave; //Passer på at 20 mobs spawner hver Wave.
-    public static int mobsInPipe; //Sjekker hvor mange mobs som er i banen til hvert tidspunkt;
+    public static int mobsInWave; /**Passer på at 20 mobs spawner hver Wave.*/
+    public static int mobsInPipe; /**Sjekker hvor mange mobs som er i banen til hvert tidspunkt*/
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();

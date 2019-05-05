@@ -16,7 +16,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         stats = new Stats();
         Shootmob = new ShootMob();
         highScore = new HighScore();
-        mobsArrayList.add(new Mob());
         Sound = new Sound();
         store = new Store();
 
@@ -94,7 +93,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     /** Mobs spawner i frekvens spanwnRate*/
 
                     if (spawn == spawnRate) {
-
                         if(mobsArrayList.size() == 0) {
                             mobsArrayList.add(new Mob());
                             Sound.BoomSound();
@@ -107,7 +105,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                             spawn = 0;
                             mobsInWave += 1;
                         }
-//                        spawnedmobs += 1;
                     }
                     spawn += 1;
                 }
@@ -122,7 +119,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                 for (Towers t : TowerArray) { if (drawFPS){t.Draw(gg);  if(debugMode)gg.drawRect(t.posX - t.offset, t.posY - t.offset, 200, 200);} }
 
                 /** Shoot mob logikk */
-                if(drawFPS) { Shootmob.Draw(gg); }
+                if(drawFPS) { Shootmob.ShootMob(gg); }
 
                 /** Delay = millis - tid fra starten av loopen til nå
                  * Dette er gameloop logikk på høyeste nivå!*/
@@ -232,7 +229,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
         /**bruker health = 0 for debugging*/
 //        health = 0;
-
             /** Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
         if (Cash >= 20) {
 

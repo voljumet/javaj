@@ -13,7 +13,7 @@ public class HighScore{
     public HighScore() throws IOException {
     }
 
-
+    /**SortFile skal sortere highscores for å printe dem ut i synkende rekkefølge (påbegynt)*/
     void SortFile() throws IOException {
         ContSetup.HighScoreArrayList.clear();
 
@@ -33,7 +33,7 @@ public class HighScore{
 
         buf.close();
     }
-
+    /**SaveFile lagrer strings som inneholder navn og score fra spillet i filen HS.juice*/
     void SaveFile() throws IOException {
         String fileContent = name+" got "+hs+" kills!\n";
 
@@ -41,6 +41,10 @@ public class HighScore{
         writer.write(fileContent);
         writer.close();
     }
+    /**getHighscore legger inn score i HS.juice, henter tidligere scores fra filen og printer dem i en messagedialog.
+     * deretter settes det opp en optionsdialog for nytt spill eller avslutt spill utifra hva man velger returnerer funksjonen true eller false
+     * denne booleanen blir brukt i controller for å starte spillet på nytt.*/
+
     public boolean getHighscore() throws IOException {
         if (!ContSetup.onlyHS){
             name = "Player";
