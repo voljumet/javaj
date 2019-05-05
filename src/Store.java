@@ -60,7 +60,7 @@ public class Store{
                 if (buttonPrice[i] > 0) {
                     g.setColor(new Color(0, 0, 0));
                     g.setFont(new Font("Courier New", Font.BOLD, 16));
-                    g.drawString("$" + buttonPrice[i], button[i].x + itemIn * 2, button[i].y + itemIn * 7);
+                    g.drawString("$" + buttonPrice[i], button[i].x + itemIn * 2, button[i].y + itemIn * 9);
                 }
 
                 /** Hvis man trykker i shop, vil bilde festes til mus Pos X & Y */
