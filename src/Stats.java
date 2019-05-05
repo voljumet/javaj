@@ -6,6 +6,7 @@ public class Stats extends ContSetup{
 
     public Stats(){ }
 
+    /** Tegner grafikk til Player stats */
     public void Draw(Graphics g){
         g.drawImage(cashIcon.getImage(), 20, 15, 18, 18, null);
         g.drawImage(killsIcon.getImage(), 20, 45, 18, 18, null);

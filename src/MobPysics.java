@@ -1,6 +1,7 @@
 public class MobPysics extends Mob{
 
     public MobPysics(MobsElement m){
+        /** Velger hvilken hardcode som skal brukes utifra map som blir valgt på sjermen*/
              if (PPListXY.randomNumber == 0){ mapOne(m); }
         else if (PPListXY.randomNumber == 1){ mapTwo(m); }
         else if (PPListXY.randomNumber == 2){ mapThree(m); }
@@ -8,6 +9,7 @@ public class MobPysics extends Mob{
         m.mapPlace += 1;
     }
 
+    /** Hardcode til map 1 */
     void mapOne(MobsElement m){
              if (m.mapPlace >= 0    && m.mapPlace < 90  ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 90   && m.mapPlace < 450 ){ m.posX += 1;} //1
@@ -19,10 +21,11 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 1980 && m.mapPlace < 2160){ m.posX -= 1;} //22
         else if (m.mapPlace >= 2160 && m.mapPlace < 2520){ m.posY -= 1;} //24
         else if (m.mapPlace >= 2520 && m.mapPlace < 2610){ m.posX += 1;} //28
-        else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY = -1;} //29
+        else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY -= 1;} //29
         else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
+    /** Hardcode til map 2 */
     void mapTwo(MobsElement m){
              if (m.mapPlace >= 0    && m.mapPlace < 540 ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 540  && m.mapPlace < 900 ){ m.posX += 1;} //6
@@ -36,6 +39,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
+    /** Hardcode til map 3 */
     void mapThree(MobsElement m){
              if (m.mapPlace >= 0    && m.mapPlace < 630 ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 630  && m.mapPlace < 900 ){ m.posX += 1;} //7
@@ -47,6 +51,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
+    /** Hardcode til map 4 */
     void mapFour(MobsElement m){
              if (m.mapPlace >= 0    && m.mapPlace < 270 ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 270  && m.mapPlace < 450 ){ m.posX -= 1;} //3
@@ -64,10 +69,10 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
+    /** Hvis mob går ut av pipe i toppen */
     void mobDeath(MobsElement m) {
         if (m.inGame) {
             Controller.health -= 5;
-
             m.inGame = false;
         }
 

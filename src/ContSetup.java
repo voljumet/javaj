@@ -14,9 +14,9 @@ public class ContSetup extends JFrame {
     public Stats stats;
     public Sound Sound;
 
-            /*DEBUG MODE*/
-    public static boolean debugMode = false;
-            /*DEBUG MODE*/
+    /**----------DEBUG MODE----------*/
+    public static boolean debugMode = true;
+    /**----------DEBUG MODE----------*/
 
     boolean outOfMap = false;
     boolean MenuX = false;
@@ -27,25 +27,24 @@ public class ContSetup extends JFrame {
     static boolean drawFPS = false;
     boolean gameLost = false;
     static boolean onlyHS = false;
+    public static boolean MenuButton1 = false;
+    public static boolean MenuButton2 = false;
+    public static boolean MenuButton3 = false;
+    public static boolean MenuButton4 = false;
 
-    Point mse = new Point(0,0);
-
-    public static boolean towerbutton1 = false;
-    public static boolean towerbutton2 = false;
     public static int count;
 
-    /* Starter med følgende stats */
+    /** Starter med følgende stats */
     static int Cash = 40;
     static int Kills = 0;
     static int health = 100;
-
-    /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
+    /** Starter med følgende stats */
 
     public static final long NANOSECONDS_PER_MILLISECOND = 1000000;
     public static final long MS_PER_FRAME = 10; //gir FPS
     long elapsedTime;
 
-    /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
+    Point mse = new Point(0,0);
 
     int mseposX;
     int mseposY;
@@ -66,7 +65,6 @@ public class ContSetup extends JFrame {
     ImageIcon cashIcon = new ImageIcon("Pictures/Icons/Icon-03.png");
     ImageIcon killsIcon = new ImageIcon("Pictures/Icons/Icon-02.png");
     ImageIcon healthIcon = new ImageIcon("Pictures/Icons/Icon-04.png");
-
     ImageIcon backgroundImage = new ImageIcon("Pictures/Background-01.png");
 
 

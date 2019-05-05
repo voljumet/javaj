@@ -11,7 +11,7 @@ public class Mob extends MobsElement{
         mapPlace = 0;
         mobArmySize = 20;
 
-        /*if statements under bestemmer hvilken mob som skal spawne i arraylisten i følge wave.*/
+        /** if statements under bestemmer hvilken stats og bilde til mobs før Draw ut ifra wave*/
              if (ContSetup.wave == 1){ mobHealth = 15; mobPayout =  2; PictureNumber = 1; }
         else if (ContSetup.wave == 2){ mobHealth = 35; mobPayout =  4; PictureNumber = 2; }
         else if (ContSetup.wave == 3){ mobHealth = 45; mobPayout =  6; PictureNumber = 3; }

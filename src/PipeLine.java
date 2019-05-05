@@ -8,6 +8,7 @@ public class PipeLine extends GraphicalElement {
 
     public boolean debugMode = false;
 
+    /** Later ikoner */
     private ImageIcon pipe1 = new ImageIcon("Pictures/Icons/Pipes-01.png");
     private ImageIcon pipe2 = new ImageIcon("Pictures/Icons/Pipes-02.png");
     private ImageIcon pipe3 = new ImageIcon("Pictures/Icons/Pipes-03.png");
@@ -21,7 +22,7 @@ public class PipeLine extends GraphicalElement {
         if(Controller.count == 0){ img = pipe7; height = 90; width = 90;}  //Første pipeDrawn
         else if(Controller.count == 31){  img = pipe8; height = 200; width = 180;}  //Siste pipeDrawn
         else{
-//          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X
+            /** Sjekker størrelsene på koordinater og setter 1 på de som stemmer for X*/
             if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count + 1))){ X1 = 1;}
             if(PPListXY.PPX.get(Controller.count).equals(PPListXY.PPX.get(Controller.count - 1))){ X2 = 1;}
             if(PPListXY.PPX.get(Controller.count)   <   (PPListXY.PPX.get(Controller.count + 1))){ X3 = 1;}
@@ -29,7 +30,7 @@ public class PipeLine extends GraphicalElement {
             if(PPListXY.PPX.get(Controller.count)   >   (PPListXY.PPX.get(Controller.count + 1))){ X5 = 1;}
             if(PPListXY.PPX.get(Controller.count)   >   (PPListXY.PPX.get(Controller.count - 1))){ X6 = 1;}
 
-//          Sjekker størrelsene på koordinater og setter 1 på de som stemmer for Y
+            /** Sjekker størrelsene på koordinater og setter 1 på de som stemmer for Y*/
             if(PPListXY.PPY.get(Controller.count).equals(PPListXY.PPY.get(Controller.count + 1))){ Y1 = 1;}
             if(PPListXY.PPY.get(Controller.count).equals(PPListXY.PPY.get(Controller.count - 1))){ Y2 = 1;}
             if(PPListXY.PPY.get(Controller.count)   <   (PPListXY.PPY.get(Controller.count + 1))){ Y3 = 1;}
@@ -37,7 +38,7 @@ public class PipeLine extends GraphicalElement {
             if(PPListXY.PPY.get(Controller.count)   >   (PPListXY.PPY.get(Controller.count + 1))){ Y5 = 1;}
             if(PPListXY.PPY.get(Controller.count)   >   (PPListXY.PPY.get(Controller.count - 1))){ Y6 = 1;}
 
-//          if-er koordinater og setter icon på riktig sett med koordinater
+            /** Setter icon til riktig sett med koordinater*/
                  if(X1 == 1 && X2 == 1 && Y4 == 1 && Y5 == 1){ img = pipe1;}
             else if(X1 == 1 && X2 == 1 && Y3 == 1 && Y6 == 1){ img = pipe1;}
 

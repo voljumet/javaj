@@ -14,5 +14,6 @@ public class Sound {
     void BoomSound() {
 
         BoomSSSound.start();
+        BoomSSSound.stop();
     }
 }

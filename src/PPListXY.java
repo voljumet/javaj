@@ -13,11 +13,13 @@ public class PPListXY {
     static int randomNumber;
     public PPListXY() throws FileNotFoundException {
 
+        /** Randomize map 1 - 4 */
         Random randomizer = new Random();
-        randomNumber = randomizer.nextInt(4);
+        randomNumber =  randomizer.nextInt(4);
         String MapY = "";
         String MapX = "";
 
+        /** Velger map */
              if(randomNumber == 0){ MapY = "Maps/Y-tall1.txt"; MapX = "Maps/X-tall1.txt"; }
         else if(randomNumber == 1){ MapY = "Maps/Y-tall2.txt"; MapX = "Maps/X-tall2.txt"; }
         else if(randomNumber == 2){ MapY = "Maps/Y-tall3.txt"; MapX = "Maps/X-tall3.txt"; }

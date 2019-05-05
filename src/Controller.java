@@ -9,8 +9,7 @@ import static java.awt.Font.BOLD;
 
 public class Controller extends ContSetup implements KeyListener, MouseListener, MouseMotionListener {
 
-    public Controller() throws IOException, UnsupportedAudioFileException,
-            InterruptedException, LineUnavailableException {
+    public Controller() throws IOException, UnsupportedAudioFileException, InterruptedException, LineUnavailableException {
 
         PipePositionListXY = new PPListXY();
         Shootmob = new ShootMob();
@@ -24,46 +23,47 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         View.addMouseListener(this);
         View.addMouseMotionListener(this);
 
-//        store = new Store();
-
+        /** Laster ikoner */
         tileset[0] = new ImageIcon("Pictures/Icons/button-01.png").getImage();
         tileset[1] = new ImageIcon("Pictures/Icons/Towers-01.png").getImage();
         tileset[2] = new ImageIcon("Pictures/Icons/Towers-02.png").getImage();
         tileset[3] = new ImageIcon("Pictures/Icons/Icon-06.png").getImage();
         tileset[4] = new ImageIcon("Pictures/Icons/Icon-05.png").getImage();
 
-        Background(View.getGraphics());  /*Tegner bakgrunn*/
+        /** Tegner bakgrunn */
+        Background(View.getGraphics());
 
-        SPawnPipe(View.getGraphics());   /*Tegner Pipes*/
+        /** Tegner Pipes */
+        SPawnPipe(View.getGraphics());
 
-        /* Må være siste linje, denne looper til spillet blir avsluttet */
-        GameLoop(View.getGraphics());  /*kjører GameLoop*/
+        /** ------------- GameLoop --------------- */
+        GameLoop(View.getGraphics());
+        /** ------------- GameLoop --------------- */
 
     }
 
-     /*Gameloop er hvor spillet kjører.*/
-    public void GameLoop(Graphics gg) throws InterruptedException, IOException, LineUnavailableException {
+    /** ------------------------------------------------------------ GameLoop ---------------------------------------------------------- */
+    public void GameLoop(Graphics gg) throws InterruptedException, IOException {
 
         long frameStart = System.nanoTime();
         int spawn = 0, spawnRate = 50;
         float FPStimer = 0;
         while (true) {
 
-             /*Timer for hvor mange ganger den skal loope GameLoopen før den tegner alle drawFPS-Funksjonene*/
+             /** Timer for hvor mange ganger den skal loope GameLoopen før den tegner alle drawFPS-Funksjonene */
             FPStimer++;
-            if (FPStimer == 7){
+            if (FPStimer == 5){
                 FPStimer = 0;
                 drawFPS = true;
             }
             if (drawFPS) {
-
-                Background(gg); /*tegner bakgrunn*/
-                stats.Draw(gg); /*tegner stats*/
-                store.draw(gg, mse); /*tegner shop*/
-                for (PipeLine p : PipeLineArray) { p.Draw(gg);} /*Tegner PipeLine*/
+                Background(gg); /** Tegner bakgrunn på nytt */
+                stats.Draw(gg); /** Tegner stats på nytt */
+                store.draw(gg, mse); /** Tegner shop på nytt */
+                for (PipeLine p : PipeLineArray) { p.Draw(gg);} /** Tegner PipeLine på nytt */
             }
 
-            /*Nedtelling før game starter*/
+            /** Nedtelling før game starter*/
             if (countDown > 0) {
                 Background(gg);
                 for (PipeLine p : PipeLineArray) {p.Draw(gg);}
@@ -72,9 +72,10 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
             } else {
 
-                /*mobs spawner kun til det er spawnet 20stk*/
+                /** Mobs spawner kun til det er spawnet 20stk*/
                 if (spawnedmobs < 20) {
-                    /*Mobs spawner i frekvens spanwnRate*/
+
+                    /** Mobs spawner i frekvens spanwnRate*/
                     if (spawn == spawnRate) {
                         mobsArrayList.add(new Mob());
                         Sound.BoomSound();
@@ -84,35 +85,27 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     spawn += 1;
                 }
 
-                /*Tegner mobs*/
+                /**Tegner mobs*/
                 for (MobsElement m : mobsArrayList) {
                     new MobPysics(m);
                     if (m.inGame) {if (drawFPS){m.Draw(gg); if(debugMode)gg.drawRect(m.posX, m.posY,45,45);}}
                 }
 
-                /*Tegner Towers på ny*/
+                /**Tegner Towers*/
                 for (Towers t : TowerArray) { if (drawFPS){t.Draw(gg);  if(debugMode)gg.drawRect(t.posX - t.offset, t.posY - t.offset, 200, 200);} }
 
-                /* Shoot mob */
+                /** Shoot mob logikk */
                 if(drawFPS) { Shootmob.Draw(gg); }
 
-
-
-//                Thread.sleep(20);
-
-                /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
-
+                /** Delay = millis - tid fra starten av loopen til nå
+                 * Dette er gameloop logikk på høyeste nivå!*/
                 elapsedTime = (System.nanoTime() - frameStart) / NANOSECONDS_PER_MILLISECOND;
-
                 frameStart = System.nanoTime() + MS_PER_FRAME * NANOSECONDS_PER_MILLISECOND;
-
-                int millis = 20;
+                long millis = 20;
                 if (elapsedTime > millis){elapsedTime = millis;}
-
                 Thread.sleep(millis - elapsedTime);
 
-                /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
-
+                /** Sjekker for hver runde om runden er over*/
                 if (drawFPS){
                     int waveSize = 20;
                          if (Kills == waveSize * wave && wave == 1) { System.out.println("Wave 1 done"); wave += 1; spawnedmobs = 0; countDown = 5; mobsArrayList.clear(); }
@@ -122,6 +115,8 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     else if (Kills == waveSize * wave && wave == 5) { System.out.println("Wave 5 done"); wave += 1; spawnedmobs = 0; countDown = 5; mobsArrayList.clear(); }
                     else if (Kills == waveSize * wave && wave == 6) { System.out.println("Wave 6 done"); wave += 1; spawnedmobs = 0; countDown = 5; mobsArrayList.clear(); }
                 }
+
+                /** Hvis man dør */
                 if (health <= 0) {
                     System.out.println("Game Lost");
                     gameLost = true;
@@ -129,31 +124,34 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                     Thread.sleep(2000);
                     new HighScore();
                     mobsArrayList.clear();
-                    break; /*stopper loopen/spillet*/
+                    /** Stopper loopen/spillet */
+                    break;
 
                 }
             }
-            /*reset for "FPS"*/
+            /** Reset "FPS" */
             drawFPS = false;
         }
     }
+    /** ------------------------------------------------------------ GameLoop ---------------------------------------------------------- */
 
+    /** Tegner Bakgrun */
     public void Background(Graphics g) { g.drawImage(backgroundImage.getImage(), 0, 0, 900, 900, null); }
 
-    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException, InterruptedException {
-
+    /** Tegner PipeLine med lyd og delay mellom hvert ledd */
+    public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
         int sleep = 100;
         if (debugMode) { sleep = 0; }
         for (count = 0; count < PPListXY.PPX.size() - 1; count++) {
-            PipeLine pipeLine = new PipeLine();      /* using correct pipeDrawn icons from this*/
-            PPSound = new PipeBuildSound();          /* Lyden av Pipes*/
-            pipeLine.Draw(g);                        /* Tegner pipeDrawn ikon*/
+            PipeLine pipeLine = new PipeLine();      /** Using correct pipeDrawn icons from this*/
+            PPSound = new PipeBuildSound();          /** Lyden av Pipes*/
+            pipeLine.Draw(g);                        /** Tegner pipeDrawn ikon*/
             PipeLineArray.add(pipeLine);
-            Thread.sleep(sleep);                     /*venter 100ms før den fortsetter loopen*/
+            Thread.sleep(sleep);                     /** Venter 100ms før den fortsetter loopen*/
         }
     }
 
+    /** Nedtelling før game og etter game  */
     public void CountDownPrint(Graphics g, int tim) {
         g.setColor(new Color(0, 0, 0, 252));
         if(!gameLost) {
@@ -165,6 +163,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         }
     }
 
+    /** Nedtelling */
     public void CountDown() throws InterruptedException {
         if (!debugMode) {
             if (!gameLost) {
@@ -180,68 +179,68 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
     @Override public void mouseClicked(MouseEvent e) {
 
-        /*Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
+        /** Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
         if (Cash >= 20) {
-            /*setter posisjon til rutenett*/
+
+            /** Setter Mus Pos X & Y i rutenett */
             posX(e);
             posY(e);
 
-            if(!outOfMap) { /*sjekker om man prøver å lage tårn utenfor det som er lovlig plassering*/
+            /** Sjekker om man prøver å lage tårn utenfor det som er lovlig plassering*/
+            if(!outOfMap) {
 
-                if (towerbutton1) {
-                    towerbutton1 = false;
+                /** Knapp 1 i Meny, logikk for når man trykker på knappen*/
+                if (MenuButton1) {
+                    MenuButton1 = false;
 
                     Towers tower = new Towers(mseposX+10, mseposY+10);
-                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
-
-                    for(int i = 0; i < TowerArray.size() - 1; i++) { /*må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
-                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
-                            System.out.println("Tårn overlapper");
-                            System.out.println(TowerArray.size());
-                            break;
-                        }
-                    }
-
+//                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
+//                    /* Må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
+//                    for(int i = 0; i < TowerArray.size() - 1; i++) {
+//                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
+//                            System.out.println("Tårn overlapper");
+//                            System.out.println(TowerArray.size());
+//                            break;
+//                        }
+//                    }
                     TowerArray.add(tower);
                     Cash -= 20;
                     store.holdsItem = false;
-
-                    System.out.println(TowerArray.size());
-
                     tower.Draw(View.getGraphics());
                 }
-                if (towerbutton2) {
-                    towerbutton2 = false;
+
+                /** Knapp 2 i Meny, logikk for når man trykker på knappen*/
+                if (MenuButton2) {
+                    MenuButton2 = false;
 
                     Towers tower = new Towers(mseposX+10, mseposY+10);
-                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
-
-                    for(int i = 0; i < TowerArray.size() - 1; i++) { /*må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
-                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
-                            System.out.println("Tårn overlapper");
-                            System.out.println(TowerArray.size());
-                            break;
-                        }
-                    }
-
+//                    Rectangle CheckOverlap = new Rectangle(tower.posX - tower.towerSize/2, tower.posY - tower.towerSize/2, tower.towerSize, tower.towerSize);
+//                    /** Må sjekke om tårn kan bygges før cash blir trukket fra og før tårn blir printet, og addet i arrayet.*/
+//                    for(int i = 0; i < TowerArray.size() - 1; i++) {
+//                        if (TowerArray.get(i).TowerOverlap.intersects(CheckOverlap)) {
+//                            System.out.println("Tårn overlapper");
+//                            System.out.println(TowerArray.size());
+//                            break;
+//                        }
+//                    }
                     TowerArray.add(tower);
                     Cash -= 30;
                     store.holdsItem = false;
-
-                    System.out.println(TowerArray.size());
-
                     tower.Draw(View.getGraphics());
                 }
             }
 
         } else { System.out.println("Not enough cash for sponge!"); }
-        if (MenuX && MenuY1) { MenuY1 = false; System.out.println("Knapp en trykket"); towerbutton1 = true; }
-        if (MenuX && MenuY2) { MenuY2 = false; System.out.println("Knapp to trykket"); towerbutton2 = true; }
-        if (MenuX && MenuY3) { MenuY3 = false; System.out.println("Knapp tre trykket"); try { onlyHS = true; new HighScore(); } catch (IOException e1) { } }
-        if (MenuX && MenuY4) { MenuY4 = false; System.out.println("Knapp fire trykket"); new MenuBox(); }
+
+        /** Sjekker hvilken knapp som blir trykket på */
+        if (MenuX && MenuY1) { MenuY1 = false; System.out.println("Knapp en trykket");   MenuButton1 = true; }
+        if (MenuX && MenuY2) { MenuY2 = false; System.out.println("Knapp to trykket");   MenuButton2 = true; }
+        if (MenuX && MenuY3) { MenuY3 = false; System.out.println("Knapp tre trykket");  MenuButton2 = true; try { onlyHS = true; new HighScore(); } catch (IOException e1) { } }
+        if (MenuX && MenuY4) { MenuY4 = false; System.out.println("Knapp fire trykket"); MenuButton2 = true; new MenuBox(); }
         MenuX = false;
     }
 
+    /** Logikk for musepeker X-Retning*/
     private void posX(MouseEvent e) { mseposX = e.getX();
         if (mseposX >= 845 && mseposX < 900){MenuX = true;}
              if (mseposX >=   0 && mseposX <  90){mseposX =   0; outOfMap = false;}
@@ -256,6 +255,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         else if (mseposX >= 810 && mseposX < 900){mseposX = 810; outOfMap = false;}
     }
 
+    /** Logikk for musepeker Y-Retning*/
     private void posY(MouseEvent e) { mseposY = e.getY();
              if (mseposY >=   0 && mseposY <  55){MenuY1 = true;}
         else if (mseposY >=  55 && mseposY < 110){MenuY2 = true;}
@@ -273,13 +273,16 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         else if (mseposY >= 810 && mseposY < 900){mseposY = 810; outOfMap = false;}
     }
 
+
     @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { System.exit(0); } }
 
-    @Override public void mousePressed(MouseEvent e) { store.click(e.getButton(), mse); } /* Hvis musknapp 1 blir klikket på */
+    /** Sender Mus Pos X & Y til Store */
+    @Override public void mousePressed(MouseEvent e) { store.click(e.getButton(), mse); }
 
-    @Override public void mouseDragged(MouseEvent e) {/*mse = View.getMousePosition();*/} /* Drag Mouse */
+    @Override public void mouseDragged(MouseEvent e) {/*mse = View.getMousePosition();*/}
 
-    @Override public void mouseMoved(MouseEvent e) { mse = View.getMousePosition(); }  /* Hvis man beveger musen */
+    /** Hvis man beveger musen lagres Pos X & Y til mse */
+    @Override public void mouseMoved(MouseEvent e) { mse = View.getMousePosition(); }
 
     @Override public void mouseReleased(MouseEvent e) { }
 

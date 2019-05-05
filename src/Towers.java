@@ -9,8 +9,10 @@ public class Towers extends GraphicalElement {
 
     MobsElement target = null;
 
+    /** Laster bilde til tårn */
     private ImageIcon tower1 = new ImageIcon("Pictures/Icons/Towers-01.png");
 
+    /** Gir Tårn størrelse, plassering, bilde og "Reach" */
     public Towers(int posX, int posY){
 
         height = towerSize;
@@ -26,14 +28,10 @@ public class Towers extends GraphicalElement {
         TowerOverlap = new Rectangle(this.posX - towerSize/2, this.posY - towerSize/2, towerSize, towerSize);
     }
 
-    public double getDistance(GraphicalElement e){
-        return (e.posX - this.posX) * (e.posX - this.posX) + (e.posY - this.posY) * (e.posY - this.posY);
-//        return Math.sqrt((e.posX - this.posX) * (e.posX - this.posX) + (e.posY - this.posY) * (e.posY - this.posY));
-    }
+    public double getDistance(GraphicalElement e){ return (e.posX - this.posX) * (e.posX - this.posX) + (e.posY - this.posY) * (e.posY - this.posY); }
 
     @Override
     public void Draw(Graphics g) {
         g.drawImage(image, posX, posY, width, height, null);
-    }
-}
+    } }
 
