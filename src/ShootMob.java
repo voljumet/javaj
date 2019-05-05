@@ -19,12 +19,11 @@ public class ShootMob extends ContSetup {
                             t.target.inReach = false;
                         }
                     }
-                }
 
-                /** sjekker om target er i rekkevidden til tårnet. dersom den er det, skyter tårnet*/
-                else {
+                    /** sjekker om target er i rekkevidden til tårnet. dersom den er det, skyter tårnet*/
+                } else {
+
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
-                        t.target.mobHealth -= 1;
                         t.target.inReach = true;
                         g.setColor(new Color(0xF8EE2B));
                         g.drawLine(t.posX + t.towerSize / 2, t.posY + t.towerSize / 2, t.target.posX + 22, t.target.posY + 23);
