@@ -26,6 +26,8 @@ public class ContSetup extends JFrame {
     boolean MenuY4 = false;
     static boolean drawFPS = false;
     boolean gameLost = false;
+    boolean gameWon;
+    boolean gameinprogress = false;
     static boolean onlyHS = false;
     public static boolean MenuButton1 = false;
     public static boolean MenuButton2 = false;
@@ -51,9 +53,9 @@ public class ContSetup extends JFrame {
     int countDown = 5;
     int timer = 1;
 
-    public static int wave = 1;
-    public static int waveSize = 20;
-    public static int spawnedmobs = 0;
+    public static int wave;
+    public static int mobsInWave; //Passer på at 20 mobs spawner hver Wave.
+    public static int mobsInPipe; //Sjekker hvor mange mobs som er i banen til hvert tidspunkt;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();

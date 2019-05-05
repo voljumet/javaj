@@ -71,10 +71,11 @@ public class MobPysics extends Mob{
 
     /** Hvis mob går ut av pipe i toppen */
     void mobDeath(MobsElement m) {
-        if (m.inGame) {
+        if (m.inGame && m.mobHealth != 0) {
+            Controller.mobsInPipe -= 1;
             Controller.health -= 5;
             m.inGame = false;
         }
-
     }
 }
+
