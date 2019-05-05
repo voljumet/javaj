@@ -8,10 +8,11 @@ public class ContSetup extends JFrame {
     static PPListXY PipePositionListXY;
     public HighScore highScore;
     public MenuBox menu;
-//    public Store store;
+    public Store store;
     public PipeBuildSound PPSound;
     public ShootMob Shootmob;
     public Stats stats;
+    public Sound Sound;
 
             /*DEBUG MODE*/
     public static boolean debugMode = false;
@@ -39,18 +40,6 @@ public class ContSetup extends JFrame {
     static int Cash = 40;
     static int Kills = 0;
     static int health = 100;
-
-    public static int shopHeight = 4;
-    public static int buttonSize = 45;
-    public static int cellSpace = 2;
-    public static int itemIn = 4;
-    public static int heldID = -1;
-    public static int[] buttonID = {1, 2, 3, 4};
-    public static int[] buttonPrice = {20, 30, 0, 0};
-
-    public boolean holdsItem = false;
-
-    public Rectangle[] button = new Rectangle[shopHeight];
 
     /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
 
@@ -81,5 +70,7 @@ public class ContSetup extends JFrame {
     ImageIcon healthIcon = new ImageIcon("Pictures/Icons/Icon-04.png");
 
     ImageIcon backgroundImage = new ImageIcon("Pictures/Background-01.png");
+
+
 
 }

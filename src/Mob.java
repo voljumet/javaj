@@ -12,12 +12,12 @@ public class Mob extends MobsElement{
         mobArmySize = 20;
 
         /*if statements under bestemmer hvilken mob som skal spawne i arraylisten i følge wave.*/
-             if (ContSetup.wave == 1){ mobHealth = 20; mobPayout =  2; PictureNumber = 1; }
-        else if (ContSetup.wave == 2){ mobHealth = 30; mobPayout =  4; PictureNumber = 2; }
-        else if (ContSetup.wave == 3){ mobHealth = 40; mobPayout =  6; PictureNumber = 3; }
-        else if (ContSetup.wave == 4){ mobHealth = 50; mobPayout =  8; PictureNumber = 4; }
-        else if (ContSetup.wave == 5){ mobHealth = 60; mobPayout = 10; PictureNumber = 5; }
-        else if (ContSetup.wave == 6){ mobHealth = 70; mobPayout = 12; PictureNumber = 6; }
+             if (ContSetup.wave == 1){ mobHealth = 15; mobPayout =  2; PictureNumber = 1; }
+        else if (ContSetup.wave == 2){ mobHealth = 35; mobPayout =  4; PictureNumber = 2; }
+        else if (ContSetup.wave == 3){ mobHealth = 45; mobPayout =  6; PictureNumber = 3; }
+        else if (ContSetup.wave == 4){ mobHealth = 60; mobPayout =  6; PictureNumber = 4; }
+        else if (ContSetup.wave == 5){ mobHealth = 110; mobPayout = 4; PictureNumber = 5; }
+        else if (ContSetup.wave == 6){ mobHealth = 150; mobPayout = 3; PictureNumber = 6; }
 
 //        if (ContSetup.debugMode){mobHealth = 1;}
 
