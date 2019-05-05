@@ -19,7 +19,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 1980 && m.mapPlace < 2160){ m.posX -= 1;} //22
         else if (m.mapPlace >= 2160 && m.mapPlace < 2520){ m.posY -= 1;} //24
         else if (m.mapPlace >= 2520 && m.mapPlace < 2610){ m.posX += 1;} //28
-        else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY = -1;} //29
+        else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY -= 1;} //29
         else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
@@ -65,13 +65,11 @@ public class MobPysics extends Mob{
     }
 
     void mobDeath(MobsElement m) {
-        if (m.inGame)
-            if (ContSetup.debugMode) {
-                Controller.health -= 100;
-                m.inGame = false;
-            } else {
-                Controller.health -= 5;
-                m.inGame = false;
+        if (m.inGame && m.mobHealth != 0) {
+            Controller.mobsInPipe -= 1;
+            Controller.health -= 5;
+
+            m.inGame = false;
+        }
             }
     }
-}

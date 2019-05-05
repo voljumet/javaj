@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.Date;
 
 import static java.awt.Font.BOLD;
 
@@ -14,15 +13,12 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
             InterruptedException, LineUnavailableException {
 
         PipePositionListXY = new PPListXY();
-        Shootmob = new ShootMob();
         View = new View();
         stats = new Stats();
-        mobsArrayList.add(new Mob());
-
+        Shootmob = new ShootMob();
+        highScore = new HighScore();
         View.addKeyListener(this);
         View.addMouseListener(this);
-
-//        store = new Store();
 
         tileset[0] = new ImageIcon("Pictures/Icons/button-01.png").getImage();
         tileset[1] = new ImageIcon("Pictures/Icons/Towers-01.png").getImage();
@@ -34,8 +30,26 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
         SPawnPipe(View.getGraphics());   /*Tegner Pipes*/
 
-        /* Må være siste linje, denne looper til spillet blir avsluttet */
-        GameLoop(View.getGraphics());  /*kjører GameLoop*/
+
+        initiateGameOptions();
+
+        gameinprogress = true;
+
+        GameLoop(View.getGraphics());
+
+         }
+    public void initiateGameOptions() throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
+
+        gameWon = false;
+        TowerArray.clear();
+        health = 100;
+        Kills = 0;
+        Cash = 40;
+        mobsInWave = 0;
+        mobsInPipe = 1;
+        wave = 1;
+
+//        store = new Store();
 
     }
 
@@ -48,6 +62,8 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         float FPStimer = 0;
         while (true) {
 
+
+
              /*Timer for hvor mange ganger den skal loope GameLoopen før den tegner alle drawFPS-Funksjonene*/
             FPStimer++;
             if (FPStimer == 7){
@@ -55,7 +71,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                 drawFPS = true;
             }
             if (drawFPS) {
-
                 Background(gg); /*tegner bakgrunn*/
                 stats.Draw(gg); /*tegner stats*/
                 store(gg); /*tegner shop*/
@@ -72,12 +87,19 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
             } else {
 
                 /*mobs spawner kun til det er spawnet 20stk*/
-                if (spawnedmobs < 20) {
+                if (mobsInWave < 2) {
                     /*Mobs spawner i frekvens spanwnRate*/
                     if (spawn == spawnRate) {
-                        mobsArrayList.add(new Mob());
-                        spawn = 0;
-                        spawnedmobs += 1;
+                        if(mobsArrayList.size() == 0) {
+                            mobsArrayList.add(new Mob());
+                            spawn = 0;
+                            mobsInWave += 1;
+                        }else{
+                            mobsArrayList.add(new Mob());
+                            mobsInPipe += 1;
+                            spawn = 0;
+                            mobsInWave += 1;
+                        }
                     }
                     spawn += 1;
                 }
@@ -112,22 +134,43 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                 /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
 
                 if (drawFPS){
-                    int waveSize = 20;
-                         if (Kills == waveSize * wave && wave == 1) { System.out.println("Wave 1 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
-                    else if (Kills == waveSize * wave && wave == 2) { System.out.println("Wave 2 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
-                    else if (Kills == waveSize * wave && wave == 3) { System.out.println("Wave 3 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
-                    else if (Kills == waveSize * wave && wave == 4) { System.out.println("Wave 4 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
-                    else if (Kills == waveSize * wave && wave == 5) { System.out.println("Wave 5 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
-                    else if (Kills == waveSize * wave && wave == 6) { System.out.println("Wave 6 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                         if (mobsInPipe == 0 && wave == 1) { System.out.println("Wave 1 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); }
+                    else if (mobsInPipe == 0 && wave == 2) { System.out.println("Wave 2 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); }
+                    else if (mobsInPipe == 0 && wave == 3) { System.out.println("Wave 3 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); }
+                    else if (mobsInPipe == 0 && wave == 4) { System.out.println("Wave 4 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); }
+                    else if (mobsInPipe == 0 && wave == 5) { System.out.println("Wave 5 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); }
+                    else if (mobsInPipe == 0 && wave == 6) { System.out.println("Wave 6 done"); wave += 1; countDown = 5; mobsInPipe = 1; mobsInWave = 0; mobsArrayList.clear(); gameWon = true; }
+                }
+                if(gameWon){
+                    CountDownPrint(View.getGraphics(), Kills);
+                    if(highScore.getHighscore()){
+                        try {
+                            initiateGameOptions();
+                        } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+                            e.printStackTrace();
+                        }
+
+                        gameWon = false;
+                    }
+                    else System.exit(0);
                 }
                 if (health <= 0) {
                     System.out.println("Game Lost");
                     gameLost = true;
                     CountDown();
                     Thread.sleep(2000);
-                    new HighScore();
+
+
                     mobsArrayList.clear();
-                    break; /*stopper loopen/spillet*/
+                    if(highScore.getHighscore()){
+                        try {
+                            initiateGameOptions();
+                        } catch (LineUnavailableException | UnsupportedAudioFileException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else System.exit(0);
+                    //break; /*stopper loopen/spillet*/
 
                 }
             }
@@ -155,8 +198,13 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
     public void CountDownPrint(Graphics g, int tim) {
         g.setColor(new Color(0, 0, 0, 252));
         if(!gameLost) {
-            g.setFont(new Font("Corier New", BOLD, 50));
-            g.drawString("Wave " + wave + " starts in: " + tim / 1000, 220, 250);
+            if(gameWon){
+                g.setFont(new Font("Corier New", BOLD, 100));
+                g.drawString("GAME WON", 140, 250);
+            }else {
+                g.setFont(new Font("Corier New", BOLD, 50));
+                g.drawString("Wave " + wave + " starts in: " + tim / 1000, 220, 250);
+            }
         } else {
             g.setFont(new Font("Corier New", BOLD, 100));
             g.drawString("GAME OVER", 140, 250);
@@ -177,6 +225,8 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
     }
 
     @Override public void mouseClicked(MouseEvent e) {
+
+        health = 0;
 
         /*Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
         if (Cash >= 20) {

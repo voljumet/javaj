@@ -1,7 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class HighScore{
 
@@ -12,51 +11,53 @@ public class HighScore{
 
 
     public HighScore() throws IOException {
-
-        if (!ContSetup.onlyHS){
-//            name = JOptionPane.showInputDialog(null,"Enter name to highscore list","HighScore");
-
-            hs = ContSetup.Kills;
-            SaveFile();
-        }
-        SortFile();
-        JOptionPane.showMessageDialog(null, HSString,"Highscore",0);
-
     }
+
 
     void SortFile() throws IOException {
         ContSetup.HighScoreArrayList.clear();
 
-        Scanner s = new Scanner(new FileReader(file));
+        InputStream is = new FileInputStream(file);
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 
-        while(s.hasNext()){
-            ContSetup.HighScoreArrayList.add(Integer.parseInt(s.next()));
+        String line = buf.readLine();
+        StringBuilder sb = new StringBuilder();
+
+        while(line != null){
+            sb.append(line).append("\n");
+            line = buf.readLine();
         }
-        Collections.sort(ContSetup.HighScoreArrayList);
 
-        System.out.println("ContSetup.HighScoreArrayList = " + ContSetup.HighScoreArrayList);
-//        InputStream is = new FileInputStream(file);
-//        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-//
-//        String line = buf.readLine();
-//        StringBuilder sb = new StringBuilder();
-//
-//        while(line != null){
-//            sb.append(line).append("\n");
-//            line = buf.readLine();
-//        }
-//
-//        HSString = sb.toString();
-//
-//
-//        buf.close();
+        HSString = sb.toString();
+
+
+        buf.close();
     }
 
     void SaveFile() throws IOException {
-        String fileContent = hs +"\n";
+        String fileContent = name+" got "+hs+" kills!\n";
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
         writer.write(fileContent);
         writer.close();
     }
+    public boolean getHighscore() throws IOException {
+        if (!ContSetup.onlyHS){
+            name = "Player";
+            name = JOptionPane.showInputDialog(null,"Enter name to highscore list","HighScore");
+            hs = ContSetup.Kills;
+            SaveFile();
+        }
+        SortFile();
+        JOptionPane.showMessageDialog(null, HSString,"Highscore",JOptionPane.INFORMATION_MESSAGE);
+        String[] Options = {"New Game", "Quit Game"};
+        int Option = JOptionPane.showOptionDialog(null, "Options", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, Options, Options[1]);
+        if(Option == 0){
+            System.out.println("New Game");
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }

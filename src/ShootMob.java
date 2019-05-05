@@ -1,8 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import static java.lang.Math.sqrt;
 
 /*Shootmob sjekker om en mob kommer innenfor tårnets rekkevidde og tegnger
      i tilfellet en "Stråle" fra tårn til mob.*/
@@ -32,6 +28,7 @@ public class ShootMob extends ContSetup {
 
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
 //                            System.out.println("t.target.inGame = " + t.TowerReach.intersects(t.target.MobReach));
+                        t.target.mobHealth -= 1;
                         t.target.inReach = true;
                         g.setColor(new Color(0xF8EE2B));
                         g.drawLine(t.posX + t.towerSize / 2, t.posY + t.towerSize / 2, t.target.posX + 22, t.target.posY + 23);
@@ -39,12 +36,12 @@ public class ShootMob extends ContSetup {
                         t.target.mobHealth -= 1;
 //                        System.out.println("t.target.mobHealth = " + t.target.mobHealth);
                         if (t.target.mobHealth == 0) {
+                            ContSetup.mobsInPipe -= 1;
                             t.target.inGame = false;
                             Cash += t.target.mobPayout;
                             Kills += 1;
                             if(t.target.inReach) {
                                 t.target = null;
-//                                mobsArrayList.remove(t.target);
                             }
 
                         }
