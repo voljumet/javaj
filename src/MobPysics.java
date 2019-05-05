@@ -9,7 +9,7 @@ public class MobPysics extends Mob{
     }
 
     void mapOne(MobsElement m){
-        if (m.mapPlace >= 0    && m.mapPlace < 90  ){ m.posY -= 1;} //0
+             if (m.mapPlace >= 0    && m.mapPlace < 90  ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 90   && m.mapPlace < 450 ){ m.posX += 1;} //1
         else if (m.mapPlace >= 450  && m.mapPlace < 1080){ m.posY -= 1;} //5
         else if (m.mapPlace >= 1080 && m.mapPlace < 1350){ m.posX -= 1;} //12
@@ -24,7 +24,7 @@ public class MobPysics extends Mob{
     }
 
     void mapTwo(MobsElement m){
-        if (m.mapPlace >= 0    && m.mapPlace < 540 ){ m.posY -= 1;} //0
+             if (m.mapPlace >= 0    && m.mapPlace < 540 ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 540  && m.mapPlace < 900 ){ m.posX += 1;} //6
         else if (m.mapPlace >= 900  && m.mapPlace < 1170){ m.posY += 1;} //10
         else if (m.mapPlace >= 1170 && m.mapPlace < 1350){ m.posX -= 1;} //13
@@ -48,7 +48,7 @@ public class MobPysics extends Mob{
     }
 
     void mapFour(MobsElement m){
-        if (m.mapPlace >= 0    && m.mapPlace < 270 ){ m.posY -= 1;} //0
+             if (m.mapPlace >= 0    && m.mapPlace < 270 ){ m.posY -= 1;} //0
         else if (m.mapPlace >= 270  && m.mapPlace < 450 ){ m.posX -= 1;} //3
         else if (m.mapPlace >= 450  && m.mapPlace < 630 ){ m.posY += 1;} //5
         else if (m.mapPlace >= 630  && m.mapPlace < 1080){ m.posX -= 1;} //7
@@ -65,13 +65,11 @@ public class MobPysics extends Mob{
     }
 
     void mobDeath(MobsElement m) {
-        if (m.inGame)
-            if (ContSetup.debugMode) {
-                Controller.health -= 100;
-                m.inGame = false;
-            } else {
-                Controller.health -= 5;
-                m.inGame = false;
-            }
+        if (m.inGame) {
+            Controller.health -= 5;
+
+            m.inGame = false;
+        }
+
     }
 }
