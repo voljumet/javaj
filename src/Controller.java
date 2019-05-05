@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Date;
 
 import static java.awt.Font.BOLD;
 
@@ -21,7 +22,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         View.addKeyListener(this);
         View.addMouseListener(this);
 
-        store = new Store();
+//        store = new Store();
 
         tileset[0] = new ImageIcon("Pictures/Icons/button-01.png").getImage();
         tileset[1] = new ImageIcon("Pictures/Icons/Towers-01.png").getImage();
@@ -41,13 +42,15 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
      /*Gameloop er hvor spillet kjører.*/
     public void GameLoop(Graphics gg) throws InterruptedException, IOException {
 
+
+        long frameStart = System.nanoTime();
         int spawn = 0, spawnRate = 50;
         float FPStimer = 0;
         while (true) {
 
              /*Timer for hvor mange ganger den skal loope GameLoopen før den tegner alle drawFPS-Funksjonene*/
             FPStimer++;
-            if (FPStimer == 5){
+            if (FPStimer == 7){
                 FPStimer = 0;
                 drawFPS = true;
             }
@@ -55,7 +58,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
                 Background(gg); /*tegner bakgrunn*/
                 stats.Draw(gg); /*tegner stats*/
-                store.draw(gg); /*tegner shop*/
+                store(gg); /*tegner shop*/
                 for (PipeLine p : PipeLineArray) { p.Draw(gg);} /*Tegner PipeLine*/
             }
 
@@ -88,68 +91,44 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                 /*Tegner Towers på ny*/
                 for (Towers t : TowerArray) { if (drawFPS){t.Draw(gg);  if(debugMode)gg.drawRect(t.posX - t.offset, t.posY - t.offset, 200, 200);} }
 
+                /* Shoot mob */
                 if(drawFPS) { Shootmob.Draw(gg); }
 
-                Thread.sleep(20);
+
+
+//                Thread.sleep(20);
 
                 /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
 
-//                elapsedTime = (System.nanoTime() - frameStart) / NANOSECONDS_PER_MILLISECOND;
-//                frameStart = System.nanoTime() + MS_PER_FRAME * NANOSECONDS_PER_MILLISECOND;
-//                System.out.println(elapsedTime);
-//                Thread.sleep(15 - elapsedTime);
+                elapsedTime = (System.nanoTime() - frameStart) / NANOSECONDS_PER_MILLISECOND;
+
+                frameStart = System.nanoTime() + MS_PER_FRAME * NANOSECONDS_PER_MILLISECOND;
+
+                int millis = 20;
+                if (elapsedTime > millis){elapsedTime = millis;}
+
+                Thread.sleep(millis - elapsedTime);
 
                 /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
 
                 if (drawFPS){
-                    if (health <= 0) {
-                        System.out.println("Game Lost");
-                        gameLost = true;
-                        CountDown();
-                        Thread.sleep(2000);
-                        String bla = "blabla";
-                        new HighScore();
-                        mobsArrayList.clear();
-                        break; /*stopper loopen/spillet*/
-                    }
+                    int waveSize = 20;
+                         if (Kills == waveSize * wave && wave == 1) { System.out.println("Wave 1 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                    else if (Kills == waveSize * wave && wave == 2) { System.out.println("Wave 2 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                    else if (Kills == waveSize * wave && wave == 3) { System.out.println("Wave 3 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                    else if (Kills == waveSize * wave && wave == 4) { System.out.println("Wave 4 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                    else if (Kills == waveSize * wave && wave == 5) { System.out.println("Wave 5 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                    else if (Kills == waveSize * wave && wave == 6) { System.out.println("Wave 6 done"); wave += 1; countDown = 5; mobsArrayList.clear(); }
+                }
+                if (health <= 0) {
+                    System.out.println("Game Lost");
+                    gameLost = true;
+                    CountDown();
+                    Thread.sleep(2000);
+                    new HighScore();
+                    mobsArrayList.clear();
+                    break; /*stopper loopen/spillet*/
 
-                    if (Kills == waveSize*wave && wave == 1) {
-                        System.out.println("Wave 1 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    } else if (Kills == waveSize*wave && wave == 2) {
-                        System.out.println("Wave 2 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    }else if (Kills == waveSize*wave && wave == 3) {
-                        System.out.println("Wave 3 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    }else if (Kills == waveSize*wave && wave == 4) {
-                        System.out.println("Wave 4 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    }else if (Kills == waveSize*wave && wave == 5) {
-                        System.out.println("Wave 5 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    }else if (Kills == waveSize*wave && wave == 6) {
-                        System.out.println("Wave 6 done");
-                        wave += 1;
-                        spawnedmobs = 0;
-                        countDown = 5;
-                        mobsArrayList.clear();
-                    }
                 }
             }
             /*reset for "FPS"*/
@@ -157,9 +136,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         }
     }
 
-    public void Background(Graphics g) {
-        g.drawImage(backgroundImage.getImage(), 0, 0, 900, 900, null);
-    }
+    public void Background(Graphics g) { g.drawImage(backgroundImage.getImage(), 0, 0, 900, 900, null); }
 
     public void SPawnPipe(Graphics g) throws UnsupportedAudioFileException,
             IOException, LineUnavailableException, InterruptedException {
@@ -179,10 +156,10 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         g.setColor(new Color(0, 0, 0, 252));
         if(!gameLost) {
             g.setFont(new Font("Corier New", BOLD, 50));
-            g.drawString("Wave " + wave + " starts in: " + tim / 1000, 250, 450);
+            g.drawString("Wave " + wave + " starts in: " + tim / 1000, 220, 250);
         } else {
             g.setFont(new Font("Corier New", BOLD, 100));
-            g.drawString("GAME LOST", 900/2, 250);
+            g.drawString("GAME OVER", 140, 250);
         }
     }
 
@@ -199,18 +176,9 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         }
     }
 
-    @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { System.exit(0); } }
-
-    @Override public void mousePressed(MouseEvent e) { store.click(e.getButton()); }
-
-    @Override public void mouseDragged(MouseEvent e) { mse = View.getMousePosition(); }
-
-    @Override public void mouseMoved(MouseEvent e) { mse = View.getMousePosition(); }
-
     @Override public void mouseClicked(MouseEvent e) {
 
         /*Henter coordinatene hvor musen ble klikket, og tegner et tårn i posisjonen.*/
-
         if (Cash >= 20) {
             /*setter posisjon til rutenett*/
             posX(e);
@@ -234,7 +202,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
                     TowerArray.add(tower);
                     Cash -= 20;
-                    store.holdsItem = false;
+                    holdsItem = false;
 
                     System.out.println(TowerArray.size());
 
@@ -256,7 +224,7 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
                     TowerArray.add(tower);
                     Cash -= 30;
-                    store.holdsItem = false;
+                    holdsItem = false;
 
                     System.out.println(TowerArray.size());
 
@@ -271,16 +239,6 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         if (MenuX && MenuY4) { MenuY4 = false; System.out.println("Knapp fire trykket"); new MenuBox(); }
         MenuX = false;
     }
-
-    @Override public void mouseReleased(MouseEvent e) { }
-
-    @Override public void mouseEntered(MouseEvent e) { }
-
-    @Override public void mouseExited(MouseEvent e) { }
-
-    @Override public void keyReleased(KeyEvent e) { }
-
-    @Override public void keyTyped(KeyEvent e) { }
 
     private void posX(MouseEvent e) { mseposX = e.getX();
         if (mseposX >= 845 && mseposX < 900){MenuX = true;}
@@ -312,4 +270,69 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
         else if (mseposY >= 720 && mseposY < 810){mseposY = 720; outOfMap = false;}
         else if (mseposY >= 810 && mseposY < 900){mseposY = 810; outOfMap = false;}
     }
+
+    public void click(int mouseButton) {
+        if (mouseButton == 1) {
+
+            for (int i = 0; i < button.length; i++) {
+                if (button[i].contains(mse)) {
+                    if (buttonID[i] == 3 || buttonID[i] == 4) { /* hvis man trykker på knapp 3 & 4, plukker man ikke opp ikonet*/
+                        holdsItem = false;
+                    } else {
+                        heldID = buttonID[i];
+                        holdsItem = true;
+                    }
+                }
+            }
+        }
+    }
+
+    public void store(Graphics g) {
+        for (int i = 0; i < button.length; i++) {
+            button[i] = new Rectangle(850, 5 + ((buttonSize + cellSpace) * i), buttonSize, buttonSize);
+        }
+        for (int i = 0; i < button.length; i++) {
+
+//            mse = View.getMousePosition();
+
+//            if (mse != null && button[i].contains(mse)) {
+//                g.setColor(new Color(255, 255, 255, 80));
+//                g.fillRect(button[i].x, button[i].y, button[i].width, button[i].height);
+//
+//            }
+            if (Controller.drawFPS) {
+//                g.drawImage(Controller.tileset[0], button[i].x, button[i].y, button[i].width, button[i].height, null);
+                g.drawImage(Controller.tileset[i + 1], button[i].x + itemIn, button[i].y + itemIn, button[i].width - (itemIn * 2), button[i].height - (itemIn * 2), null);
+
+                if (buttonPrice[i] > 0) {
+                    g.setColor(new Color(0, 0, 0));
+                    g.setFont(new Font("Courier New", Font.BOLD, 16));
+                    g.drawString("$" + buttonPrice[i], button[i].x + itemIn * 2, button[i].y + itemIn * 7);
+                }
+
+                if (mse != null && holdsItem) {
+                    g.drawImage(Controller.tileset[heldID], mse.x - (75 / 2), mse.y - (75 / 2), 75, 75, null);
+                }
+            }
+        }
+    }
+
+
+    @Override public void keyPressed(KeyEvent e) { if (e.getKeyCode() == KeyEvent.VK_ESCAPE) { System.exit(0); } }
+
+    @Override public void mousePressed(MouseEvent e) { click(e.getButton()); }
+
+    @Override public void mouseDragged(MouseEvent e) { mse = View.getMousePosition(); }
+
+    @Override public void mouseMoved(MouseEvent e) { mse = View.getMousePosition(); }
+
+    @Override public void mouseReleased(MouseEvent e) { }
+
+    @Override public void mouseEntered(MouseEvent e) { }
+
+    @Override public void mouseExited(MouseEvent e) { }
+
+    @Override public void keyReleased(KeyEvent e) { }
+
+    @Override public void keyTyped(KeyEvent e) { }
 }

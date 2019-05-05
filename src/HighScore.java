@@ -15,6 +15,7 @@ public class HighScore{
 
         if (!ContSetup.onlyHS){
 //            name = JOptionPane.showInputDialog(null,"Enter name to highscore list","HighScore");
+
             hs = ContSetup.Kills;
             SaveFile();
         }

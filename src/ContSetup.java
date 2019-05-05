@@ -8,13 +8,13 @@ public class ContSetup extends JFrame {
     static PPListXY PipePositionListXY;
     public HighScore highScore;
     public MenuBox menu;
-    public Store store;
+//    public Store store;
     public PipeBuildSound PPSound;
     public ShootMob Shootmob;
     public Stats stats;
 
             /*DEBUG MODE*/
-    public static boolean debugMode = true;
+    public static boolean debugMode = false;
             /*DEBUG MODE*/
 
     boolean outOfMap = false;
@@ -38,11 +38,24 @@ public class ContSetup extends JFrame {
     static int Kills = 0;
     static int health = 100;
 
+    public static int shopHeight = 4;
+    public static int buttonSize = 45;
+    public static int cellSpace = 2;
+    public static int itemIn = 4;
+    public static int heldID = -1;
+    public static int[] buttonID = {1, 2, 3, 4};
+    public static int[] buttonPrice = {20, 30, 0, 0};
+
+    public boolean holdsItem = false;
+
+    public Rectangle[] button = new Rectangle[shopHeight];
+
     /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
-//    public static final long NANOSECONDS_PER_MILLISECOND = 1000000;
-//    public static final long MS_PER_FRAME=20000;
-//    public long frameStart = System.nanoTime();
-//    long elapsedTime;
+
+    public static final long NANOSECONDS_PER_MILLISECOND = 1000000;
+    public static final long MS_PER_FRAME = 10; //gir FPS
+    long elapsedTime;
+
     /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
 
     int mseposX;
