@@ -8,16 +8,17 @@ public class HighScore{
     String file = "HS.juice";
     String HSString;
 
+
     public HighScore() throws IOException {
 
         if (!ContSetup.onlyHS){
             name = "Player";
-            name = JOptionPane.showInputDialog(null,"Enter name to highscore list");
+            name = JOptionPane.showInputDialog(null,"Enter name to highscore list","HighScore");
             hs = ContSetup.Kills;
             SaveFile();
         }
         SortFile();
-        JOptionPane.showMessageDialog(null, HSString,"Highscore",2);
+        JOptionPane.showMessageDialog(null, HSString,"Highscore",0);
 
     }
 
