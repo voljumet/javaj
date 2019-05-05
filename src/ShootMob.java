@@ -8,12 +8,10 @@ import static java.lang.Math.sqrt;
      i tilfellet en "Stråle" fra tårn til mob.*/
 
 public class ShootMob extends ContSetup {
-    public ShootMob() {
-    }
-
+//    public ShootMob() { }
 
     public void Draw(Graphics g) {
-        ArrayList<Double> DistanceArray = new ArrayList<>();
+//        ArrayList<Double> DistanceArray = new ArrayList<>();
 
         for (Towers t : TowerArray) {
             if (!mobsArrayList.isEmpty()) {
@@ -33,8 +31,7 @@ public class ShootMob extends ContSetup {
 
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
 //                            System.out.println("t.target.inGame = " + t.TowerReach.intersects(t.target.MobReach));
-                        g.setColor(Color.RED);
-
+                        g.setColor(new Color(0xF8EE2B));
                         g.drawLine(t.posX + t.towerSize / 2, t.posY + t.towerSize / 2, t.target.posX + 22, t.target.posY + 23);
 
                         t.target.mobHealth -= 1;
@@ -50,14 +47,9 @@ public class ShootMob extends ContSetup {
                         t.target = null;
                     }
                 }
-
             }
-
 //            System.out.println("t.target = " + t.target);
-
         }
-
-
     }
 }
 

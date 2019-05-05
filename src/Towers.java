@@ -22,7 +22,7 @@ public class Towers extends GraphicalElement {
         this.posX = posX;
         this.posY = posY;
 
-        TowerReach = new Rectangle((this.posX - offset), (this.posY - offset), 220, 220);
+        TowerReach = new Rectangle((this.posX - offset), (this.posY - offset), 200, 200);
         TowerOverlap = new Rectangle(this.posX - towerSize/2, this.posY - towerSize/2, towerSize, towerSize);
     }
 

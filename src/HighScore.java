@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class HighScore{
 
@@ -11,20 +8,16 @@ public class HighScore{
     String file = "HS.juice";
     String HSString;
 
-
-
     public HighScore() throws IOException {
 
-        name = JOptionPane.showInputDialog(null,"Enter name to highscore list");
-        hs = ContSetup.Kills;
-
-
-
-
-        SaveFile();
+        if (!ContSetup.onlyHS){
+            name = "Player";
+            name = JOptionPane.showInputDialog(null,"Enter name to highscore list");
+            hs = ContSetup.Kills;
+            SaveFile();
+        }
         SortFile();
-
-        JOptionPane.showMessageDialog(null, HSString);
+        JOptionPane.showMessageDialog(null, HSString,"Highscore",2);
 
     }
 
@@ -48,8 +41,6 @@ public class HighScore{
         buf.close();
     }
 
-
-
     void SaveFile() throws IOException {
         String fileContent = name+" got "+hs+" kills!\n";
 
@@ -58,3 +49,4 @@ public class HighScore{
         writer.close();
     }
 }
+

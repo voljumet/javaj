@@ -6,10 +6,11 @@ public class ContSetup extends JFrame {
 
     static View View;
     static PPListXY PipePositionListXY;
-    public menuFrameStart menuFrameStart;
+    public MenuBox menu;
     public Store store;
     public PipeBuildSound PPSound;
     public ShootMob Shootmob;
+    public Stats stats;
 
             /*DEBUG MODE*/
     public static boolean debugMode = true;
@@ -22,24 +23,32 @@ public class ContSetup extends JFrame {
     boolean MenuY3 = false;
     boolean MenuY4 = false;
     static boolean drawFPS = false;
-
-    boolean HoldItem = false;
+    boolean gameLost = false;
+    static boolean onlyHS = false;
 
     Point mse = new Point(0,0);
 
-    public static boolean towerbutton = false;
+    public static boolean towerbutton1 = false;
+    public static boolean towerbutton2 = false;
     public static int count;
 
-    static int Cash = 200;
+    /* Starter med følgende stats */
+    static int Cash = 40;
     static int Kills = 0;
     static int health = 100;
+
+    /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
+//    public static final long NANOSECONDS_PER_MILLISECOND = 1000000;
+//    public static final long MS_PER_FRAME=20000;
+//    public long frameStart = System.nanoTime();
+//    long elapsedTime;
+    /* RIKTIG MÅTE Å BRUKE TIMER!!-------------------------------------------------------------------------------------- */
+
     int mseposX;
     int mseposY;
     int countDown = 5;
     int timer = 1;
 
-    public static int myWidth = 900;
-    public static int myHeight = 900;
     public static int wave = 1;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
@@ -48,17 +57,10 @@ public class ContSetup extends JFrame {
     public static ArrayList<String> HighScoreArrayList = new ArrayList<>();
 
     public static Image[] tileset = new Image[100];
-    public static Image[] tileset_1 = new Image[100];
 
     ImageIcon cashIcon = new ImageIcon("Pictures/Icons/Icon-03.png");
     ImageIcon killsIcon = new ImageIcon("Pictures/Icons/Icon-02.png");
     ImageIcon healthIcon = new ImageIcon("Pictures/Icons/Icon-04.png");
-
-    ImageIcon icon5 = new ImageIcon("Pictures/Icons/Icon-05.png");
-    ImageIcon icon6 = new ImageIcon("Pictures/Icons/Icon-06.png");
-
-    ImageIcon towerIcon1 = new ImageIcon("Pictures/Icons/Towers-01.png");
-    ImageIcon imageIcon2 = new ImageIcon("Pictures/Icons/Towers-02.png");
 
     ImageIcon backgroundImage = new ImageIcon("Pictures/Background-01.png");
 

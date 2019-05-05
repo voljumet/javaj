@@ -19,7 +19,6 @@ public abstract class MobsElement extends GraphicalElement {
                 height = mobSize;
                 width = mobSize;
 
-
                 img = new ImageIcon();
                 image = img.getImage();
         }
