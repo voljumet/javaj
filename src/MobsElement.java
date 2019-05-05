@@ -12,6 +12,7 @@ public abstract class MobsElement extends GraphicalElement {
         int mobPayout;
         int mobArmySize;
         Rectangle MobReach;
+        boolean inReach;
 
         public MobsElement() {
 

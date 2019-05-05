@@ -39,7 +39,7 @@ public class Store extends ContSetup {
     public void draw(Graphics g){
         for (int i = 0; i < button.length; i++) {
 
-            mse = View.getMousePosition();
+           // mse = View.getMousePosition();
 
             if (mse != null && button[i].contains(mse)){
                 g.setColor(new Color(255,255,255,80));

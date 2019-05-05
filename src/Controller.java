@@ -69,12 +69,12 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
             } else {
 
                 /*mobs spawner kun til det er spawnet 20stk*/
-                if (mobsArrayList.size() < 20){                 // Skal ikke være 20, men mobArmySize fra MobsElement
-
+                if (spawnedmobs < 20) {
                     /*Mobs spawner i frekvens spanwnRate*/
                     if (spawn == spawnRate) {
                         mobsArrayList.add(new Mob());
                         spawn = 0;
+                        spawnedmobs += 1;
                     }
                     spawn += 1;
                 }
@@ -107,39 +107,46 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
                         gameLost = true;
                         CountDown();
                         Thread.sleep(2000);
+                        String bla = "blabla";
                         new HighScore();
                         mobsArrayList.clear();
                         break; /*stopper loopen/spillet*/
                     }
-                    int waveSize = 20;
+
                     if (Kills == waveSize*wave && wave == 1) {
                         System.out.println("Wave 1 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     } else if (Kills == waveSize*wave && wave == 2) {
                         System.out.println("Wave 2 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     }else if (Kills == waveSize*wave && wave == 3) {
                         System.out.println("Wave 3 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     }else if (Kills == waveSize*wave && wave == 4) {
                         System.out.println("Wave 4 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     }else if (Kills == waveSize*wave && wave == 5) {
                         System.out.println("Wave 5 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     }else if (Kills == waveSize*wave && wave == 6) {
                         System.out.println("Wave 6 done");
                         wave += 1;
+                        spawnedmobs = 0;
                         countDown = 5;
                         mobsArrayList.clear();
                     }

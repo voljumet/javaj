@@ -6,6 +6,7 @@ public class ContSetup extends JFrame {
 
     static View View;
     static PPListXY PipePositionListXY;
+    public HighScore highScore;
     public MenuBox menu;
     public Store store;
     public PipeBuildSound PPSound;
@@ -33,7 +34,7 @@ public class ContSetup extends JFrame {
     public static int count;
 
     /* Starter med følgende stats */
-    static int Cash = 40;
+    static int Cash = 20;
     static int Kills = 0;
     static int health = 100;
 
@@ -50,11 +51,13 @@ public class ContSetup extends JFrame {
     int timer = 1;
 
     public static int wave = 1;
+    public static int waveSize = 20;
+    public static int spawnedmobs = 0;
 
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
     public static ArrayList<MobsElement> mobsArrayList = new ArrayList<>();
-    public static ArrayList<String> HighScoreArrayList = new ArrayList<>();
+    public static ArrayList<Integer> HighScoreArrayList = new ArrayList<>();
 
     public static Image[] tileset = new Image[100];
 

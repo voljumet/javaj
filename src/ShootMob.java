@@ -25,26 +25,33 @@ public class ShootMob extends ContSetup {
                         if (currentDistance < minDistance) {
                             t.target = m;
                             minDistance = currentDistance;
+                            t.target.inReach = false;
                         }
                     }
                 } else { /*if sjekker om target er i rekkevidden til tårnet. dersom den er det, skyter tårnet*/
 
                     if (t.target.inGame && t.TowerReach.intersects(t.target.MobReach)) {
 //                            System.out.println("t.target.inGame = " + t.TowerReach.intersects(t.target.MobReach));
+                        t.target.inReach = true;
                         g.setColor(new Color(0xF8EE2B));
                         g.drawLine(t.posX + t.towerSize / 2, t.posY + t.towerSize / 2, t.target.posX + 22, t.target.posY + 23);
 
                         t.target.mobHealth -= 1;
+//                        System.out.println("t.target.mobHealth = " + t.target.mobHealth);
                         if (t.target.mobHealth == 0) {
                             t.target.inGame = false;
                             Cash += t.target.mobPayout;
                             Kills += 1;
-                            mobsArrayList.remove(t.target);
-                            t.target = null;
+                            if(t.target.inReach) {
+                                t.target = null;
+//                                mobsArrayList.remove(t.target);
+                            }
+
                         }
                     } else {
                         /*setter target til null slik at tårnet igjen kan finne nærmeste mob i rekkevidde.*/
                         t.target = null;
+
                     }
                 }
             }

@@ -20,7 +20,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 2160 && m.mapPlace < 2520){ m.posY -= 1;} //24
         else if (m.mapPlace >= 2520 && m.mapPlace < 2610){ m.posX += 1;} //28
         else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY = -1;} //29
-        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
     void mapTwo(MobsElement m){
@@ -33,7 +33,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 1980 && m.mapPlace < 2610){ m.posY -= 1;} //22
         else if (m.mapPlace >= 2610 && m.mapPlace < 2700){ m.posX -= 1;} //29
         else if (m.mapPlace >= 2700 && m.mapPlace < 2745){ m.posY -= 1;} //30
-        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
     void mapThree(MobsElement m){
@@ -44,7 +44,7 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 1980 && m.mapPlace < 2430){ m.posY -= 1;} //22
         else if (m.mapPlace >= 2430 && m.mapPlace < 2610){ m.posX += 1;} //27
         else if (m.mapPlace >= 2610 && m.mapPlace < 2745){ m.posY -= 1;} //29
-        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
     void mapFour(MobsElement m){
@@ -61,12 +61,17 @@ public class MobPysics extends Mob{
         else if (m.mapPlace >= 2250 && m.mapPlace < 2430){ m.posY -= 1;} //25
         else if (m.mapPlace >= 2430 && m.mapPlace < 2700){ m.posX -= 1;} //27
         else if (m.mapPlace >= 2700 && m.mapPlace < 2745){ m.posY -= 1;} //30
-        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(); } //Mob går i tårn
+        else if (m.mapPlace >= 2745 && m.mapPlace < 2746){ m.posY = -100; mobDeath(m); } //Mob går i tårn
     }
 
-    void mobDeath(){
-        if(inGame)
-        Controller.health -= 5;
-        inGame = false;
+    void mobDeath(MobsElement m) {
+        if (m.inGame)
+            if (ContSetup.debugMode) {
+                Controller.health -= 100;
+                m.inGame = false;
+            } else {
+                Controller.health -= 5;
+                m.inGame = false;
+            }
     }
 }
