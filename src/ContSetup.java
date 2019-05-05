@@ -34,7 +34,7 @@ public class ContSetup extends JFrame {
     public static int count;
 
     /* Starter med følgende stats */
-    static int Cash = 20;
+    static int Cash = 40;
     static int Kills = 0;
     static int health = 100;
 
