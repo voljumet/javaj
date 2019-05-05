@@ -256,7 +256,8 @@ public class Controller extends ContSetup implements KeyListener, MouseListener,
 
                     Towers tower = new Towers(mseposX+10, mseposY+10);
                     TowerArray.add(tower);
-                    Cash -= 30;
+                    /** tower not implemented! */
+//                    Cash -= 30;
                     store.holdsItem = false;
                     tower.Draw(View.getGraphics());
                 }
