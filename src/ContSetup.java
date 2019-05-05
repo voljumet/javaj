@@ -7,7 +7,6 @@ public class ContSetup extends JFrame {
     static View View;
     static PPListXY PipePositionListXY;
     public HighScore highScore;
-    public MenuBox menu;
     public Store store;
     public PipeBuildSound PPSound;
     public ShootMob Shootmob;
@@ -15,7 +14,7 @@ public class ContSetup extends JFrame {
     public Sound Sound;
 
     /**----------DEBUG MODE----------*/
-    public static boolean debugMode = true;
+    public static boolean debugMode = false;
     /**----------DEBUG MODE----------*/
 
     boolean outOfMap = false;
@@ -60,7 +59,6 @@ public class ContSetup extends JFrame {
     public static ArrayList<Towers> TowerArray = new ArrayList<>();
     public static ArrayList<PipeLine> PipeLineArray = new ArrayList<>();
     public static ArrayList<MobsElement> mobsArrayList = new ArrayList<>();
-    public static ArrayList<Integer> HighScoreArrayList = new ArrayList<>();
 
     public static Image[] tileset = new Image[100];
 
