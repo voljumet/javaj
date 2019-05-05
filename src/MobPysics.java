@@ -73,7 +73,7 @@ public class MobPysics extends Mob{
     void mobDeath(MobsElement m) {
         if (m.inGame && m.mobHealth != 0) {
             Controller.mobsInPipe -= 1;
-            Controller.health -= 5;
+            Controller.health -= m.mobDamage;
             m.inGame = false;
         }
     }
